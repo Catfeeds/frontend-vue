@@ -148,7 +148,7 @@
 				}, 1000);
 			},
 
-			setaAddBtnStatus: function() {
+			setAddBtnStatus: function() {
 				if (this.isPhoneNumber(this.userPhone) && this.name.length > 0 && this.vcode.length >= 6) {
 					this.addBtnDisable = false;
 				} else {
@@ -157,7 +157,7 @@
 			},
 			//备注名文字改变
 			nameChanged: function() {
-				this.setaAddBtnStatus();
+				this.setAddBtnStatus();
 			},
 			//手机输入框文字改变
 			phoneChanged: function() {
@@ -166,11 +166,11 @@
 				} else {
 					this.canReqVCode = false;
 				}
-				this.setaAddBtnStatus();
+				this.setAddBtnStatus();
 			},
 			//验证码文字改变
 			vcodeChanged: function() {
-				this.setaAddBtnStatus();
+				this.setAddBtnStatus();
 			},
 			//点击添加亲情账号
 			addFamilyAccount: function() {
