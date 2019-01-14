@@ -142,7 +142,9 @@
 			vCodeCountDownTimerFunc: function() {
 				var vueThis = this;
 				vueThis.countDownTimer = setInterval(function() {
+					//提交成功会countDownNumber 改为0 如果此时此任务还未被清除 会有概率出现负数， 导致无法获取验证码
 					vueThis.countDownNumber--;
+					vueThis.countDownNumber = vueThis.countDownNumber < 0 ? 0 : vueThis.countDownNumber;
 					if (vueThis.countDownNumber == 0) {
 						vueThis.vcodeBtnText = '获取验证码';
 						clearInterval(vueThis.countDownTimer);
