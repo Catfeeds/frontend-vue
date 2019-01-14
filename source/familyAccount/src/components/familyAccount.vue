@@ -269,7 +269,7 @@
 			},
 			//显示删除确认框
 			showDeleteConfirm: function(slaveId, name) {
-				this.seletedSlaveId = slaveId;
+				this.seletedSlaveId = slaveId.toString();
 				this.confirmTitle = "确认解除与" + name + "的亲情关系";
 				this.deleteConfirmShow = true;
 			},
@@ -361,7 +361,7 @@
 			//先获取用户信息
 			var vueThis = this;
 			var u = navigator.userAgent;
-
+			
 			var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
 			if (isAndroid) {
 				vueThis.$bridge.callAndriodHandler('getEhdUserInfo', '', (responseData) => {
