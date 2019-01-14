@@ -25,21 +25,21 @@
 						<div class="inputDivClass" style="top: 130px;">
 							<div style="width: 100%; height: 100%;">
 								<img class="inputIcoClass" src="../assets/noteIco.png" />
-								<input @keyup="nameChanged" class="inputClass inputFontClass" maxlength="20" autocomplete="off" v-model="name"
+								<input class="inputClass inputFontClass" maxlength="20" autocomplete="off" v-model="name"
 								 placeholder="备注名:例如爸爸"></input>
 							</div>
 						</div>
 						<div class="inputDivClass" style="top: 180px;">
 							<div>
 								<img class="inputIcoClass" src="../assets/phoneIco.png" />
-								<input @keyup="phoneChanged" type="tel" maxlength="11" autocomplete="off" class="inputClass inputFontClass"
+								<input type="tel" maxlength="11" autocomplete="off" class="inputClass inputFontClass"
 								 v-model="userPhone" placeholder="请输入手机号码"></input>
 							</div>
 						</div>
 						<div class="inputDivClass" style="top: 230px;">
 							<div>
 								<img class="inputIcoClass" src="../assets/vcodeIco.png" />
-								<input @keyup="vcodeChanged" type="tel" maxlength="6" autocomplete="off" class="inputClass inputFontClass"
+								<input type="tel" maxlength="6" autocomplete="off" class="inputClass inputFontClass"
 								 v-model="vcode" placeholder="验证码"></input>
 								<div @click="getVCode" class="vcodeBtnClass vcodeBtnFontClass" v-bind:class="[canReqVCode ? 'vcodeBtnTextColor':'vcodeBtnDisableTextColor']">{{vcodeBtnText}}</div>
 							</div>
@@ -121,6 +121,17 @@
 				userToken: '',
 				yApi: yData.yApi(),
 			})
+		},
+		watch: {
+			name: function(val, oldVal) {
+				this.nameChanged();
+			},
+			userPhone: function(val, oldVal) {
+				this.phoneChanged();
+			},
+			vcode: function(val, oldVal) {
+				this.vcodeChanged();
+			},
 		},
 		methods: {
 			//是不是手机号码
