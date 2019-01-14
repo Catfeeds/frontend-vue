@@ -25,22 +25,21 @@
 						<div class="inputDivClass" style="top: 130px;">
 							<div style="width: 100%; height: 100%;">
 								<img class="inputIcoClass" src="../assets/noteIco.png" />
-								<input class="inputClass inputFontClass" maxlength="20" autocomplete="off" v-model="name"
-								 placeholder="备注名:例如爸爸"></input>
+								<input class="inputClass inputFontClass" maxlength="20" autocomplete="off" v-model="name" placeholder="备注名:例如爸爸"></input>
 							</div>
 						</div>
 						<div class="inputDivClass" style="top: 180px;">
 							<div>
 								<img class="inputIcoClass" src="../assets/phoneIco.png" />
-								<input type="tel" maxlength="11" autocomplete="off" class="inputClass inputFontClass"
-								 v-model="userPhone" placeholder="请输入手机号码"></input>
+								<input type="tel" maxlength="11" autocomplete="off" class="inputClass inputFontClass" v-model="userPhone"
+								 placeholder="请输入手机号码"></input>
 							</div>
 						</div>
 						<div class="inputDivClass" style="top: 230px;">
 							<div>
 								<img class="inputIcoClass" src="../assets/vcodeIco.png" />
-								<input type="tel" maxlength="6" autocomplete="off" class="inputClass inputFontClass"
-								 v-model="vcode" placeholder="验证码"></input>
+								<input type="tel" maxlength="6" autocomplete="off" class="inputClass inputFontClass" v-model="vcode"
+								 placeholder="验证码"></input>
 								<div @click="getVCode" class="vcodeBtnClass vcodeBtnFontClass" v-bind:class="[canReqVCode ? 'vcodeBtnTextColor':'vcodeBtnDisableTextColor']">{{vcodeBtnText}}</div>
 							</div>
 						</div>
@@ -257,6 +256,14 @@
 					var data = resp.data;
 					if (data.code == 600 || data.code == 200) {
 						//重新拉取亲情账号列表
+						vueThis.name = '';
+						vueThis.userPhone = '';
+						vueThis.vcode = '';
+						vueThis.vcodeBtnText = '获取验证码';
+						vueThis.countDownNumber == 0
+						clearInterval(vueThis.countDownTimer);
+						vueThis.countDownTimer = null;
+						vueThis.canReqVCode = false;
 						vueThis.getFamilyAccountList();
 					} else {
 						var messageStr = data.msg;
@@ -361,7 +368,7 @@
 			//先获取用户信息
 			var vueThis = this;
 			var u = navigator.userAgent;
-			
+
 			var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
 			if (isAndroid) {
 				vueThis.$bridge.callAndriodHandler('getEhdUserInfo', '', (responseData) => {
