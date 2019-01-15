@@ -159,7 +159,7 @@
 					}
 				}, 1000);
 			},
-
+			//设置添加按钮状态
 			setAddBtnStatus: function() {
 				if (this.isPhoneNumber(this.userPhone) && this.name.length > 0 && this.vcode.length >= 6) {
 					this.addBtnDisable = false;
@@ -262,10 +262,10 @@
 						vueThis.userPhone = '';
 						vueThis.vcode = '';
 						vueThis.vcodeBtnText = '获取验证码';
-						vueThis.countDownNumber == 0
 						clearInterval(vueThis.countDownTimer);
 						vueThis.countDownTimer = null;
 						vueThis.canReqVCode = false;
+						vueThis.countDownNumber = 0;
 						vueThis.getFamilyAccountList();
 					} else {
 						var messageStr = data.msg;
