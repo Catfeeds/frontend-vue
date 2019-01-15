@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 //测试环境
-const ehdServerPath = 'http://119.23.133.72:8080/';
+const ehdServerPath = 'http://test.ehuandian.net/';
 
 //正式环境
 //const ehdServerPath='https://ehd.ehuandian.net/';
