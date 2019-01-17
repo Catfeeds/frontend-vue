@@ -25,7 +25,7 @@
 						<div class="inputDivClass" style="top: 130px;">
 							<div style="width: 100%; height: 100%;">
 								<img class="inputIcoClass" src="../assets/noteIco.png" />
-								<input class="inputClass inputFontClass" maxlength="20" autocomplete="off" v-model="name" placeholder="备注名:例如爸爸"></input>
+								<input class="inputClass inputFontClass" maxlength="10" autocomplete="off" v-model="name" placeholder="备注名:例如爸爸"></input>
 							</div>
 						</div>
 						<div class="inputDivClass" style="top: 180px;">

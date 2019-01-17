@@ -295,6 +295,9 @@
 	font-weight: 400;
 	color: rgba(51, 51, 51, 1);
 	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow:ellipsis;
 }
 
 .itemPhoneClass {
