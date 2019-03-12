@@ -79,6 +79,7 @@
 		</div>
 		<div class="claimsDiv">
 			<em class="claimsTitleClass titleFontClass">理赔流程</em>
+			<img class="claimsArrowImgClass" src="../assets/arrow.png" @click="claimClick"/>
 			<ul class="claimsIconUL">
 				<li>
 					<img class="iconClass" src="../assets/report.png" />
@@ -217,6 +218,9 @@
 				this.selectImgSrc = this.agreementSelected ? require('../assets/ic_check_select.png') : require(
 					'../assets/ic_check_nomal.png');
 			},
+			claimClick: function(){
+				window.location.href = "openWebView?url=http://120.76.73.137:86/insurance/static/claimsprocess.html";
+			},
 			confirmClick: function() {
 				var vueThis = this;
 				if (!vueThis.agreementSelected) {
@@ -279,30 +283,30 @@
 		mounted: function() {
 			//先获取用户信息
 			var vueThis = this;
-			vueThis.userToken =
-				'bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwaG9uZSI6IjE4NjgwMzI0NDA4IiwidUlEIjozLCJ0aW1lIjoxNTUyMzU3Njg2MzY4fQ.TB68GSTOYVuuIlWW8VS2FbglAOSif1bQXziT9GCfdU4';
-			vueThis.fetchUserData();
-// 			var u = navigator.userAgent;
-// 			var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-// 			if (isAndroid) {
-// 				vueThis.$bridge.callAndriodHandler('getEhdUserInfo', '', (responseData) => {
-// 					// 处理返回数据
-// 					var dataObj = JSON.parse(responseData);
-// 					if (dataObj && dataObj.token) {
-// 						vueThis.userToken = "bearer " + dataObj.token;
-// 						vueThis.fetchUserData();
-// 					}
-// 				})
-// 			} else {
-// 				var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-// 				if (isiOS) {
-// 					vueThis.$bridge.callhandler('getEhdUserInfo', '', (responseData) => {
-// 						// 处理返回数据
-// 						vueThis.userToken = "bearer " + responseData.token;
-// 						vueThis.fetchUserData();
-// 					})
-// 				}
-// 			}
+// 			vueThis.userToken =
+// 				'bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwaG9uZSI6IjE4NjgwMzI0NDA4IiwidUlEIjozLCJ0aW1lIjoxNTUyMzU3Njg2MzY4fQ.TB68GSTOYVuuIlWW8VS2FbglAOSif1bQXziT9GCfdU4';
+// 			vueThis.fetchUserData();
+			var u = navigator.userAgent;
+			var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+			if (isAndroid) {
+				vueThis.$bridge.callAndriodHandler('getEhdUserInfo', '', (responseData) => {
+					// 处理返回数据
+					var dataObj = JSON.parse(responseData);
+					if (dataObj && dataObj.token) {
+						vueThis.userToken = "bearer " + dataObj.token;
+						vueThis.fetchUserData();
+					}
+				})
+			} else {
+				var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				if (isiOS) {
+					vueThis.$bridge.callhandler('getEhdUserInfo', '', (responseData) => {
+						// 处理返回数据
+						vueThis.userToken = "bearer " + responseData.token;
+						vueThis.fetchUserData();
+					})
+				}
+			}
 		},
 	}
 </script>
@@ -530,7 +534,7 @@
 		text-overflow: ellipsis;
 		line-height: 50px;
 	}
-
+	
 	.claimsTitleClass {
 		left: 20px;
 		top: 15px;
@@ -539,6 +543,14 @@
 		position: absolute;
 		line-height: 22px;
 		text-align: left;
+	}
+	
+	.claimsArrowImgClass{
+		right: 20px;
+		width: 12px;
+		top: 18px;
+		height: 12px;
+		position: absolute;
 	}
 
 	.claimsIconUL {
