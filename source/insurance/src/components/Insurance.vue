@@ -498,6 +498,9 @@
 		position: absolute;
 		line-height: 20px;
 		text-align: left;
+		background-color: transparent;
+		border: 0;
+		-webkit-tap-highlight-color:rgba(255,0,0,0);
 	}
 
 	.holderLineClass {
