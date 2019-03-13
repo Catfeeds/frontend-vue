@@ -219,7 +219,7 @@
 					'../assets/ic_check_nomal.png');
 			},
 			claimClick: function(){
-				window.location.href = "openWebView?url=http://119.23.155.83:86/insurance/static/claimsprocess.html";
+				window.location.href = "IMMOTOR://openWebView?url=http://119.23.155.83:86/insurance/static/claimsprocess.html";
 			},
 			confirmClick: function() {
 				var vueThis = this;
