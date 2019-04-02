@@ -86,42 +86,12 @@
 			</label>
 			<em class="agreementEMClass">
 				<span class="remarkFontClass readColor">我已经阅读并同意</span>
-				<a class="remarkFontClass agreementColor">投保须知</a>
-				<span class="remarkFontClass readColor">、</span>
-				<a class="remarkFontClass agreementColor">保险条款</a>
-				<span class="remarkFontClass readColor">及</span>
-				<a class="remarkFontClass agreementColor">平台服务协议</a>
+				<a class="remarkFontClass agreementColor" @click="batteryXieyiClick()">电动自行车附加电池单独盗抢保险条款</a>
 			</em>
 		</div>
 		<div class="claimsDiv">
 			<em class="claimsTitleClass titleFontClass">理赔流程</em>
 			<img class="claimsArrowImgClass" src="../assets/arrow.png" @click="claimClick"/>
-			<ul class="claimsIconUL">
-				<li>
-					<img class="iconClass" src="../assets/report.png" />
-				</li>
-				<li>
-					<img class="iconClass" src="../assets/apply.png" />
-				</li>
-				<li>
-					<img class="iconClass" src="../assets/audit.png" />
-				</li>
-				<li>
-					<img class="iconClass" src="../assets/case.png" />
-				</li>
-			</ul>
-			<ul class="claimsTextUL">
-				<li class="textFontClass">报案</li>
-				<li class="textFontClass">申请</li>
-				<li class="textFontClass">审核</li>
-				<li class="textFontClass">结案</li>
-			</ul>
-			<ul class="claimsRemarkUL">
-				<li class="claimsRemarkFontClass remarkColor">派出所报警并拿到报警回执</li>
-				<li class="claimsRemarkFontClass remarkColor">拨打客服热线申请保险理赔</li>
-				<li class="claimsRemarkFontClass remarkColor">公司受理材料及时审核调查</li>
-				<li class="claimsRemarkFontClass remarkColor">审查结果无异进行结案</li>
-			</ul>
 		</div>
 		<div class="dividerheight"></div>
 		<div class="remarkDiv">
@@ -236,8 +206,11 @@
 				this.selectImgSrc = this.agreementSelected ? require('../assets/ic_check_select.png') : require(
 					'../assets/ic_check_nomal.png');
 			},
+			batteryXieyiClick: function () {
+				window.location.href = "IMMOTOR://openWebView?url=https://imgcn.immotor.com/app/protocol/batteryagreement.html";
+			},
 			claimClick: function(){
-				window.location.href = "IMMOTOR://openWebView?url=http://119.23.155.83:86/insurance/static/claimsprocess.html";
+				window.location.href = "IMMOTOR://openWebView?url=https://imgcn.immotor.com/app/insurance/claim.html";
 			},
 			confirmClick: function() {
 				var vueThis = this;
@@ -372,7 +345,7 @@
 
 	.claimsDiv {
 		width: 100%;
-		height: 193px;
+		height: 50px;
 		background-color: white;
 		position: relative;
 	}
