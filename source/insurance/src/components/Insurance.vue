@@ -42,8 +42,24 @@
 				<li>
 					<div class="holderULlidiv">
 						<em class="inputTitleClass textFontClass">车辆SN码</em>
-						<input v-bind:style="{width:inputWidth}" type="text" maxlength="20" autocomplete="off" class="inputTextClass textFontClass"
+						<input v-bind:style="{width:inputWidth}" type="text" maxlength="50" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="scooterSN"></input>
+						<div class="holderLineClass"></div>
+					</div>
+				</li>
+				<li>
+					<div class="holderULlidiv">
+						<em class="inputTitleClass textFontClass">电机号</em>
+						<input v-bind:style="{width:inputWidth}" type="text" maxlength="50" autocomplete="off" class="inputTextClass textFontClass"
+						 v-model="makeFactory"></input>
+						<div class="holderLineClass"></div>
+					</div>
+				</li>
+				<li>
+					<div class="holderULlidiv">
+						<em class="inputTitleClass textFontClass">车架号</em>
+						<input v-bind:style="{width:inputWidth}" type="text" maxlength="20" autocomplete="off" class="inputTextClass textFontClass"
+						 v-model="fuelName"></input>
 						<div class="holderLineClass"></div>
 					</div>
 				</li>
@@ -164,6 +180,8 @@
 				userName: '',
 				userIDCard: '',
 				scooterSN: '',
+				makeFactory:'',
+				fuelName:'',
 				userAddress: '',
 				userEmail: '',
 				userToken: '',
@@ -243,6 +261,10 @@
 					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入你绑定的车辆SN码";
 					return;
 				}
+				if (vueThis.makeFactory.length == 0 && vueThis.fuelName.length == 0) {
+					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入电机号或车架号";
+					return;
+				}
 				if (vueThis.userAddress.length == 0) {
 					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入地址";
 					return;
@@ -257,10 +279,12 @@
 					data: {
 						"name": vueThis.userName,
 						"idcard": vueThis.userIDCard,
-						"phone": vueThis.userPhone,
-						"sn": vueThis.scooterSN,
-						"address": vueThis.userAddress,
 						"email": vueThis.userEmail,
+						"address": vueThis.userAddress,
+						"phone": vueThis.userPhone,
+						"prechar2": vueThis.scooterSN,
+						"makeFactory": vueThis.makeFactory,
+						"fuelName": vueThis.fuelName
 					},
 					headers: {
 						'Content-Type': 'application/json',
