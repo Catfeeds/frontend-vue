@@ -291,6 +291,7 @@
 						'Authorization': vueThis.userToken
 					}
 				}).then(function(resp) {
+					var data = resp.data;
 					if (data.code == 600) {
 						window.location.href = "IMMOTOR://showPrompt?code=1&message=添加保单信息成功";
 						window.location.href = "IMMOTOR://addPolicyInfoSuccess";
@@ -357,7 +358,7 @@
 
 	.policy-holderDiv {
 		width: 100%;
-		height: 350px;
+		height: 450px;
 		background-color: white;
 		position: relative;
 	}
