@@ -5,7 +5,7 @@
 		</div>
 		<div class="contentDiv">
 			<em class="contentTitleClass titleFontClass">保障内容</em>
-			<em class="batteryTitleClass textFontClass">{{batteryNumStr}}颗电池保费</em>
+			<em class="batteryTitleClass textFontClass">电池保费</em>
 			<em class="batteryCostsClass textFontClass">{{insuranceCosts}}元</em>
 		</div>
 		<div class="dividerheight">
@@ -84,10 +84,14 @@
 			<label class="checkBoxClass">
 				<img class="img" v-bind:src="selectImgSrc" @click="checkclick()" />
 			</label>
-			<em class="agreementEMClass">
+			<div class="agreementDivClass">
+				<span style="left: 0; top: 0; position: absolute; line-height: 16px; padding-top:8px;">
 				<span class="remarkFontClass readColor">我已经阅读并同意</span>
 				<a class="remarkFontClass agreementColor" @click="batteryXieyiClick()">电动自行车附加电池单独盗抢保险条款</a>
-			</em>
+				<span class="remarkFontClass readColo">及</span>
+				<a class="remarkFontClass agreementColor" @click="rightTransferClick()">受益权转让协议</a>
+				</span>
+            </div>
 		</div>
 		<div class="claimsDiv">
 			<em class="claimsTitleClass titleFontClass">理赔流程</em>
@@ -142,8 +146,8 @@
 			return {
 				headerImgHeight: (screen.width * 110) / 375 + 'px',
 				inputWidth: (screen.width - 130) + 'px',
-				agreementSelected: true,
-				selectImgSrc: require('../assets/ic_check_select.png'),
+				agreementSelected: false,
+				selectImgSrc: require('../assets/ic_check_nomal.png'),
 				batteryNumStr: '',
 				insuranceCosts: '',
 				userPhone: '',
@@ -183,16 +187,7 @@
 						vueThis.userIDCard = data.result.idcard;
 						vueThis.userPhone = data.result.phone;
 						vueThis.scooterSN = data.result.sn;
-						if(data.result.num == 1){
-							vueThis.batteryNumStr = '一';
-						}
-						else if(data.result.num == 2){
-							vueThis.batteryNumStr = '两';
-						}
-						else{
-							vueThis.batteryNumStr = data.result.num;
-						}
-						vueThis.insuranceCosts = data.result.insurance;
+						vueThis.insuranceCosts = data.result.insurance + '*' + data.result.num;
 					} else {
 						var messageStr = data.msg;
 						window.location.href = "IMMOTOR://showPrompt?code=0&message=" + messageStr;
@@ -208,6 +203,9 @@
 			},
 			batteryXieyiClick: function () {
 				window.location.href = "IMMOTOR://openWebView?url=https://imgcn.immotor.com/app/protocol/batteryagreement.html";
+			},
+			rightTransferClick: function () {
+				window.location.href = "IMMOTOR://openWebView?url=https://imgcn.immotor.com/app/protocol/usufructtransfer.html";
 			},
 			claimClick: function(){
 				window.location.href = "IMMOTOR://openWebView?url=https://imgcn.immotor.com/app/insurance/claim.html";
@@ -523,16 +521,13 @@
 		height: 100%;
 	}
 
-	.agreementEMClass {
+	.agreementDivClass {
 		left: 42px;
 		right: 15px;
 		top: 0px;
 		height: 50px;
 		position: absolute;
 		text-align: left;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
 		line-height: 50px;
 	}
 	
