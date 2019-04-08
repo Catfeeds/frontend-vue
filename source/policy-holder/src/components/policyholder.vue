@@ -1,5 +1,5 @@
 <template>
-  <div class="mainBK" v-loading="!policy_holderData">
+  <div class="mainBK" v-loading="!policy_holderData" v-if="policy_holderData">
     <div class="policy-holderDiv">
       <ul class="holderUL">
         <li>
@@ -102,7 +102,7 @@ export default {
     return {
       headerImgHeight: (screen.width * 110) / 375 + "px",
       inputWidth: screen.width - 130 + "px",
-      policy_holderData: null,
+      policy_holderData:null,
       userToken: ""
     };
   },
@@ -166,13 +166,14 @@ export default {
 
 .mainBK {
   width: 100%;
+  height: 100%;
   background-color: #fbfbfb;
   overflow: hidden;
 }
 
 .policy-holderDiv {
   width: 100%;
-  height: 450px;
+  height: 400px;
   background-color: white;
   position: relative;
 }
