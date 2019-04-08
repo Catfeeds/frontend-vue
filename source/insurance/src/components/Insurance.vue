@@ -172,6 +172,10 @@
 					/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
 				return idcardReg.test(val)
 			},
+			isEmail: function (val) {
+					var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+					return reg.test(val);
+			},
 			fetchUserData: function() {
 				var vueThis = this;
 				vueThis.axios({
@@ -240,8 +244,8 @@
 					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入地址";
 					return;
 				}
-				if (vueThis.userEmail.length == 0) {
-					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入邮箱";
+				if (!vueThis.isEmail(vueThis.userEmail)) {
+					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入正确的邮箱";
 					return;
 				}
 				vueThis.axios({
