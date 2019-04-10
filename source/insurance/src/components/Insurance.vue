@@ -5,8 +5,8 @@
 		</div>
 		<div class="contentDiv">
 			<em class="contentTitleClass titleFontClass">保障内容</em>
-			<em class="batteryTitleClass textFontClass">电池保费</em>
-			<em class="batteryCostsClass textFontClass">{{insuranceCosts}}元</em>
+			<em class="batteryTitleClass textFontClass">电池保费（30天）</em>
+			<em class="batteryCostsClass textFontClass">{{insuranceCosts}}元/颗</em>
 		</div>
 		<div class="dividerheight">
 		</div>
@@ -191,7 +191,7 @@
 						vueThis.userIDCard = data.result.idcard;
 						vueThis.userPhone = data.result.phone;
 						vueThis.scooterSN = data.result.sn;
-						vueThis.insuranceCosts = data.result.insurance + '*' + data.result.num;
+						vueThis.insuranceCosts = data.result.insurance;
 					} else {
 						var messageStr = data.msg;
 						window.location.href = "IMMOTOR://showPrompt?code=0&message=" + messageStr;
