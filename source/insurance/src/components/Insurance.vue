@@ -80,16 +80,16 @@
 				</li>
 			</ul>
 		</div>
-		<div class="agreementDiv" :style="{'height': agreementDivHeight}">
+		<div class="agreementDiv">
 			<label class="checkBoxClass">
 				<img class="img" v-bind:src="selectImgSrc" @click="checkclick()" />
 			</label>
-			<div class="agreementDivClass" :style="{'height':agreementDivHeight, 'line-height': agreementDivHeight}">
+			<div class="agreementDivClass">
 				<span style="left: 0; top: 0; position: absolute; line-height: 16px; padding-top:8px;">
 				<span class="remarkFontClass readColor">我已经阅读并同意</span>
 				<a class="remarkFontClass agreementColor" @click="scooterXieyiClick()">电动自行车盗抢保险条款</a>
 				<span class="remarkFontClass readColor">、</span>
-				<a class="remarkFontClass agreementColor" @click="batteryXieyiClick()">电动自行车附加电池单独盗抢保险条款</a>
+				<a class="remarkFontClass agreementColor" @click="batteryXieyiClick()">电池盗抢保险条款</a>
 				<span class="remarkFontClass readColo">及</span>
 				<a class="remarkFontClass agreementColor" @click="rightTransferClick()">受益权转让协议</a>
 				</span>
@@ -148,7 +148,6 @@
 			return {
 				headerImgHeight: (screen.width * 110) / 375 + 'px',
 				inputWidth: (screen.width - 130) + 'px',
-				agreementDivHeight: screen.width < 375 ? 66 + 'px' : 50 + 'px',
 				agreementSelected: false,
 				selectImgSrc: require('../assets/ic_check_nomal.png'),
 				batteryNumStr: '',
@@ -346,6 +345,7 @@
 
 	.agreementDiv {
 		width: 100%;
+		height: 50px;
 		background-color: #F3F4F5;
 		position: relative;
 	}
@@ -534,6 +534,8 @@
 		left: 42px;
 		right: 15px;
 		top: 0px;
+		height: 50px;
+		line-height: 50px;
 		position: absolute;
 		text-align: left;
 	}
