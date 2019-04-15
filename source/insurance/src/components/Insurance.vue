@@ -80,13 +80,15 @@
 				</li>
 			</ul>
 		</div>
-		<div class="agreementDiv">
+		<div class="agreementDiv" :style="{'height': agreementDivHeight}">
 			<label class="checkBoxClass">
 				<img class="img" v-bind:src="selectImgSrc" @click="checkclick()" />
 			</label>
-			<div class="agreementDivClass">
+			<div class="agreementDivClass" :style="{'height':agreementDivHeight, 'line-height': agreementDivHeight}">
 				<span style="left: 0; top: 0; position: absolute; line-height: 16px; padding-top:8px;">
 				<span class="remarkFontClass readColor">我已经阅读并同意</span>
+				<a class="remarkFontClass agreementColor" @click="scooterXieyiClick()">电动自行车盗抢保险条款</a>
+				<span class="remarkFontClass readColor">、</span>
 				<a class="remarkFontClass agreementColor" @click="batteryXieyiClick()">电动自行车附加电池单独盗抢保险条款</a>
 				<span class="remarkFontClass readColo">及</span>
 				<a class="remarkFontClass agreementColor" @click="rightTransferClick()">受益权转让协议</a>
@@ -146,6 +148,7 @@
 			return {
 				headerImgHeight: (screen.width * 110) / 375 + 'px',
 				inputWidth: (screen.width - 130) + 'px',
+				agreementDivHeight: screen.width < 375 ? 66 + 'px' : 50 + 'px',
 				agreementSelected: false,
 				selectImgSrc: require('../assets/ic_check_nomal.png'),
 				batteryNumStr: '',
@@ -204,6 +207,9 @@
 				this.agreementSelected = !this.agreementSelected;
 				this.selectImgSrc = this.agreementSelected ? require('../assets/ic_check_select.png') : require(
 					'../assets/ic_check_nomal.png');
+			},
+			scooterXieyiClick: function() {
+				window.location.href = "IMMOTOR://openWebView?url=https://imgcn.immotor.com/app/protocol/bikeagreement.html";
 			},
 			batteryXieyiClick: function () {
 				window.location.href = "IMMOTOR://openWebView?url=https://imgcn.immotor.com/app/protocol/batteryagreement.html";
@@ -340,7 +346,6 @@
 
 	.agreementDiv {
 		width: 100%;
-		height: 50px;
 		background-color: #F3F4F5;
 		position: relative;
 	}
@@ -529,10 +534,8 @@
 		left: 42px;
 		right: 15px;
 		top: 0px;
-		height: 50px;
 		position: absolute;
 		text-align: left;
-		line-height: 50px;
 	}
 	
 	.claimsTitleClass {
