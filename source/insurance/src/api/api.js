@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 //测试环境
-const ehdServerPath = 'http://test.ehuandian.net/';
+const ehdServerPath = 'https://ehd.ehuandian.net/';
 var yApi = {
 	//查询用户信息
 	userQuery: ehdServerPath + 'insurance/user/details/pre',
