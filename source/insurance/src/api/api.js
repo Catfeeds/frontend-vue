@@ -1,6 +1,8 @@
 /* eslint-disable */
 
 //测试环境
+// const ehdServerPath = 'https://test.ehuandian.net/';
+//正式环境
 const ehdServerPath = 'https://ehd.ehuandian.net/';
 var yApi = {
 	//查询用户信息
