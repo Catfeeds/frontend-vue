@@ -42,7 +42,7 @@
 				<li>
 					<div class="holderULlidiv">
 						<em class="inputTitleClass textFontClass">车辆SN码</em>
-						<input v-bind:style="{width:inputWidth}" type="text" maxlength="50" autocomplete="off" class="inputTextClass textFontClass"
+						<input v-bind:style="{width:inputWidth}" type="text" maxlength="40" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="scooterSN"></input>
 						<div class="holderLineClass"></div>
 					</div>
@@ -241,8 +241,12 @@
 					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入你绑定的车辆SN码";
 					return;
 				}
-				if (vueThis.makeFactory.length == 0 && vueThis.fuelName.length == 0) {
-					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入电机号或车架号";
+				if (vueThis.makeFactory.length == 0) {
+					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入电机号";
+					return;
+				}
+				if( vueThis.fuelName.length == 0 || vueThis.fuelName.length > 20){
+					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入正确的车架号";
 					return;
 				}
 				if (vueThis.userAddress.length == 0) {
