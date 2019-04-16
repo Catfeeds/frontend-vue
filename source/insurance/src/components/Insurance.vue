@@ -178,6 +178,12 @@
 					var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
 					return reg.test(val);
 			},
+			isEmptyStr: function(val){
+				if(val && val.length > 0){
+					return false;
+				}
+				return true;
+			},
 			fetchUserData: function() {
 				var vueThis = this;
 				vueThis.axios({
@@ -225,7 +231,7 @@
 					window.location.href = "IMMOTOR://showPrompt?code=0&message=请阅读并同意保险相关协议";
 					return;
 				}
-				if (vueThis.userName.length == 0) {
+				if (vueThis.isEmptyStr(vueThis.userName)) {
 					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入姓名";
 					return;
 				}
@@ -237,19 +243,19 @@
 					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入正确的手机号";
 					return;
 				}
-				if (vueThis.scooterSN.length == 0) {
+				if (vueThis.isEmptyStr(vueThis.scooterSN)) {
 					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入你绑定的车辆SN码";
 					return;
 				}
-				if (vueThis.makeFactory.length == 0) {
+				if (vueThis.isEmptyStr(vueThis.makeFactory)) {
 					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入电机号";
 					return;
 				}
-				if( vueThis.fuelName.length == 0 || vueThis.fuelName.length > 20){
+				if(vueThis.isEmptyStr(vueThis.fuelName) || vueThis.fuelName.length > 20){
 					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入正确的车架号";
 					return;
 				}
-				if (vueThis.userAddress.length == 0) {
+				if (vueThis.isEmptyStr(vueThis.userAddress)) {
 					window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入地址";
 					return;
 				}
