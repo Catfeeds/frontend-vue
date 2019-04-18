@@ -1,5 +1,5 @@
 <template>
-  <div class="mainBK" v-loading="!policy_holderData" v-if="policy_holderData">
+  <div class="mainBK" v-if="policy_holderData">
     <div class="policy-holderDiv">
       <ul class="holderUL">
         <li>
@@ -271,6 +271,9 @@ export default {
   background-color: transparent;
   border: 0;
   -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+  overflow: hidden;/*超出部分隐藏*/
+  white-space: nowrap;/*不换行*/
+  text-overflow:ellipsis;/*超出部分文字以...显示*/
 }
 
 .holderLineClass {
