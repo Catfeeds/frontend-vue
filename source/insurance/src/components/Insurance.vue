@@ -120,7 +120,7 @@
 				<li>
 					<div class="liDivClass">
 						<div class="remarkCircleClass"></div>
-						<em class="remarkTextClass remarkFontClass remarkColor">请保险费用将和你租借的电池颗数动态调整</em>
+						<em class="remarkTextClass remarkFontClass remarkColor">保险费用将和你租借的电池颗数动态调整</em>
 					</div>
 				</li>
 				<li>

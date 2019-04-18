@@ -97,68 +97,68 @@
 
 <script>
 export default {
-  name: "policyholder",
-  data() {
+  name: 'policyholder',
+  data () {
     return {
-      headerImgHeight: (screen.width * 110) / 375 + "px",
-      inputWidth: screen.width - 130 + "px",
-      policy_holderData:null,
-      userToken: ""
-    };
+      headerImgHeight: (screen.width * 110) / 375 + 'px',
+      inputWidth: screen.width - 130 + 'px',
+      policy_holderData: null,
+      userToken: ''
+    }
   },
   methods: {
-    fetchPolicyHolderData: function() {
-      var vueThis = this;
+    fetchPolicyHolderData: function () {
+      var vueThis = this
       vueThis
         .axios({
-          method: "get",
+          method: 'get',
           url: vueThis.$yApi.getInsurancePolicyInfo,
           headers: {
             Authorization: vueThis.userToken
           }
         })
-        .then(function(resp) {
-          var data = resp.data;
-          if (data.code == 600) {
-            vueThis.policy_holderData = data.result;
+        .then(function (resp) {
+          var data = resp.data
+          if (data.code === 600) {
+            vueThis.policy_holderData = data.result
           } else {
-            var messageStr = data.msg;
+            var messageStr = data.msg
             window.location.href =
-              "IMMOTOR://showPrompt?code=0&message=" + messageStr;
+              'IMMOTOR://showPrompt?code=0&message=' + messageStr
           }
         })
         .catch(resp => {
           window.location.href =
-            "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
-        });
+            'IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置'
+        })
     }
   },
-  mounted: function() {
-    //先获取用户信息
-    var vueThis = this;
-    var u = navigator.userAgent;
-    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
+  mounted: function () {
+    // 先获取用户信息
+    var vueThis = this
+    var u = navigator.userAgent
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 // android终端
     if (isAndroid) {
-      vueThis.$bridge.callAndriodHandler("getEhdUserInfo", "", responseData => {
+      vueThis.$bridge.callAndriodHandler('getEhdUserInfo', '', responseData => {
         // 处理返回数据
-        var dataObj = JSON.parse(responseData);
+        var dataObj = JSON.parse(responseData)
         if (dataObj && dataObj.token) {
-          vueThis.userToken = "bearer " + dataObj.token;
-          vueThis.fetchPolicyHolderData();
+          vueThis.userToken = 'bearer ' + dataObj.token
+          vueThis.fetchPolicyHolderData()
         }
-      });
+      })
     } else {
-      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) // ios终端
       if (isiOS) {
-        vueThis.$bridge.callhandler("getEhdUserInfo", "", responseData => {
+        vueThis.$bridge.callhandler('getEhdUserInfo', '', responseData => {
           // 处理返回数据
-          vueThis.userToken = "bearer " + responseData.token;
-          vueThis.fetchPolicyHolderData();
-        });
+          vueThis.userToken = 'bearer ' + responseData.token
+          vueThis.fetchPolicyHolderData()
+        })
       }
     }
   }
-};
+}
 </script>
 
 <style>
