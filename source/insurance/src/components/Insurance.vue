@@ -41,7 +41,7 @@
 				</li>
 				<li>
 					<div class="holderULlidiv">
-						<em class="inputTitleClass textFontClass">车辆SN码</em>
+						<em class="inputTitleClass textFontClass">中控SN码</em>
 						<input v-bind:style="{width:inputWidth}" type="text" maxlength="40" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="scooterSN"></input>
 						<div class="holderLineClass"></div>
