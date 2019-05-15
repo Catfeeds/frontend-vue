@@ -5,7 +5,7 @@
 		</div>
 		<div class="contentDiv">
 			<em class="contentTitleClass titleFontClass">服务内容</em>
-			<em class="batteryTitleClass textFontClass">电池盗抢险服务</em>
+			<em class="batteryTitleClass textFontClass">电池盗抢险服务(30天)</em>
 			<!-- <em class="batteryCostsClass textFontClass">{{insuranceCosts}}元/颗</em> -->
 		</div>
 		<div class="dividerheight">
@@ -120,7 +120,7 @@
 				<li>
 					<div class="liDivClass">
 						<div class="remarkCircleClass"></div>
-						<em class="remarkTextClass remarkFontClass remarkColor">保险购买之后可以到个人中心-我的保单页面查看保单详情；</em>
+						<em class="remarkTextClass remarkFontClass remarkColor">保险购买之后可以到个人中心-我的保单页面查看保单号；</em>
 					</div>
 				</li>
 				<li>
@@ -439,7 +439,7 @@
 
 	.batteryTitleClass {
 		left: 20px;
-		width: 120px;
+		width: 220px;
 		top: 60px;
 		height: 20px;
 		position: absolute;
