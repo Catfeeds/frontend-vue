@@ -5,8 +5,8 @@
 		</div>
 		<div class="contentDiv">
 			<em class="contentTitleClass titleFontClass">保障内容</em>
-			<em class="batteryTitleClass textFontClass">电池保费（30天）</em>
-			<em class="batteryCostsClass textFontClass">{{insuranceCosts}}元/颗</em>
+			<em class="batteryTitleClass textFontClass">电池盗抢险服务</em>
+			<!-- <em class="batteryCostsClass textFontClass">{{insuranceCosts}}元/颗</em> -->
 		</div>
 		<div class="dividerheight">
 		</div>
@@ -108,31 +108,25 @@
 				<li>
 					<div class="liDivClass">
 						<div class="remarkCircleClass"></div>
-						<em class="remarkTextClass remarkFontClass remarkColor">购买保险之后电池押金会减少</em>
+						<em class="remarkTextClass remarkFontClass remarkColor">每次投保的保期为30天；</em>
 					</div>
 				</li>
 				<li>
 					<div class="liDivClass">
 						<div class="remarkCircleClass"></div>
-						<em class="remarkTextClass remarkFontClass remarkColor">保险费用将和套餐费用一起缴纳</em>
+						<em class="remarkTextClass remarkFontClass remarkColor">投保后次日开始生效；</em>
 					</div>
 				</li>
 				<li>
 					<div class="liDivClass">
 						<div class="remarkCircleClass"></div>
-						<em class="remarkTextClass remarkFontClass remarkColor">保险费用将和你租借的电池颗数动态调整</em>
+						<em class="remarkTextClass remarkFontClass remarkColor">保险购买之后可以到个人中心-我的保单页面查看保单详情；</em>
 					</div>
 				</li>
 				<li>
 					<div class="liDivClass">
 						<div class="remarkCircleClass"></div>
-						<em class="remarkTextClass remarkFontClass remarkColor">保险购买之后可以到个人中心-我的保单页面查看保单详情</em>
-					</div>
-				</li>
-				<li>
-					<div class="liDivClass">
-						<div class="remarkCircleClass"></div>
-						<em class="remarkTextClass remarkFontClass remarkColor">请详细阅读相关条款和理赔流程</em>
+						<em class="remarkTextClass remarkFontClass remarkColor">请详细阅读相关协议条款和理赔流程；</em>
 					</div>
 				</li>
 			</ul>
@@ -369,7 +363,7 @@
 
 	.remarkDiv {
 		width: 100%;
-		height: 191px;
+		height: 171px;
 		background-color: white;
 		position: relative;
 	}
