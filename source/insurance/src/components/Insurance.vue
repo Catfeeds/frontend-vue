@@ -4,7 +4,7 @@
 			<img class="img" src="../assets/header.png" />
 		</div>
 		<div class="contentDiv">
-			<em class="contentTitleClass titleFontClass">保障内容</em>
+			<em class="contentTitleClass titleFontClass">服务内容</em>
 			<em class="batteryTitleClass textFontClass">电池盗抢险服务</em>
 			<!-- <em class="batteryCostsClass textFontClass">{{insuranceCosts}}元/颗</em> -->
 		</div>
