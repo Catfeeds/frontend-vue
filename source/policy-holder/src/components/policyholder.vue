@@ -5,7 +5,7 @@
         <li>
           <div class="holderULlidiv">
             <em class="inputTitleClass textFontClass">姓名</em>
-            <input v-bind:style="{width:inputWidth}" type="text" maxlength="20" autocomplete="off" class="inputTextClass textFontClass"
+            <input v-bind:style="{width:inputWidth}" @keyup="inputTextChanged()" type="text" maxlength="20" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="policy_holderData.name"></input>
             <div class="holderLineClass"></div>
           </div>
@@ -13,7 +13,7 @@
         <li>
           <div class="holderULlidiv">
             <em class="inputTitleClass textFontClass">身份证号码</em>
-            <input v-bind:style="{width:inputWidth}" type="text" maxlength="18" autocomplete="off" class="inputTextClass textFontClass"
+            <input v-bind:style="{width:inputWidth}" @keyup="inputTextChanged()" type="text" maxlength="18" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="policy_holderData.idcard"></input>
             <div class="holderLineClass"></div>
           </div>
@@ -21,7 +21,7 @@
         <li>
           <div class="holderULlidiv">
             <em class="inputTitleClass textFontClass">手机号码</em>
-            <input v-bind:style="{width:inputWidth}" type="tel" maxlength="11" autocomplete="off" class="inputTextClass textFontClass"
+            <input v-bind:style="{width:inputWidth}" @keyup="inputTextChanged()" type="tel" maxlength="11" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="policy_holderData.phone"></input>
             <div class="holderLineClass"></div>
           </div>
@@ -29,7 +29,7 @@
         <li>
           <div class="holderULlidiv">
             <em class="inputTitleClass textFontClass">车辆SN码</em>
-            <input v-bind:style="{width:inputWidth}" type="text" maxlength="40" autocomplete="off" class="inputTextClass textFontClass"
+            <input v-bind:style="{width:inputWidth}" @keyup="inputTextChanged()" type="text" maxlength="40" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="policy_holderData.prechar2"></input>
             <div class="holderLineClass"></div>
           </div>
@@ -37,7 +37,7 @@
         <li>
           <div class="holderULlidiv">
             <em class="inputTitleClass textFontClass">电机号</em>
-            <input v-bind:style="{width:inputWidth}" type="text" maxlength="50" autocomplete="off" class="inputTextClass textFontClass"
+            <input v-bind:style="{width:inputWidth}" @keyup="inputTextChanged()" type="text" maxlength="50" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="policy_holderData.makeFactory"></input>
             <div class="holderLineClass"></div>
           </div>
@@ -45,7 +45,7 @@
         <li>
           <div class="holderULlidiv">
             <em class="inputTitleClass textFontClass">车架号</em>
-            <input v-bind:style="{width:inputWidth}" type="text" maxlength="20" autocomplete="off" class="inputTextClass textFontClass"
+            <input v-bind:style="{width:inputWidth}" @keyup="inputTextChanged()" type="text" maxlength="20" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="policy_holderData.fuelName"></input>
             <div class="holderLineClass"></div>
           </div>
@@ -53,7 +53,7 @@
         <li>
           <div class="holderULlidiv">
             <em class="inputTitleClass textFontClass">地址</em>
-            <input v-bind:style="{width:inputWidth}" type="text" maxlength="50" autocomplete="off" class="inputTextClass textFontClass"
+            <input v-bind:style="{width:inputWidth}" @keyup="inputTextChanged()" type="text" maxlength="50" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="policy_holderData.address"></input>
             <div class="holderLineClass"></div>
           </div>
@@ -61,14 +61,14 @@
         <li>
           <div class="holderULlidiv">
             <em class="inputTitleClass textFontClass">邮箱</em>
-            <input v-bind:style="{width:inputWidth}" type="email" maxlength="20" autocomplete="off" class="inputTextClass textFontClass"
+            <input v-bind:style="{width:inputWidth}" @keyup="inputTextChanged()" type="email" maxlength="50" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="policy_holderData.email" placeholder=""></input>
             <div class="holderLineClass"></div>
           </div>
         </li>
       </ul>
     </div>
-    <div class="submitButton" @click="savePolicyHolderData()">保存</div>
+    <div  v-bind:class="btnClass" @click="savePolicyHolderData()">保存</div>
   </div>
 </template>
 
@@ -80,7 +80,9 @@ export default {
       headerImgHeight: (screen.width * 110) / 375 + 'px',
       inputWidth: screen.width - 130 + 'px',
       policy_holderData: null,
-      userToken: 'bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwaG9uZSI6IjEzNTM0MDQwMzU5IiwidUlEIjo0NDk1LCJ0aW1lIjoxNTYwNDEzMTM5ODU0fQ.IvHLqlxszLiCde1XyGAIWyirWxu0ODzOPfUEW6zDOT0'
+      contentChanged: false,
+      btnClass: 'submitButton disableColor',
+      userToken: ''
     }
   },
   methods: {
@@ -95,7 +97,7 @@ export default {
       return idcardReg.test(val)
     },
     isEmail: function (val) {
-      var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
+      var reg = /^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/
       return reg.test(val)
     },
     isEmptyStr: function (val) {
@@ -103,6 +105,12 @@ export default {
         return false
       }
       return true
+    },
+    inputTextChanged: function () {
+      if (!this.contentChanged) {
+        this.contentChanged = true
+        this.btnClass = 'submitButton normalColor'
+      }
     },
     fetchPolicyHolderData: function () {
       var vueThis = this
@@ -131,6 +139,10 @@ export default {
     },
     savePolicyHolderData: function () {
       var vueThis = this
+
+      if (!vueThis.contentChanged) {
+        return
+      }
 
       if (vueThis.isEmptyStr(vueThis.policy_holderData.name)) {
         window.location.href = 'IMMOTOR://showPrompt?code=0&message=请输入姓名'
@@ -354,13 +366,20 @@ export default {
   right: 10px;
   bottom: 40px;
   height: 50px;
-  background: rgba(252, 145, 83, 1);
   border-radius: 2px;
   font-size: 16px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(255, 255, 255, 1);
   line-height: 50px;
+}
+
+.disableColor{
+  background: #ccc;
+}
+
+.normalColor{
+  background: rgba(252, 145, 83, 1);
 }
 
 </style>
