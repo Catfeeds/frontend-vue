@@ -74,7 +74,7 @@
 				<li>
 					<div class="holderULlidiv">
 						<em class="inputTitleClass textFontClass">邮箱</em>
-						<input v-bind:style="{width:inputWidth}" type="email" maxlength="20" autocomplete="off" class="inputTextClass textFontClass"
+						<input v-bind:style="{width:inputWidth}" type="email" maxlength="50" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="userEmail" placeholder=""></input>
 					</div>
 				</li>
@@ -169,7 +169,7 @@
 				return idcardReg.test(val)
 			},
 			isEmail: function (val) {
-					var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+					var reg = /^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
 					return reg.test(val);
 			},
 			isEmptyStr: function(val){
