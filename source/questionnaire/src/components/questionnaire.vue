@@ -2,8 +2,8 @@
   <div>
     <div v-for="item in data">
       <div class="rowDiv">
-        <span class="rowTitle">{{item.text}}</span>
-        <img class="rowImg" :src="item.src" @click="checkQuest(item)">
+        <span class="rowTitle">{{item.cause}}</span>
+        <img src="../assets/normal.png" class="rowImg" @click="checkQuest(item, $event)">
       </div>
       <div class="lineClass"></div>
     </div>
@@ -16,65 +16,110 @@ export default {
   name: "questionnaire",
   data() {
     return {
+      userToken:
+        "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwaG9uZSI6IjEzNTM0MDQwMzU5IiwidUlEIjo0NDk1LCJ0aW1lIjoxNTYwODM5ODAzNzAxfQ.ZxIldKWryO5wSygjHWIpLm3RTj8443hXu3od1WkbYDs",
       data: []
     };
   },
   methods: {
-    checkQuest: function(item) {
-      item.checked = !item.checked;
-      item.src = item.checked
-        ? require("./../assets/select.png")
-        : require("./../assets/normal.png");
+    fetchData: function() {
+      var vueThis = this;
+      vueThis
+        .axios({
+          method: "get",
+          url: vueThis.$yApi.getQuestionnaireData,
+          headers: {
+            Authorization: vueThis.userToken
+          }
+        })
+        .then(function(resp) {
+          var result = resp.data;
+          if (result.resultCode == 1) {
+            vueThis.data = result.data.pageData;
+            result.data.pageData.forEach(function(el) {
+              el.checked = false;
+            });
+            vueThis.data = result.data.pageData;
+          } else {
+            window.location.href =
+              "IMMOTOR://showPrompt?code=0&message=" + result.resultMsg;
+          }
+        })
+        .catch(resp => {
+          window.location.href =
+            "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
+        });
     },
-    submitQuestionnaire: function(){
-       window.location.href = "IMMOTOR://submitQuestionnaireSuccess";
+    checkQuest: function(item, event) {
+      item.checked = !item.checked;
+      var imgSrc = item.checked
+        ? require("../assets/select.png")
+        : require("../assets/normal.png");
+      event.target.src = imgSrc;
+    },
+    submitQuestionnaire: function() {
+      var selectIds = [];
+      var vueThis = this;
+      vueThis.data.forEach(function(el) {
+        if (el.checked) {
+          selectIds.push(el.id);
+        }
+      });
+      if (selectIds.length === 0) {
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=请选择押金退还原因";
+        return;
+      }
+      vueThis
+        .axios({
+          method: "post",
+          url: vueThis.$yApi.recordQuestionnaire,
+          data: {
+            ids: selectIds
+          },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: vueThis.userToken
+          }
+        })
+        .then(function(resp) {
+          var result = resp.data;
+          if (result.resultCode == 1) {
+            window.location.href = "IMMOTOR://submitQuestionnaireSuccess";
+          } else {
+            window.location.href =
+              "IMMOTOR://showPrompt?code=0&message=" + result.resultMsg;
+          }
+        })
+        .catch(resp => {
+          window.location.href =
+            "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
+        });
     }
   },
   mounted() {
-    this.data = [
-      {
-        text: "最近没有使用需求",
-        id: 1,
-        checked: false,
-        src: require("./../assets/normal.png")
-      },
-      {
-        text: "改换其他公司产品",
-        id: 2,
-        checked: false,
-        src: require("./../assets/normal.png")
-      },
-      {
-        text: "押金贵",
-        id: 3,
-        checked: false,
-        src: require("./../assets/normal.png")
-      },
-      {
-        text: "骑行费用高，不划算",
-        id: 4,
-        checked: false,
-        src: require("./../assets/normal.png")
-      },
-      {
-        text: "电池续航能力稍差",
-        id: 5,
-        checked: false,
-        src: require("./../assets/normal.png")
-      },
-      {
-        text: "换电柜站点分布太少",
-        id: 6,
-        checked: false,
-        src: require("./../assets/normal.png")
-      },
-      {
-        text: "其他",
-        id: 7,
-        checked: false,
-        src: require("./../assets/normal.png")
+    var vueThis = this;
+    var u = navigator.userAgent;
+    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
+    if (isAndroid) {
+      vueThis.$bridge.callAndriodHandler("getEhdUserInfo", "", responseData => {
+        // 处理返回数据
+        var dataObj = JSON.parse(responseData);
+        if (dataObj && dataObj.token) {
+          vueThis.userToken = "bearer " + dataObj.token;
+          vueThis.fetchData();
+        }
+      });
+    } else {
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if (isiOS) {
+        vueThis.$bridge.callhandler("getEhdUserInfo", "", responseData => {
+          // 处理返回数据
+          vueThis.userToken = "bearer " + responseData.token;
+          vueThis.fetchData();
+        });
       }
-    ];
+    }
   }
 };
 </script>
