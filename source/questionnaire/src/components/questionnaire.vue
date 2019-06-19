@@ -16,8 +16,7 @@ export default {
   name: "questionnaire",
   data() {
     return {
-      userToken:
-        "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwaG9uZSI6IjEzNTM0MDQwMzU5IiwidUlEIjo0NDk1LCJ0aW1lIjoxNTYwODM5ODAzNzAxfQ.ZxIldKWryO5wSygjHWIpLm3RTj8443hXu3od1WkbYDs",
+      userToken:"",
       data: []
     };
   },
