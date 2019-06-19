@@ -68,7 +68,7 @@
         </li>
       </ul>
     </div>
-    <div  v-bind:class="btnClass" @click="savePolicyHolderData()">保存</div>
+    <div v-bind:class="[btnClass]"  @click="savePolicyHolderData()">保存</div>
   </div>
 </template>
 
@@ -214,11 +214,6 @@ export default {
     var u = navigator.userAgent
     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 // android终端
     if (isAndroid) {
-      window.addEventListener('resize', function () {
-        window.setTimeout(function () {
-          document.activeElement.scrollIntoViewIfNeeded()
-        }, 0)
-      })
       vueThis.$bridge.callAndriodHandler('getEhdUserInfo', '', responseData => {
         // 处理返回数据
         var dataObj = JSON.parse(responseData)
@@ -247,7 +242,7 @@ export default {
 .mainBK {
   width: 100%;
   height: 100%;
-  background-color: #fbfbfb;
+  background-color: #fff;
   overflow: hidden;
 }
 
@@ -366,10 +361,11 @@ export default {
 }
 
 .submitButton {
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 40px;
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 60px;
+  margin-bottom: 40px;
   height: 50px;
   border-radius: 2px;
   font-size: 16px;
@@ -385,6 +381,14 @@ export default {
 
 .normalColor{
   background: rgba(252, 145, 83, 1);
+}
+
+.nav-hide {
+  display: none;
+}
+
+.nav-visible{
+  display: block;
 }
 
 </style>
