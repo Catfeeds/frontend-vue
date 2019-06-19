@@ -1,6 +1,6 @@
 <template>
-  <div class="mainBK" v-if="policy_holderData">
-    <div class="policy-holderDiv">
+  <div class="mainBK">
+    <div class="policy-holderDiv" v-if="policy_holderData">
       <ul class="holderUL">
         <li>
           <div class="holderULlidiv">
@@ -214,6 +214,11 @@ export default {
     var u = navigator.userAgent
     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 // android终端
     if (isAndroid) {
+      window.addEventListener('resize', function () {
+        window.setTimeout(function () {
+          document.activeElement.scrollIntoViewIfNeeded()
+        }, 0)
+      })
       vueThis.$bridge.callAndriodHandler('getEhdUserInfo', '', responseData => {
         // 处理返回数据
         var dataObj = JSON.parse(responseData)

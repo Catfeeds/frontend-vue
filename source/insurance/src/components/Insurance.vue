@@ -292,9 +292,6 @@
 		mounted: function() {
 			//先获取用户信息
 			var vueThis = this;
-// 			vueThis.userToken =
-// 				'bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwaG9uZSI6IjE4NjgwMzI0NDA4IiwidUlEIjozLCJ0aW1lIjoxNTUyMzU3Njg2MzY4fQ.TB68GSTOYVuuIlWW8VS2FbglAOSif1bQXziT9GCfdU4';
-// 			vueThis.fetchUserData();
 			var u = navigator.userAgent;
 			var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
 			if (isAndroid) {
