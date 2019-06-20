@@ -196,7 +196,7 @@ export default {
       }).then(function (resp) {
         var data = resp.data
         if (data.code === 600) {
-          window.location.href = 'IMMOTOR://showPrompt?code=1&message=修改保单信息成功'
+          window.location.href = 'IMMOTOR://showPrompt?code=1&message=修改投保人信息成功'
           vueThis.btnClass = 'submitButton disableColor'
           vueThis.contentChanged = false
         } else {
