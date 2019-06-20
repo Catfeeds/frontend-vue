@@ -61,7 +61,7 @@
         <li>
           <div class="holderULlidiv">
             <em class="inputTitleClass textFontClass">邮箱</em>
-            <input v-bind:style="{width:inputWidth}" @keyup="inputTextChanged()" type="email" maxlength="50" autocomplete="off" class="inputTextClass textFontClass"
+            <input v-bind:style="{width:inputWidth}" @keyup="inputTextChanged()" type="email" maxlength="30" autocomplete="off" class="inputTextClass textFontClass"
 						 v-model="policy_holderData.email" placeholder=""></input>
             <div class="holderLineClass"></div>
           </div>
