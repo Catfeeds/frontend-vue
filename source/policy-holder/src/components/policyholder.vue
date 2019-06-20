@@ -197,10 +197,8 @@ export default {
         var data = resp.data
         if (data.code === 600) {
           window.location.href = 'IMMOTOR://showPrompt?code=1&message=修改保单信息成功'
-          window.location.href = 'IMMOTOR://addPolicyInfoSuccess'
         } else {
-          var messageStr = data.msg
-          window.location.href = 'IMMOTOR://showPrompt?code=0&message=' + messageStr
+          window.location.href = 'IMMOTOR://showPrompt?code=0&message=' + data.msg
         }
       }).catch(resp => {
         console.log('请求失败：' + resp.status + ',' + resp.statusText)
