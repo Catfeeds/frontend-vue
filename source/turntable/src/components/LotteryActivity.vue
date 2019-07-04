@@ -94,13 +94,13 @@
               <img class="imgClass" v-if="toastPrizesUrl" :src="toastPrizesUrl" />
             </div>
             <p class="toastName">{{toastText}}</p>
-            <div class="recordNameDiv">
+            <div class="recordNameDiv" v-if="showInput">
               <input type="text" maxlength="20" autocomplete="off" class="inputTextClass textFontClass" v-model="recordName" placeholder="请输入收件人姓名"></input>
             </div>
-            <div class="recordPhoneDiv">
+            <div class="recordPhoneDiv" v-if="showInput">
               <input type="text" maxlength="20" autocomplete="off" class="inputTextClass textFontClass" v-model="recordPhone" placeholder="请输入收件人手机号码"></input>
             </div>
-            <div class="recordAddressDiv">
+            <div class="recordAddressDiv" v-if="showInput">
               <textarea type="text" maxlength="50" autocomplete="off" class="textAreaClass textFontClass" v-model="recordAddress" placeholder="请输入收件人地址"></textarea>
             </div>
             <div class="toastBtn" @click="submitAction">{{toastBtnTitle}}</div>
@@ -150,6 +150,7 @@ export default {
       toastBtnTitle: "继续抽奖",
       toastTitle: "恭喜你",
       toastText: "",
+      showInput: false,
       recordName: "",
       recordPhone: "",
       recordAddress: ""
@@ -170,7 +171,7 @@ export default {
       var u = navigator.userAgent;
       //userAgent中没有token字段使用jsbridge获取
       if(u.indexOf("token=") == -1){
-        // this.getEhdUserInfoFromBridge();
+        this.getEhdUserInfoFromBridge();
       }
       else{
         var token = u.substr(u.indexOf("token=") + 6, u.length);
@@ -223,7 +224,6 @@ export default {
       }
     },
     rotating: function(index) {
-      if (!this.click_flag) return;
       var during_time = 5; // 默认为1s
       var random = Math.floor(Math.random() * 7);
       var result_index = index; // 最终要旋转到哪一块，对应prize_list的下标
@@ -296,14 +296,16 @@ export default {
       this.selectBKShow = false;
       this.toastShow = false;
     },
-    luckyDrawAction: function() {
+    luckyDrawAction:function() {
       var vueThis = this;
       if (vueThis.luckyDrawTimes == 0) {
+        window.location.href = "IMMOTOR://showPrompt?code=0&message=没有抽奖次数";
         return;
       }
       if (!vueThis.click_flag) {
         return;
       }
+      vueThis.click_flag = false;
       if (vueThis.scintillationTimer) {
         vueThis.clearTimer(vueThis.scintillationTimer);
       }
@@ -439,9 +441,6 @@ export default {
           var data = resp.data;
           if (data.resultCode == 1) {
             vueThis.luckyDrawTimes = data.data.times;
-            if (vueThis.luckyDrawTimes > 0) {
-              vueThis.click_flag = true;
-            }
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + data.resultMsg;
@@ -468,16 +467,20 @@ export default {
             vueThis.prizesObj = data.data;
             let index = vueThis.getPrizesIndex(vueThis.prizesObj.id);
             if (index < 0) {
+              vueThis.click_flag = true;
               window.location.href =
                 "IMMOTOR://showPrompt?code=0&message=没有找到对应奖品";
             } else {
               vueThis.rotating(index);
             }
             if (vueThis.prizesObj.prizeType == "none") {
+              vueThis.toastBKUrl = require("../assets/toastBK.png");
+              vueThis.toastBKClass = "toastOtherBK";
               vueThis.toastText = "你离奖品还差一丢丢";
               vueThis.toastTitle = "很遗憾";
               vueThis.toastBtnTitle = "再试一次";
               vueThis.toastPrizesUrl = require("../assets/prizesNone.png");
+              vueThis.showInput = false;
             } else {
               vueThis.toastText = "获得" + vueThis.prizesObj.name;
               vueThis.toastTitle = "恭喜你";
@@ -486,18 +489,22 @@ export default {
                 vueThis.toastBKUrl = require("../assets/toastEntityBK.png");
                 vueThis.toastBKClass = "toastEntityBK";
                 vueThis.toastBtnTitle = "提交";
+                vueThis.showInput = true;
               } else {
                 vueThis.toastBKUrl = require("../assets/toastBK.png");
                 vueThis.toastBKClass = "toastOtherBK";
                 vueThis.toastBtnTitle = "继续抽奖";
+                vueThis.showInput = false;
               }
             }
           } else {
+            vueThis.click_flag = true;
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + data.resultMsg;
           }
         })
         .catch(resp => {
+          vueThis.click_flag = true;
           window.location.href =
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });
