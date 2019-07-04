@@ -101,7 +101,14 @@
               <input type="text" maxlength="20" autocomplete="off" class="inputTextClass textFontClass" v-model="recordPhone" placeholder="请输入收件人手机号码"></input>
             </div>
             <div class="recordAddressDiv" v-if="showInput">
-              <textarea type="text" maxlength="50" autocomplete="off" class="textAreaClass textFontClass" v-model="recordAddress" placeholder="请输入收件人地址"></textarea>
+              <textarea
+                type="text"
+                maxlength="50"
+                autocomplete="off"
+                class="textAreaClass textFontClass"
+                v-model="recordAddress"
+                placeholder="请输入收件人地址"
+              ></textarea>
             </div>
             <div class="toastBtn" @click="submitAction">{{toastBtnTitle}}</div>
           </div>
@@ -119,7 +126,7 @@ export default {
   name: "LotteryActivity",
   data() {
     return {
-      luckyDrawTimes: 10,
+      luckyDrawTimes: 0,
       lotteryID: "",
       userToken: "",
       prizeList: [],
@@ -127,7 +134,6 @@ export default {
       winnerListClass: "leftSectionTitle selectedBK selectedFont",
       myPrizeClass: "rightSectionTitle normalBK normalFont",
       luckyDrawSrc: require("../assets/luckyDraw.png"),
-      luckyDrawing: false,
       emptySrc: require("../assets/emptyWinnerList.png"),
       emptyMsg: "暂无中奖记录",
       selectListIndex: 0,
@@ -170,13 +176,12 @@ export default {
     else {
       var u = navigator.userAgent;
       //userAgent中没有token字段使用jsbridge获取
-      if(u.indexOf("token=") == -1){
+      if (u.indexOf("token=") == -1) {
         this.getEhdUserInfoFromBridge();
-      }
-      else{
+      } else {
         var token = u.substr(u.indexOf("token=") + 6, u.length);
         token = token.substr(0, token.indexOf("&"));
-        this.userToken =   "bearer " + token;
+        this.userToken = "bearer " + token;
         this.getPrizeList();
         this.getWinnerList();
         this.getLuckyDrawTimes();
@@ -197,9 +202,9 @@ export default {
       }
     },
     isPhoneNumber: function(val) {
-				var reg = /^1[0-9]{10}$/;
-				return reg.test(val);
-		},
+      var reg = /^1[0-9]{10}$/;
+      return reg.test(val);
+    },
     updateDotsData: function() {
       var vueThis = this;
       vueThis.dots.forEach(function(element, index) {
@@ -257,10 +262,17 @@ export default {
       var that = this;
       setTimeout(() => {
         var scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
-        document.documentElement.scrollTop = document.body.scrollTop =0; 
+        document.documentElement.scrollTop = document.body.scrollTop = 0;
         that.stop();
         that.toastShow = true;
       }, 1000);
+    },
+    onLuckyDrawException: function() {
+      this.click_flag = true;
+      this.luckyDrawSrc = require("../assets/luckyDraw.png");
+      if (this.scintillationTimer) {
+        this.clearTimer(this.scintillationTimer);
+      }
     },
     clearTimer: function(timer) {
       clearInterval(timer);
@@ -271,23 +283,27 @@ export default {
       this.selectBKShow = false;
       this.toastShow = false;
     },
-    submitAction: function(){
+    submitAction: function() {
       //实物 判断是否已经输入了姓名 手机号 和姓名
-      if(this.prizesObj.prizeType == "entity"){
-        if(this.recordName.length == 0){
-          window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入您的姓名";
+      if (this.prizesObj.prizeType == "entity") {
+        if (this.recordName.length == 0) {
+          window.location.href =
+            "IMMOTOR://showPrompt?code=0&message=请输入您的姓名";
           return;
         }
-        if(this.recordPhone.length == 0){
-          window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入您的手机号码";
-          return
+        if (this.recordPhone.length == 0) {
+          window.location.href =
+            "IMMOTOR://showPrompt?code=0&message=请输入您的手机号码";
+          return;
         }
-        if(!this.isPhoneNumber(this.recordPhone)){
-          window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入正确的手机号码";
-          return
+        if (!this.isPhoneNumber(this.recordPhone)) {
+          window.location.href =
+            "IMMOTOR://showPrompt?code=0&message=请输入正确的手机号码";
+          return;
         }
-        if(this.recordAddress.length == 0){
-          window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入您的地址";
+        if (this.recordAddress.length == 0) {
+          window.location.href =
+            "IMMOTOR://showPrompt?code=0&message=请输入您的地址";
           return;
         }
         this.recordEntityInfo();
@@ -296,10 +312,16 @@ export default {
       this.selectBKShow = false;
       this.toastShow = false;
     },
-    luckyDrawAction:function() {
+    luckyDrawAction: function() {
       var vueThis = this;
       if (vueThis.luckyDrawTimes == 0) {
-        window.location.href = "IMMOTOR://showPrompt?code=0&message=没有抽奖次数";
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=没有抽奖次数";
+        return;
+      }
+      if (vueThis.userToken.length == 0) {
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=没有获取到用户信息";
         return;
       }
       if (!vueThis.click_flag) {
@@ -309,9 +331,7 @@ export default {
       if (vueThis.scintillationTimer) {
         vueThis.clearTimer(vueThis.scintillationTimer);
       }
-      vueThis.luckyDrawing = true;
       vueThis.luckyDrawSrc = require("../assets/luckyDrawing.png");
-
       vueThis.scintillationTimer = setInterval(() => {
         vueThis.updateDotsData();
       }, 300);
@@ -498,13 +518,13 @@ export default {
               }
             }
           } else {
-            vueThis.click_flag = true;
+            vueThis.onLuckyDrawException();
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + data.resultMsg;
           }
         })
         .catch(resp => {
-          vueThis.click_flag = true;
+          vueThis.onLuckyDrawException();
           window.location.href =
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });
@@ -630,18 +650,22 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 .mainBK {
   width: 100%;
 }
+
 .header {
   width: 100%;
   height: 769px;
 }
+
 .headerBK {
   width: 100%;
   height: 601.5px;
 }
+
 .headerImg {
   width: 100%;
   height: 167px;
@@ -649,6 +673,7 @@ export default {
   top: 0;
   left: 0;
 }
+
 .tableBK {
   width: 100%;
   height: 602px;
@@ -656,6 +681,7 @@ export default {
   left: 0;
   top: 167px;
 }
+
 .beignLuckyDrawBtn {
   width: 86px;
   height: 103px;
@@ -663,6 +689,7 @@ export default {
   top: 142px;
   position: absolute;
 }
+
 .prizeBK {
   margin-left: 34px;
   margin-right: 34px;
@@ -679,6 +706,7 @@ export default {
   position: relative;
   z-index: 1000;
 }
+
 .prizeUL {
   background: linear-gradient(
     180deg,
@@ -820,6 +848,7 @@ export default {
   object-fit: cover;
   object-position: top;
 }
+
 .imgClass {
   width: 100%;
   height: 100%;
@@ -959,94 +988,117 @@ export default {
   left: 181.5px;
   top: 19.5px;
 }
+
 .dot1 {
   left: 224.5px;
   top: 25.5px;
 }
+
 .dot2 {
   left: 264.5px;
   top: 41.5px;
 }
+
 .dot3 {
   left: 300.5px;
   top: 69.5px;
 }
+
 .dot4 {
   left: 326.5px;
   top: 103.5px;
 }
+
 .dot5 {
   left: 343.5px;
   top: 143.5px;
 }
+
 .dot6 {
   left: 349.5px;
   top: 187.5px;
 }
+
 .dot7 {
   left: 343.5px;
   top: 230.5px;
 }
+
 .dot8 {
   left: 326.5px;
   top: 271.5px;
 }
+
 .dot9 {
   left: 300.5px;
   top: 306.5px;
 }
+
 .dot10 {
   left: 265.5px;
   top: 332.5px;
 }
+
 .dot11 {
   left: 224.5px;
   top: 349.5px;
 }
+
 .dot12 {
   left: 181.5px;
   top: 355.5px;
 }
+
 .dot13 {
   left: 137.5px;
   top: 349.5px;
 }
+
 .dot14 {
   left: 97.5px;
   top: 332.5px;
 }
+
 .dot15 {
   left: 63.5px;
   top: 306.5px;
 }
+
 .dot16 {
   left: 35.5px;
   top: 271.5px;
 }
+
 .dot17 {
   left: 19.5px;
   top: 230.5px;
 }
+
 .dot18 {
   left: 13.5px;
   top: 187.5px;
 }
+
 .dot19 {
   left: 19.5px;
   top: 143.5px;
 }
+
 .dot20 {
   left: 35.5px;
   top: 103.5px;
 }
+
 .dot21 {
   left: 63.5px;
   top: 69.5px;
 }
+
 .dot22 {
   left: 97.5px;
   top: 41.5px;
 }
+
 .dot23 {
   left: 137.5px;
   top: 25.5px;
@@ -1086,11 +1138,13 @@ export default {
   left: 100px;
   top: 50px;
 }
+
 .selectPrize-content {
   width: 100%;
   height: 100%;
   position: relative;
 }
+
 .selectPrize-BK {
   width: 100%;
   height: 100%;
@@ -1121,26 +1175,31 @@ export default {
   top: 0px;
   transform: rotate(0deg);
 }
+
 .prize-list .prize-item:nth-child(2) {
   top: 43px;
   left: 192px;
   transform: rotate(60deg);
 }
+
 .prize-list .prize-item:nth-child(3) {
   top: 126px;
   left: 192px;
   transform: rotate(120deg);
 }
+
 .prize-list .prize-item:nth-child(4) {
   top: 178px;
   left: 119px;
   transform: rotate(180deg);
 }
+
 .prize-list .prize-item:nth-child(5) {
   top: 126px;
   left: 40px;
   transform: rotate(-120deg);
 }
+
 .prize-list .prize-item:nth-child(6) {
   top: 43px;
   left: 40px;
@@ -1301,29 +1360,30 @@ export default {
   color: rgba(255, 244, 243, 1);
 }
 
-.inputTextClass{
+.inputTextClass {
   height: 20px;
   width: 235px;
   margin-top: 6px;
   margin-left: 10px;
   text-align: left;
   line-height: 20px;
-	text-align: left;
-	background-color: transparent;
-	border: 0;
-	-webkit-tap-highlight-color:rgba(255,0,0,0);
+  text-align: left;
+  background-color: transparent;
+  border: 0;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 }
-.textFontClass{
-  font-size:14px;
-  font-family:PingFangSC-Regular;
-  font-weight:400;
-  color:#333;
+
+.textFontClass {
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #333;
 }
 
 .recordNameDiv {
   width: 255px;
   height: 32px;
-  background:rgba(255,229,222,1);
+  background: rgba(255, 229, 222, 1);
   box-shadow: 0px -1px 5px 0px rgba(255, 0, 13, 1);
   border-radius: 5px;
   margin: auto;
@@ -1333,7 +1393,7 @@ export default {
 .recordPhoneDiv {
   width: 255px;
   height: 32px;
-  background:rgba(255,229,222,1);
+  background: rgba(255, 229, 222, 1);
   box-shadow: 0px -1px 5px 0px rgba(255, 0, 13, 1);
   border-radius: 5px;
   margin: auto;
@@ -1343,22 +1403,22 @@ export default {
 .recordAddressDiv {
   width: 255px;
   height: 58px;
-  background:rgba(255,229,222,1);
+  background: rgba(255, 229, 222, 1);
   box-shadow: 0px -1px 5px 0px rgba(255, 0, 13, 1);
   border-radius: 5px;
   margin: auto;
   margin-top: 10px;
 }
 
-.textAreaClass{
+.textAreaClass {
   height: 46px;
   width: 235px;
   margin-top: 6px;
   margin-left: 10px;
   text-align: left;
   background-color: transparent;
-	border: 0;
-	-webkit-tap-highlight-color:rgba(255,0,0,0);
+  border: 0;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 }
 
 .toastBtn {
@@ -1379,5 +1439,4 @@ export default {
   font-weight: 500;
   color: rgba(225, 47, 23, 1);
 }
-
 </style>
