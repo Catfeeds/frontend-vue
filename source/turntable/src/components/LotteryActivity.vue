@@ -142,10 +142,7 @@ export default {
       scintillationTimer: null,
       start_rotating_degree: 0, //初始旋转角度
       rotate_angle: "", //将要旋转的角度
-      start_rotating_degree_pointer: 0, //指针初始旋转角度
-      rotate_angle_pointer: 0, //指针将要旋转的度数
       rotate_transition: "transform 6s ease-in-out", //初始化选中的过度属性控制
-      rotate_transition_pointer: "transform 12s ease-in-out", //初始化指针过度属性控制
       click_flag: true, //是否可以旋转抽奖
       prizesObj: null,
       selectBKShow: false,
