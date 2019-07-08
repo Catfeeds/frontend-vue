@@ -2,14 +2,14 @@
   <div class="mainWrap">
     <p class="mainTitle">请选择你的换电用途？</p>
     <p class="remarkTitle">帮你找寻最适合的产品</p>
-    <div class="selectDiv" style="margin-top:72px" @click="householdClick" >
+    <div class="selectDiv household" @click="householdClick" >
       <img class="imgClass" src="../assets/household.png" />
       <div class="arrowDiv">
         <img class="imgClass" src="../assets/arrow.png" />
       </div>
       <p class="selectTitle">家用生活工作代步</p>
     </div>
-    <div class="selectDiv" style="margin-top:20px" @click="commercialClick">
+    <div class="selectDiv commercial" @click="commercialClick">
       <img class="imgClass" src="../assets/commercial.png" />
       <div class="arrowDiv">
         <img class="imgClass" src="../assets/arrow.png" />
@@ -78,6 +78,14 @@ export default {
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(118, 118, 118, 1);
+}
+
+.household{
+  margin-top: 72px;
+}
+
+.commercial{
+  margin-top: 20px;
 }
 
 .selectDiv {
