@@ -61,25 +61,22 @@
     </div>
     <div class="commonLink">
       <img src="../assets/commonLink.png" class="imgClass" />
-      <p class="commonTitle titleFont">中奖规则</p>
+      <p class="commonTitle titleFont">活动规则</p>
     </div>
     <div class="rulesBK">
       <ul>
-        <li class="remarkFont" style="margin-top: 0px">1、活动期间用户凡购买王者骑士任意活动套餐，即可免费获得一次幸运转盘抽奖机会，可叠加；</li>
-        <li class="remarkFont">2、活动期间用户凡购买王者骑士任意活动套餐，即可免费获得一次幸运转盘抽奖机会，可叠加；</li>
-        <li class="remarkFont">3、所中奖品将于活动结束后5个工作日内统一邮寄；</li>
-        <li class="remarkFont">4、所中奖品将于活动结束后5个工作日内统一邮寄；</li>
-        <li class="remarkFont">5、所中奖品将于活动结束后5个工作日内统一邮寄；</li>
+        <li class="remarkFont" style="margin-top: 0px">1、活动期间，凡购买冰爽套餐，即默认您已阅读并同意本次活动规则，为保障您的合法权益，请在购买仔细阅前读活动规则；</li>
+        <li>
+          <span class="remarkFont">2、活动期间，</span>
+          <span class="prominentFont">凡购买冰爽套餐，可获得一次抽奖机会，可叠加获取；</span>
+        </li>
+        <li>
+          <span class="remarkFont">3、购买优惠套餐属于已消费行为，未使用完套餐</span>
+          <span class="prominentFont">不退不折现，不变更其他套餐，不可转让；</span>
+        </li>
+        <li class="remarkFont">4、清凉套餐可与其他优惠券活动叠加使用；</li>
+        <li class="remarkFont">5、如有未使用完套餐，购买新套餐，将会在新套餐使用完自动续上。</li>
       </ul>
-    </div>
-    <div class="commonLink">
-      <img src="../assets/commonLink.png" class="imgClass" />
-      <p class="commonTitle titleFont">特别提示</p>
-    </div>
-    <div class="tipsBK">
-      <p
-        class="remarkFont"
-      >每位参与者的帐号、手机号及其他身份认证信息必须是唯一的，任何信息与其他用户重合都不能参加该活动。活动中，一旦发现您存在利用我们的规则漏洞进行任何形式的作弊行为（包括但不限于通过我们的活动获得不正当的经济利益），我们有权取消与作弊行为相关账户的奖励、追回您作弊所得的不正当经济利益、关闭作弊账户或与您相关的所有账户，并保留取消您后续使用我们e换电服务及车辆的权利，必要时会依据严重程度追究您的法律责任</p>
     </div>
     <div class="bottom">
       <img src="../assets/bottom.png" class="imgClass" />
@@ -958,6 +955,19 @@ export default {
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(228, 222, 247, 1);
+}
+.remarkFont {
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(228, 222, 247, 1);
+}
+
+.prominentFont{
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #ED0093;
 }
 
 .timesRemarkFont {
