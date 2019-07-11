@@ -242,9 +242,6 @@ export default {
       setTimeout(function() {
         vueThis.rotatingEnd();
       }, during_time * 1000 + 1500); // 延时，保证转盘转完
-
-      //更新列表数据
-      vueThis.updateListDataAndTimes();
     },
     rotatingEnd: function() {
       this.click_flag = true;
@@ -253,13 +250,15 @@ export default {
         this.clearTimer(this.scintillationTimer);
       }
       this.selectBKShow = true;
+      //更新列表数据
+      this.updateListDataAndTimes();
       var that = this;
       setTimeout(() => {
         var scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
         document.documentElement.scrollTop = document.body.scrollTop = 0;
         that.stop();
         that.toastShow = true;
-      }, 1000);
+      }, 1000)
     },
     onLuckyDrawException: function() {
       this.click_flag = true;
