@@ -3,10 +3,20 @@
     <div v-for="item in data">
       <div class="rowDiv">
         <span class="rowTitle">{{item.cause}}</span>
-        <img src="../assets/normal.png" class="rowImg" @click="checkQuest(item, $event)">
+        <img src="../assets/normal.png" class="rowImg" @click="checkQuest(item, $event)" />
       </div>
+      <textarea
+        type="text"
+        maxlength="50"
+        autocomplete="off"
+        v-if="item.levelCause"
+        class="textAreaClass textFontClass"
+        placeholder="请输入"
+        v-model="item.extension"
+      ></textarea>
       <div class="lineClass"></div>
     </div>
+    <div class="bottom"></div>
     <div class="submitButton" @click="submitQuestionnaire()">提交</div>
   </div>
 </template>
@@ -16,7 +26,7 @@ export default {
   name: "questionnaire",
   data() {
     return {
-      userToken:"",
+      userToken: "",
       data: []
     };
   },
@@ -37,6 +47,9 @@ export default {
             vueThis.data = result.data.pageData;
             result.data.pageData.forEach(function(el) {
               el.checked = false;
+              if(el.levelCause && el.levelCause.length > 0){
+                el.extension = "";
+              }
             });
             vueThis.data = result.data.pageData;
           } else {
@@ -61,7 +74,11 @@ export default {
       var vueThis = this;
       vueThis.data.forEach(function(el) {
         if (el.checked) {
-          selectIds.push(el.id);
+          var id = el.id;
+          if(el.levelCause && el.extension.length > 0){
+            id += ("&" + el.extension); 
+          }
+          selectIds.push(id);
         }
       });
       if (selectIds.length === 0) {
@@ -94,29 +111,59 @@ export default {
           window.location.href =
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });
+    },
+    getEhdUserInfoFromBridge: function() {
+      var vueThis = this;
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
+      if (isAndroid) {
+        vueThis.$bridge.callAndriodHandler(
+          "getEhdUserInfo",
+          "",
+          responseData => {
+            // 处理返回数据
+            var dataObj = JSON.parse(responseData);
+            if (dataObj && dataObj.token) {
+              vueThis.userToken = "bearer " + dataObj.token;
+              vueThis.fetchData();
+            }
+          }
+        );
+      } else {
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isiOS) {
+          vueThis.$bridge.callhandler("getEhdUserInfo", "", responseData => {
+            // 处理返回数据
+            vueThis.userToken = "bearer " + responseData.token;
+            vueThis.fetchData();
+          });
+        }
+      }
+    },
+    getUrlParam: function(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(decodeURIComponent(r[2]));
+      return null;
     }
   },
   mounted() {
-    var vueThis = this;
-    var u = navigator.userAgent;
-    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
-    if (isAndroid) {
-      vueThis.$bridge.callAndriodHandler("getEhdUserInfo", "", responseData => {
-        // 处理返回数据
-        var dataObj = JSON.parse(responseData);
-        if (dataObj && dataObj.token) {
-          vueThis.userToken = "bearer " + dataObj.token;
-          vueThis.fetchData();
-        }
-      });
-    } else {
-      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-      if (isiOS) {
-        vueThis.$bridge.callhandler("getEhdUserInfo", "", responseData => {
-          // 处理返回数据
-          vueThis.userToken = "bearer " + responseData.token;
-          vueThis.fetchData();
-        });
+    this.userToken = this.getUrlParam("token");
+    if (this.userToken && this.userToken.length > 0) {
+      this.userToken = "bearer " + this.userToken;
+      this.fetchData();
+    }
+    //如果在参数中没有token,从userAgent中获取
+    else {
+      var u = navigator.userAgent;
+      //userAgent中没有token字段使用jsbridge获取
+      if (u.indexOf("token=") == -1) {
+        this.getEhdUserInfoFromBridge();
+      } else {
+        var token = u.substr(u.indexOf("token=") + 6, u.length);
+        token = token.substr(0, token.indexOf("&"));
+        this.userToken = "bearer " + token;
+        this.fetchData();
       }
     }
   }
@@ -156,8 +203,12 @@ export default {
   background: rgba(235, 235, 235, 1);
 }
 
+.bottom{
+  height: 100px;
+}
+
 .submitButton {
-  position: absolute;
+  position: fixed;
   left: 10px;
   right: 10px;
   bottom: 40px;
@@ -169,5 +220,21 @@ export default {
   font-weight: 400;
   color: rgba(255, 255, 255, 1);
   line-height: 50px;
+}
+
+.textAreaClass {
+  padding: 6px;
+  width: 90%;
+  height: 45px;
+  background: rgba(247, 247, 247, 1);
+  border: 0;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+
+.textFontClass {
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #333;
 }
 </style>

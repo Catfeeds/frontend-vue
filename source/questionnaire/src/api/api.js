@@ -1,9 +1,9 @@
 /* eslint-disable */
 
 //测试环境
-// const promotionServerPath = 'http://120.76.72.18:8023/';
+const promotionServerPath = 'https://test.ehuandian.net/server/promotion/app/';
 //正式环境
-const promotionServerPath = 'https://promotion.ehuandian.net/';
+// const promotionServerPath = 'https://promotion.ehuandian.net/';
 var yApi = {
 	//获取押金退还原因问卷内容
 	getQuestionnaireData: promotionServerPath + 'deposit/refund/findAll',
