@@ -254,6 +254,7 @@ export default {
       this.updateListDataAndTimes();
       var that = this;
       setTimeout(() => {
+        that.stop();
         that.toastShow = true;
       }, 1000)
     },
@@ -269,6 +270,7 @@ export default {
       timer = null;
     },
     toastCloseAction: function() {
+      this.move();
       this.selectBKShow = false;
       this.toastShow = false;
     },
@@ -297,6 +299,7 @@ export default {
         }
         this.recordEntityInfo();
       }
+      this.move();
       this.selectBKShow = false;
       this.toastShow = false;
     },
@@ -556,6 +559,20 @@ export default {
         }
       }
       return -1;
+    },
+    stop: function() {
+      var mo = function(e) {
+        e.preventDefault();
+      };
+      document.body.style.overflow = "hidden";
+      document.addEventListener("touchmove", mo, false); //禁止页面滑动
+    },
+    move: function() {
+      var mo = function(e) {
+        e.preventDefault();
+      };
+      document.body.style.overflow = ""; //出现滚动条
+      document.removeEventListener("touchmove", mo, false);
     },
     getEhdUserInfoFromBridge: function() {
       var vueThis = this;
