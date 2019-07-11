@@ -254,7 +254,8 @@ export default {
       this.updateListDataAndTimes();
       var that = this;
       setTimeout(() => {
-        var scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
+        var scrolltop =
+        document.documentElement.scrollTop || document.body.scrollTop;
         document.documentElement.scrollTop = document.body.scrollTop = 0;
         that.stop();
         that.toastShow = true;
@@ -342,7 +343,7 @@ export default {
     myPrizeAction: function() {
       this.winnerListClass = "leftSectionTitle normalBK normalFont";
       this.myPrizeClass = "rightSectionTitle selectedBK selectedFont";
-      this.selectListIndex = 0;
+      this.selectListIndex = 1;
       this.getMyPrizeData();
     },
     getPrizeList: function() {
