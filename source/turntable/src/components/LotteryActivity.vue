@@ -108,7 +108,6 @@
               ></textarea>
             </div>
             <div class="toastBtn" @click="submitAction">{{toastBtnTitle}}</div>
-            <p class="payPrizeRemark">奖品将于3个工作日内发放</p>
           </div>
         </div>
         <div class="toastClose" @click="toastCloseAction">
@@ -566,11 +565,22 @@ export default {
       this.scrollTop = document.scrollingElement.scrollTop;
       document.body.style.position = "fixed";
       document.body.style.top = this.scrollTop + "px";
+      var mo = function(e) {
+        e.preventDefault();
+      };
+      document.body.style.overflow = "hidden";
+      document.addEventListener("touchmove", mo, false); //禁止页面滑动
     },
     beforeToastClose: function(){
       document.body.style.position = '';
       document.body.style.top = '';
       document.scrollingElement.scrollTop = this.scrollTop;
+      var mo = function(e) {
+        e.preventDefault();
+      };
+      document.body.style.overflow = ""; //出现滚动条
+      document.removeEventListener("touchmove", mo, false);
+
     },
     getEhdUserInfoFromBridge: function() {
       var vueThis = this;
@@ -1442,18 +1452,6 @@ export default {
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(225, 47, 23, 1);
-}
-
-.payPrizeRemark{
-  width: 100%;
-  margin-top: 5px;
-  height:14px;
-  font-size:12px;
-  font-family:PingFangSC-Regular;
-  font-weight:400;
-  color:rgba(177,0,11,1);
-  line-height:14px;
-  text-align: center;
 }
 
 </style>
