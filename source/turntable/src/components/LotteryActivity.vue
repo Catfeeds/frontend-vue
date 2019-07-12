@@ -154,7 +154,8 @@ export default {
       showInput: false,
       recordName: "",
       recordPhone: "",
-      recordAddress: ""
+      recordAddress: "",
+      scrollTop:0
     };
   },
   mounted() {
@@ -255,8 +256,8 @@ export default {
       this.updateListDataAndTimes();
       var that = this;
       setTimeout(() => {
-        that.stop();
         that.toastShow = true;
+        that.afterOpenToast();
       }, 1000)
     },
     onLuckyDrawException: function() {
@@ -271,7 +272,7 @@ export default {
       timer = null;
     },
     toastCloseAction: function() {
-      this.move();
+      this.beforeToastClose();
       this.selectBKShow = false;
       this.toastShow = false;
     },
@@ -300,7 +301,7 @@ export default {
         }
         this.recordEntityInfo();
       }
-      this.move();
+      this.beforeToastClose();
       this.selectBKShow = false;
       this.toastShow = false;
     },
@@ -561,19 +562,15 @@ export default {
       }
       return -1;
     },
-    stop: function() {
-      var mo = function(e) {
-        e.preventDefault();
-      };
-      document.body.style.overflow = "hidden";
-      document.addEventListener("touchmove", mo, false); //禁止页面滑动
+    afterOpenToast:function(){
+      this.scrollTop = document.scrollingElement.scrollTop;
+      document.body.style.position = "fixed";
+      document.body.style.top = this.scrollTop + "px";
     },
-    move: function() {
-      var mo = function(e) {
-        e.preventDefault();
-      };
-      document.body.style.overflow = ""; //出现滚动条
-      document.removeEventListener("touchmove", mo, false);
+    beforeToastClose: function(){
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.scrollingElement.scrollTop = this.scrollTop;
     },
     getEhdUserInfoFromBridge: function() {
       var vueThis = this;
@@ -646,12 +643,12 @@ export default {
 <style scoped>
 .mainBK {
   width: 100%;
-  overflow: hidden;
 }
 
 .header {
   width: 100%;
   height: 769px;
+
 }
 
 .headerBK {
