@@ -108,6 +108,7 @@
               ></textarea>
             </div>
             <div class="toastBtn" @click="submitAction">{{toastBtnTitle}}</div>
+            <p class="payPrizeRemark">奖品将于3个工作日内发放</p>
           </div>
         </div>
         <div class="toastClose" @click="toastCloseAction">
@@ -227,7 +228,7 @@ export default {
       var random = Math.floor(Math.random() * 7);
       var result_index = index; // 最终要旋转到哪一块，对应prize_list的下标
       var result_angle = [360, 300, 240, 180, 120, 60]; //最终会旋转到下标的位置所需要的度数
-      var rand_circle = 6; // 附加多转几圈，2-3
+      var rand_circle = 10; // 附加多转几圈，2-3
       this.click_flag = false; // 旋转结束前，不允许再次触发
       // 转动盘子
       var rotate_angle =
@@ -1306,7 +1307,7 @@ export default {
 
 .toastEntityBK {
   width: 295px;
-  height: 555px;
+  height: 482px;
   margin: auto;
   margin-top: 30px;
   position: relative;
@@ -1314,7 +1315,7 @@ export default {
 
 .toastOtherBK {
   width: 295px;
-  height: 384px;
+  height: 354px;
   margin: auto;
   margin-top: 100px;
   position: relative;
@@ -1337,10 +1338,10 @@ export default {
 
 .toastTitle {
   width: 100%;
-  height: 35px;
-  margin-top: 18px;
+  height: 30px;
+  margin-top: 16px;
   text-align: center;
-  line-height: 35px;
+  line-height: 30px;
   font-size: 25px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
@@ -1351,16 +1352,16 @@ export default {
   width: 100px;
   height: 100px;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 35px;
 }
 
 .toastName {
   width: 100%;
-  height: 25px;
-  margin-top: 36px;
+  height: 24px;
+  margin-top: 18px;
   text-align: center;
-  line-height: 25px;
-  font-size: 18px;
+  line-height: 24px;
+  font-size: 17px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(255, 244, 243, 1);
@@ -1393,7 +1394,7 @@ export default {
   box-shadow: 0px -1px 5px 0px rgba(255, 0, 13, 1);
   border-radius: 5px;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .recordPhoneDiv {
@@ -1445,4 +1446,17 @@ export default {
   font-weight: 500;
   color: rgba(225, 47, 23, 1);
 }
+
+.payPrizeRemark{
+  width: 100%;
+  margin-top: 5px;
+  height:14px;
+  font-size:12px;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(177,0,11,1);
+  line-height:14px;
+  text-align: center;
+}
+
 </style>
