@@ -44,9 +44,9 @@
       <p class="fifthText fifthText4Top">智能锂电，统一回收再利用，解决铅酸污染，绿色环保。</p>
       <p class="interpretationText">* 最终解释权归深圳市易马达科技公司所有</p>
     </div>
-    <div class="bottomOprBtn" @click="bottomAction" >
+    <div class="bottomOprBtn" @click="bottomAction">
       <span v-if="hasGroup" class="bottomTitleFont">购买超级电池+智慧中控</span>
-      <span v-if="hasGroup" class="bottomAmountFont" >&nbsp;&nbsp;¥1680</span>
+      <span v-if="hasGroup" class="bottomAmountFont">&nbsp;&nbsp;¥1680</span>
       <span v-else class="bottomTitleFont">马上预约服务商 ></span>
     </div>
   </div>
@@ -60,15 +60,28 @@ export default {
       hasGroup: true
     };
   },
-  methods:{
-    bottomAction: function(){
+  methods: {
+    bottomAction: function() {
       //有群组直接去购买电池套餐页面
-      if(this.hasGroup){
-        window.location.href = "https://test.ehuandian.net/immotor/h5vue/buyingBatteries/index.html";
+      if (this.hasGroup) {
+        window.location.href =
+          "https://test.ehuandian.net/immotor/h5vue/buyingBatteries/index.html";
       }
       //无群组去预约
-      else{
-
+      else {
+        let currentUrl = window.location.href;
+        var param = currentUrl.substr(
+          currentUrl.indexOf("?"),
+          currentUrl.length
+        );
+        if(param && param.length >0 ){
+          param += "&appointment=1";
+        }
+        else{
+          param = "?appointment=1";
+        }
+        window.location.href =
+          "https://test.ehuandian.net/immotor/h5vue/providersList/index.html" + param;
       }
     }
   }
