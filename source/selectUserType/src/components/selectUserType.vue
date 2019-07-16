@@ -24,14 +24,17 @@ export default {
   name: "SelectUserType",
   data() {
     return {
-       cityCode:''
     };
   },
   methods:{
     householdClick: function(){
       //去C端页面
+      let currentUrl =  window.location.href;
+      var param = currentUrl.substr(currentUrl.indexOf("?"), currentUrl.length); 
+      window.location.href = "https://test.ehuandian.net/immotor/h5vue/consumerGuide/index.html" + param;
     },
     commercialClick: function(){
+      //去B端服务网点
       let currentUrl =  window.location.href;
       var param = currentUrl.substr(currentUrl.indexOf("?"), currentUrl.length); 
       window.location.href = "http://imgcn.immotor.com/app/GO5/index.html" + param;
