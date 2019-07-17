@@ -65,7 +65,7 @@ export default {
         item.latitude +
         "&lon=" +
         item.longitude +
-        "&addr" +
+        "&addr=" +
         item.address;
     },
     telAction: function(item) {
@@ -315,7 +315,7 @@ export default {
 
 .providerItemNearest {
   margin-right: 12px;
-  width: 118px;
+  width: 120px;
   height: 33px;
   line-break: 33px;
   text-align: left;
