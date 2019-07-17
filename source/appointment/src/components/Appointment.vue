@@ -91,7 +91,7 @@ export default {
       this.selectDate = this.formatDateToYYYYMMDD(this.pickerValue);
     },
     submitAction: function() {
-      if(this.userToken.length == 0){
+      if ( !this.userToken || this.userToken.length == 0) {
         window.location.href =
           "IMMOTOR://showPrompt?code=0&message=没有获取到用户信息";
       }
@@ -104,11 +104,23 @@ export default {
           "IMMOTOR://showPrompt?code=0&message=请选择到店日期";
         return;
       }
+      let selectTimestamp = this.pickerValue.getTime();
+      var todayDate = new Date();
+      todayDate.setHours(0);
+      todayDate.setMinutes(0);
+      todayDate.setSeconds(0);
+      let todayTimestamp = new Date().getTime();
+      console.log(selectTimestamp - todayTimestamp);
+      if (selectTimestamp - todayTimestamp > (3600 * 24 * 7 * 1000)) {
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=只能预约一周内的日期";
+        return;
+      }
       var vueThis = this;
       var time = vueThis.sliceData[vueThis.selectIndex];
       let startTime = time.substr(0, time.indexOf("-") - 1);
       let endTime = time.substr(time.indexOf("-") + 2, time.length);
-      let selectTimestamp = vueThis.pickerValue.getTime();
+
       //调用提交接口
       vueThis
         .axios({
@@ -118,8 +130,8 @@ export default {
             siteId: this.siteId,
             date: selectTimestamp,
             name: this.username,
-            startTime: startTime,	
-            endTime: endTime,
+            startTime: startTime,
+            endTime: endTime
           },
           headers: {
             "Content-Type": "application/json",
@@ -142,7 +154,8 @@ export default {
         });
     },
     finishAction: function() {
-      window.location.href = "https://test.ehuandian.net/immotor/h5vue/appointmentSuccess/index.html";
+      window.location.href =
+        "https://test.ehuandian.net/immotor/h5vue/appointmentSuccess/index.html";
     },
     formatDateToYYYYMMDD: function(oDate) {
       var year = oDate.getFullYear();
@@ -192,9 +205,9 @@ export default {
     this.startDate = ODate;
     this.pickerValue = ODate;
     this.siteId = this.getUrlParam("siteId");
-    this.userToken = this.getUrlParam("token");
-    if (this.userToken && this.userToken.length > 0) {
-      this.userToken = "bearer " + this.userToken;
+    var token = this.getUrlParam("token");
+    if (token && token.length > 0) {
+      this.userToken = "bearer " + token;
     }
     //如果在参数中没有token,从userAgent中获取
     else {
