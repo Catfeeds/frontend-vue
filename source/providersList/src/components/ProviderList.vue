@@ -175,9 +175,9 @@ export default {
     if (lon && lon.length > 0) {
       this.userLon = lon;
     }
-    this.userToken = this.getUrlParam("token");
-    if (this.userToken && this.userToken.length > 0) {
-      this.userToken = "bearer " + this.userToken;
+    var token = this.getUrlParam("token");
+    if (token&& token.length > 0) {
+      this.userToken = "bearer " + token;
     }
     //如果在参数中没有token,从userAgent中获取
     else {
