@@ -31,7 +31,12 @@ export default {
       //去C端页面
       let currentUrl =  window.location.href;
       var param = currentUrl.substr(currentUrl.indexOf("?"), currentUrl.length); 
-      window.location.href = "https://test.ehuandian.net/immotor/h5vue/consumerGuide/index.html" + param;
+      if(param.indexOf('?') == -1){
+         window.location.href = "https://test.ehuandian.net/immotor/h5vue/consumerGuide/index.html"
+      }
+      else{
+        window.location.href = "https://test.ehuandian.net/immotor/h5vue/consumerGuide/index.html" + param;
+      }
     },
     commercialClick: function(){
       //去B端服务网点
