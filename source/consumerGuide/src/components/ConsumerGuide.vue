@@ -92,8 +92,8 @@ export default {
     }
   },
   mounted() {
-    var groupCode = this.getUrlParam('groupCode');
-    if(groupCode && groupCode.length > 0){
+    var by_client = this.getUrlParam('by_client');
+    if(by_client == "1"){
       this.hasGroup = true;
     }
   }
