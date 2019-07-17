@@ -57,7 +57,7 @@ export default {
   name: "ConsumerGuide",
   data() {
     return {
-      hasGroup: true
+      hasGroup: false
     };
   },
   methods: {
@@ -74,15 +74,27 @@ export default {
           currentUrl.indexOf("?"),
           currentUrl.length
         );
-        if(param && param.length >0 ){
+        if (param && param.length > 0) {
           param += "&appointment=1";
-        }
-        else{
+        } else {
           param = "?appointment=1";
         }
         window.location.href =
-          "https://test.ehuandian.net/immotor/h5vue/providersList/index.html" + param;
+          "https://test.ehuandian.net/immotor/h5vue/providersList/index.html" +
+          param;
       }
+    },
+    getUrlParam: function(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(decodeURIComponent(r[2]));
+      return null;
+    }
+  },
+  mounted() {
+    var groupCode = this.getUrlParam('groupCode');
+    if(groupCode && groupCode.length > 0){
+      this.hasGroup = true;
     }
   }
 };
