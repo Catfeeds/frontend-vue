@@ -70,10 +70,10 @@ export default {
       //无群组去预约
       else {
         let currentUrl = window.location.href;
-        var param = currentUrl.substr(
-          currentUrl.indexOf("?"),
-          currentUrl.length
-        );
+        var param = "";
+        if (currentUrl.indexOf("?") != -1) {
+          param = currentUrl.substr(currentUrl.indexOf("?"), currentUrl.length);
+        }
         if (param && param.length > 0) {
           param += "&appointment=1";
         } else {
@@ -92,8 +92,8 @@ export default {
     }
   },
   mounted() {
-    var by_client = this.getUrlParam('by_client');
-    if(by_client == "1"){
+    var by_client = this.getUrlParam("by_client");
+    if (by_client == "1") {
       this.hasGroup = true;
     }
   }
