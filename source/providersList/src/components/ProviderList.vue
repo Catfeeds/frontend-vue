@@ -164,7 +164,7 @@ export default {
       this.appointment = appointmentParam;
     }
     let cityCode = this.getUrlParam("cityCode");
-    if (cityCode && cityCode != "(null)") {
+    if (cityCode && cityCode.length>0 &&cityCode != "(null)") {
       this.cityCode = cityCode;
     }
     let lat = this.getUrlParam("lat");
@@ -176,7 +176,7 @@ export default {
       this.userLon = lon;
     }
     var token = this.getUrlParam("token");
-    if (token&& token.length > 0) {
+    if (token && token.length > 0) {
       this.userToken = "bearer " + token;
     }
     //如果在参数中没有token,从userAgent中获取
