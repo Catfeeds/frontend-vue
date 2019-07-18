@@ -43,7 +43,7 @@
       </div>
     </div>
     <div class="prizeBK">
-    <vue-seamless-scroll :data="dataList" class="seamless-warp">
+    <vue-seamless-scroll :data="dataList" class="seamless-warp" v-if="dataList.length>5">
       <ul class="prizeUL">
         <li v-for="item in dataList">
           <div class="contentText">
@@ -52,14 +52,23 @@
           </div>
           <div class="dividerLine"></div>
         </li>
-        <li v-if="dataList.length==0" class="emptyList">
-          <div class="emptyImg">
-            <img :src="emptySrc" class="imgClass" />
-          </div>
-          <p class="emptyText remarkFont">{{emptyMsg}}</p>
-        </li>
       </ul>
     </vue-seamless-scroll>
+    <ul class="prizeUL" v-if="dataList.length<=5&&dataList.length>0">
+        <li v-for="item in dataList">
+          <div class="contentText">
+            <span class="leftText remarkFont">{{item.leftText}}</span>
+            <span class="rightText remarkFont">{{item.rightText}}</span>
+          </div>
+          <div class="dividerLine"></div>
+        </li>
+    </ul>
+    <div v-if="dataList.length==0" class="emptyList">
+      <div class="emptyImg">
+        <img :src="emptySrc" class="imgClass" />
+      </div>
+      <p class="emptyText remarkFont">{{emptyMsg}}</p>
+    </div>
     </div>
     <div class="commonLink">
       <img src="../assets/commonLink.png" class="imgClass" />
@@ -1286,6 +1295,9 @@ export default {
 .emptyList{
   height: 230px;
   padding: 1px;
+  padding-left: 17px;
+  padding-right: 17px;
+  background: rgba(6, 0, 136, 1);
 }
 
 .emptyImg {
