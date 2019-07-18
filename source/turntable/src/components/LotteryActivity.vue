@@ -43,6 +43,7 @@
       </div>
     </div>
     <div class="prizeBK">
+    <vue-seamless-scroll :data="dataList" class="seamless-warp">
       <ul class="prizeUL">
         <li v-for="item in dataList">
           <div class="contentText">
@@ -58,6 +59,7 @@
           <p class="emptyText remarkFont">{{emptyMsg}}</p>
         </li>
       </ul>
+    </vue-seamless-scroll>
     </div>
     <div class="commonLink">
       <img src="../assets/commonLink.png" class="imgClass" />
@@ -65,17 +67,21 @@
     </div>
     <div class="rulesBK">
       <ul>
-        <li class="remarkFont" style="margin-top: 0px">1、活动期间，凡购买冰爽套餐，即默认您已阅读并同意本次活动规则，为保障您的合法权益，请在购买仔细阅前读活动规则；</li>
+        <li class="remarkFont" style="margin-top: 0px">活动期间，凡购买冰爽套餐，即默认您已阅读并同意本次活动规则，为保障您的合法权益，请在购买前仔细阅读活动规则：</li>
         <li>
-          <span class="remarkFont">2、活动期间，</span>
+          <span class="remarkFont">1、活动期间，</span>
           <span class="prominentFont">凡购买冰爽套餐，可获得一次抽奖机会，可叠加获取；</span>
         </li>
         <li>
-          <span class="remarkFont">3、购买优惠套餐属于已消费行为，未使用完套餐</span>
-          <span class="prominentFont">不退不折现，不变更其他套餐，不可转让；</span>
+          <span class="remarkFont">2、抽奖所获实物奖励将于活动结束后</span>
+          <span class="prominentFont">10个工作日内发放；</span>
         </li>
-        <li class="remarkFont">4、清凉套餐可与其他优惠券活动叠加使用；</li>
-        <li class="remarkFont">5、如有未使用完套餐，购买新套餐，将会在新套餐使用完自动续上。</li>
+        <li >
+          <span class="remarkFont">3、如抽中实物奖励，</span>
+          <span class="prominentFont">请谨慎填写个人信息</span>
+          <span class="remarkFont">，如有填错，奖品不予发放；</span>
+        </li>
+        <li class="remarkFont">4、活动所中奖品，不退、不折现、不可转让。</li>
       </ul>
     </div>
     <div class="bottom">
@@ -95,7 +101,7 @@
               <input type="text" maxlength="20" autocomplete="off" class="inputTextClass textFontClass" v-model="recordName" placeholder="请输入收件人姓名"></input>
             </div>
             <div class="recordPhoneDiv" v-if="showInput">
-              <input type="text" maxlength="20" autocomplete="off" class="inputTextClass textFontClass" v-model="recordPhone" placeholder="请输入收件人手机号码"></input>
+              <input type="text" maxlength="11" autocomplete="off" class="inputTextClass textFontClass" v-model="recordPhone" placeholder="请输入收件人手机号码"></input>
             </div>
             <div class="recordAddressDiv" v-if="showInput">
               <textarea
@@ -160,11 +166,11 @@ export default {
   mounted() {
     this.setupDotsData();
     this.lotteryID = this.getUrlParam("lotteryID");
-    this.userToken = this.getUrlParam("token");
-    if (this.userToken && this.userToken.length > 0) {
-      this.userToken = "bearer " + this.userToken;
-      this.getPrizeList();
-      this.getWinnerList();
+    this.getPrizeList();
+    this.getWinnerList();
+    var token =  this.getUrlParam("token");
+    if (token && token.length > 0) {
+      this.userToken = "bearer " + token;
       this.getLuckyDrawTimes();
     }
     //如果在参数中没有token,从userAgent中获取
@@ -177,8 +183,6 @@ export default {
         var token = u.substr(u.indexOf("token=") + 6, u.length);
         token = token.substr(0, token.indexOf("&"));
         this.userToken = "bearer " + token;
-        this.getPrizeList();
-        this.getWinnerList();
         this.getLuckyDrawTimes();
       }
     }
@@ -349,10 +353,7 @@ export default {
       vueThis
         .axios({
           method: "get",
-          url: vueThis.$yApi.getLotteryData + vueThis.lotteryID,
-          headers: {
-            Authorization: vueThis.userToken
-          }
+          url: vueThis.$yApi.getLotteryData + vueThis.lotteryID
         })
         .then(function(resp) {
           var data = resp.data;
@@ -373,16 +374,13 @@ export default {
       vueThis
         .axios({
           method: "get",
-          url: vueThis.$yApi.getRecentwinnerlist + vueThis.lotteryID,
-          headers: {
-            Authorization: vueThis.userToken
-          }
+          url: vueThis.$yApi.getRecentwinnerlist + vueThis.lotteryID
         })
         .then(function(resp) {
           var data = resp.data;
           if (data.resultCode == 1) {
-            if (data.data.length > 5) {
-              data.data = data.data.slice(0, 5);
+            if (data.data.length > 20) {
+              data.data = data.data.slice(0, 20);
             }
             data.data.forEach(function(el) {
               el.leftText = el.phone;
@@ -406,6 +404,11 @@ export default {
         });
     },
     getMyPrizeData: function() {
+      if(this.userToken.length == 0){
+        this.dataList = [];
+        this.emptyMsg = "暂无奖品";
+        return;
+      }
       var vueThis = this;
       vueThis
         .axios({
@@ -595,8 +598,6 @@ export default {
             var dataObj = JSON.parse(responseData);
             if (dataObj && dataObj.token) {
               vueThis.userToken = "bearer " + dataObj.token;
-              vueThis.getPrizeList();
-              vueThis.getWinnerList();
               vueThis.getLuckyDrawTimes();
             }
           }
@@ -633,15 +634,15 @@ export default {
       var minutes =
         oDate.getMinutes() < 10 ? "0" + oDate.getMinutes() : oDate.getMinutes();
       return (
-        year.toString() +
+        year +
         "/" +
-        month.toString() +
+        month +
         "/" +
-        day.toString() +
+        day +
         "  " +
-        hours.toString() +
+        hours +
         ":" +
-        minutes.toString()
+        minutes
       );
     }
   }
@@ -651,6 +652,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 
 <style scoped>
+    .seamless-warp {
+      height: 230px;
+      overflow: hidden;
+      border-radius: 4px;
+    }
 .mainBK {
   width: 100%;
 }
@@ -708,14 +714,10 @@ export default {
 }
 
 .prizeUL {
-  background: linear-gradient(
-    180deg,
-    rgba(6, 0, 136, 1) 0%,
-    rgba(43, 23, 132, 1) 43%,
-    rgba(42, 23, 132, 1) 100%
-  );
-  border-radius: 4px;
-  padding: 10px 20px 17px 17px;
+  padding-left: 17px;
+  padding-right: 17px;
+  min-height: 200px;
+  background: rgba(6, 0, 136, 1);
 }
 
 .contentText {
@@ -1281,11 +1283,16 @@ export default {
   border-radius: 50%;
 }
 
+.emptyList{
+  height: 230px;
+  padding: 1px;
+}
+
 .emptyImg {
   width: 137.5px;
   height: 87.5px;
   margin: auto;
-  margin-top: 20px;
+ margin-top: 50px;
 }
 
 .emptyText {

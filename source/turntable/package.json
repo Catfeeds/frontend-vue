@@ -16,7 +16,8 @@
     "lib-flexible": "^0.3.2",
     "px2rem-loader": "^0.1.9",
     "vue": "^2.5.2",
-    "vue-axios": "^2.1.4"
+    "vue-axios": "^2.1.4",
+    "vue-seamless-scroll": "^1.1.16"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
