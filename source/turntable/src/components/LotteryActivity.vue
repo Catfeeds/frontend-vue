@@ -683,9 +683,9 @@ export default {
 
 .headerImg {
   width: 100%;
-  height: 167px;
+  height: 134px;
   position: absolute;
-  top: 0;
+  top: 28px;
   left: 0;
 }
 
