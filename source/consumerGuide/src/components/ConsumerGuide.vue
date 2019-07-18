@@ -1,49 +1,84 @@
 <template>
-  <div>
-    <div class="firstDiv">
-      <img class="imgClass" src="../assets/H1.png" />
+  <div class="mainBody">
+    <div class="headerImgDiv">
+      <img src="../assets/header.png" />
+      <div class="headerLogoIconDiv">
+        <img src="../assets/headerLogo.png" />
+      </div>
       <div class="textBK"></div>
       <p class="priceRemark">仅售</p>
       <p class="priceText">1680元</p>
     </div>
-    <div class="secondDiv">
-      <img class="imgClass" src="../assets/H2.png" />
-      <p class="secondSectionTitle sectionTitle">1680元包含以下产品和服务</p>
+    <div class="firstSectionDiv sectionCommon">
+      <div class="sectionTitleBKDiv">
+        <img src="../assets/sectionTitle.png" />
+        <p class="sectionTitle sectionTitleFont">1680元包含以下产品和服务</p>
+      </div>
+      <div class="firstSectionIcon firstSectionIcon1">
+        <img src="../assets/times.png" />
+      </div>
+      <div class="firstSectionLinkIconLeft firstSectionLinkIcon">
+        <img src="../assets/link.png" />
+      </div>
+      <div class="firstSectionIcon firstSectionIcon2">
+        <img src="../assets/scooter.png" />
+      </div>
+      <div class="firstSectionLinkIconRight firstSectionLinkIcon">
+        <img src="../assets/link.png" />
+      </div>
+      <div class="firstSectionIcon firstSectionIcon3">
+        <img src="../assets/battery.png" />
+      </div>
+      <p class="firstSectionText1 firSectionTextFont">3年600次</p>
+      <p class="firstSectionText2 firSectionTextFont">智慧中控</p>
+      <p class="firstSectionText3 firSectionTextFont">一颗超级电池</p>
+      <p class="firstSectionRemark1 firstSectionRemarkFont">免费充电</p>
+      <p class="firstSectionRemark2 firstSectionRemarkFont">智慧大脑</p>
+      <p class="firstSectionRemark3 firstSectionRemarkFont">绿色环保</p>
     </div>
-    <div class="thirdDiv">
-      <img class="imgClass" src="../assets/H3.png" />
-      <p class="thirdSection1Text1 section1Font">3年600次</p>
-      <p class="thirdSection1Text2 section1Font">智能中控</p>
-      <p class="thirdSection1Text3 section1Font">一颗超级电池</p>
-      <p class="thirdSection2Text1 section2Font">免费充电</p>
-      <p class="thirdSection2Text2 section2Font">智慧大脑</p>
-      <p class="thirdSection2Text3 section2Font">绿色环保</p>
-      <p class="thirdSectionTitle sectionTitle">环保回收奖励</p>
+    <div class="secondSectionDiv sectionCommon">
+      <div class="sectionTitleBKDiv">
+        <img src="../assets/sectionTitle.png" />
+        <p class="sectionTitle sectionTitleFont">环保回收奖励</p>
+        <p class="secondSectionText">
+          <span class="recyclingRemarkFont">超级电池+中控回收奖励高达</span>
+          <span class="recyclingMoneyFont">1300</span>
+          <span class="recyclingUnitFont">元</span>
+        </p>
+      </div>
     </div>
-    <div class="forthDiv">
-      <img class="imgClass" src="../assets/H4.png" />
-      <p class="forthText1">
-        <span class="recyclingRemarkFont">超级电池+中控最高回收奖励</span>
-        <span class="recyclingMoneyFont">1300</span>
-        <span class="recyclingUnitFont">元</span>
-      </p>
-      <p class="forthSectionTitle sectionTitle">两步即可完成预约 开启换电新时代</p>
-      <p class="forthSectionText1 recyclingRemarkFont">1. 选择服务商</p>
-      <p class="forthSectionText2 recyclingRemarkFont">2. 选择到店日期 并提交信息</p>
-      <p class="fifthSectionTitle sectionTitle">为什么选择e换电超级电池</p>
+    <div class="thirdSectionDiv sectionCommon">
+      <div class="sectionTitleBKDiv">
+        <img src="../assets/sectionTitle.png" />
+        <p class="sectionTitle sectionTitleFont">两步即可完成预约 开启换电新时代</p>
+      </div>
+      <div class="thirdSectionIcon1">
+        <img src="../assets/provider.png" />
+      </div>
+      <div class="thirdSectionArrowIcon">
+        <img src="../assets/arrow.png" />
+      </div>
+      <div class="thirdSectionIcon2">
+        <img src="../assets/arrivalDate.png" />
+      </div>
+      <p class="thirdSectionText1 firSectionTextFont">1. 选择服务商</p>
+      <p class="thirdSectionText2 firSectionTextFont">2. 选择到店日期 并提交信息</p>
     </div>
-    <div class="fifthDiv">
-      <img class="imgClass" src="../assets/H5.png" />
-      <p class="fifthTitle fifthTitle1Top">1.更安全</p>
-      <p class="fifthText fifthText1Top">革新性的新一代动力电池，多重安全保护；智能换电系统全自助换电，告别充电难与充电安全隐患。</p>
-      <p class="fifthTitle fifthTitle2Top">2.更省钱</p>
-      <p class="fifthText fifthText2Top">一次购买，享受充电免费、1颗超级电池及智能中控，可随时绿色回收，奖励高达1300元。</p>
-      <p class="fifthTitle fifthTitle3Top">3.更高效</p>
-      <p class="fifthText fifthText3Top">APP预约换电，智能规划寻找电池路径，随时随地满足所需；换电只需3秒，高效便捷，无需等待。</p>
-      <p class="fifthTitle fifthTitle4Top">4.更环保</p>
-      <p class="fifthText fifthText4Top">智能锂电，统一回收再利用，解决铅酸污染，绿色环保。</p>
-      <p class="interpretationText">* 最终解释权归深圳市易马达科技公司所有</p>
+    <div class="fourthSectionDiv sectionCommon">
+      <div class="sectionTitleBKDiv">
+        <img src="../assets/sectionTitle.png" />
+        <p class="sectionTitle sectionTitleFont">为什么选择e换电超级电池包</p>
+      </div>
+      <p class="fourthSectionText fourSectionTextTop1">1.更安全</p>
+      <p class="fourthSectionRemark">革新性的新一代动力电池，多重安全保护；智能换电系统全自助换电，告别充电难与充电安全隐患。</p>
+      <p class="fourthSectionText fourSectionTextTopCommon">2.更省钱</p>
+      <p class="fourthSectionRemark">一次购买，享受充电免费、1颗超级电池及智慧中控，可随时绿色回收，奖励高达1300元。</p>
+      <p class="fourthSectionText fourSectionTextTopCommon">3.更高效</p>
+      <p class="fourthSectionRemark">APP预约换电，智能规划寻找电池路径，随时随地满足所需；换电只需3秒，高效便捷，无需等待。</p>
+      <p class="fourthSectionText fourSectionTextTopCommon">4.更环保</p>
+      <p class="fourthSectionRemark">智能锂电，统一回收再利用，解决铅酸污染，绿色环保。</p>
     </div>
+    <p class="bottomPrompt">* 最终解释权归深圳市易马达科技公司所有</p>
     <div class="bottomOprBtn" @click="bottomAction">
       <span v-if="hasGroup" class="bottomTitleFont">购买超级电池+智慧中控</span>
       <span v-if="hasGroup" class="bottomAmountFont">&nbsp;&nbsp;¥1680</span>
@@ -102,293 +137,272 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.imgClass {
+img {
   width: 100%;
   height: 100%;
-}
-.firstDiv {
-  width: 100%;
-  height: 397px;
-  position: relative;
-}
-.secondDiv {
-  width: 100%;
-  height: 480px;
-  position: relative;
-}
-.thirdDiv {
-  width: 100%;
-  height: 419px;
-  position: relative;
-}
-.forthDiv {
-  width: 100%;
-  height: 717px;
-  position: relative;
-}
-.fifthDiv {
-  width: 100%;
-  height: 838px;
-  position: relative;
+  display: block;
 }
 
-.textBK {
-  width: 230px;
-  height: 18px;
-  left: 296px;
-  top: 354px;
-  position: absolute;
-  background: rgba(253, 204, 156, 1);
-}
-.priceText {
-  width: 212px;
-  height: 92px;
-  left: 302px;
-  top: 288px;
-  position: absolute;
-  text-align: center;
-  font-size: 66px;
-  font-family: PingFangSC-Semibold;
-  font-weight: 600;
-  color: rgba(249, 107, 14, 1);
-  line-height: 92px;
-  -webkit-text-stroke: 2px rgba(249, 107, 14, 1);
-  text-stroke: 2px rgba(249, 107, 14, 1);
-}
-.priceRemark {
-  width: 57px;
-  height: 40px;
-  left: 225px;
-  top: 327px;
-  position: absolute;
-  font-size: 28px;
-  font-family: PingFangSC-Medium;
-  font-weight: 500;
-  color: rgba(134, 61, 36, 1);
-  line-height: 40px;
-}
-
-.sectionTitle {
+.sectionTitleFont {
   font-size: 28px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
-
-.secondSectionTitle {
-  width: 100%;
-  height: 40px;
-  left: 0;
-  top: 396px;
-  position: absolute;
-  text-align: center;
-  line-height: 40px;
-}
-
-.section1Font {
+.firSectionTextFont {
   font-size: 28px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(59, 59, 59, 1);
 }
-
-.thirdSection1Text1 {
-  width: 125px;
-  height: 40px;
-  left: 109px;
-  top: 164px;
-  position: absolute;
-  line-height: 40px;
-  text-align: center;
-}
-.thirdSection1Text2 {
-  width: 114px;
-  height: 40px;
-  left: 318px;
-  top: 164px;
-  position: absolute;
-  line-height: 40px;
-  text-align: center;
-}
-.thirdSection1Text3 {
-  width: 170px;
-  height: 40px;
-  left: 495px;
-  top: 164px;
-  position: absolute;
-  line-height: 40px;
-  text-align: center;
-}
-
-.section2Font {
+.firstSectionRemarkFont {
   font-size: 24px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(118, 118, 118, 1);
 }
-
-.thirdSection2Text1 {
-  width: 98px;
-  height: 33px;
-  left: 123px;
-  top: 219px;
-  position: absolute;
-  line-height: 33px;
-  text-align: center;
-}
-
-.thirdSection2Text2 {
-  width: 98px;
-  height: 33px;
-  left: 326px;
-  top: 219px;
-  position: absolute;
-  line-height: 33px;
-  text-align: center;
-}
-
-.thirdSection2Text3 {
-  width: 98px;
-  height: 33px;
-  left: 531px;
-  top: 219px;
-  position: absolute;
-  line-height: 33px;
-  text-align: center;
-}
-.thirdSectionTitle {
-  width: 100%;
-  height: 40px;
-  left: 0;
-  top: 336px;
-  position: absolute;
-  text-align: center;
-  line-height: 40px;
-}
-
 .recyclingRemarkFont {
   font-size: 28px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(59, 59, 59, 1);
 }
-
 .recyclingMoneyFont {
   font-size: 40px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: #863d24;
 }
-
 .recyclingUnitFont {
   font-size: 28px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: #863d24;
 }
-
-.forthText1 {
+.mainBody {
+  background: linear-gradient(
+    181deg,
+    rgba(255, 234, 202, 1) 0%,
+    rgba(255, 200, 135, 1) 47%,
+    rgba(255, 198, 150, 1) 100%
+  );
+}
+.headerImgDiv {
   width: 100%;
+  height: 800px;
+  position: relative;
+}
+.headerLogoIconDiv {
+  width: 534px;
+  height: 157px;
+  left: 108px;
+  top: 94px;
+  position: absolute;
+}
+
+.sectionCommon {
+  margin-left: 20px;
+  margin-right: 20px;
+  background: linear-gradient(
+    360deg,
+    rgba(253, 231, 197, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  box-shadow: 0px 10px 10px 0px rgba(222, 89, 0, 0.3);
+  border-radius: 10px;
+  position: relative;
+}
+
+.firstSectionDiv {
+  margin-top: -18px;
+  height: 400px;
+}
+.sectionTitleBKDiv {
+  height: 68px;
+  margin-left: 55px;
+  margin-right: 55px;
+}
+.sectionTitle {
+  height: 40px;
+  left: 100px;
+  right: 100px;
+  top: 10px;
+  position: absolute;
+  text-align: center;
+  line-height: 40px;
+}
+.firstSectionIcon {
+  width: 113px;
+  height: 113px;
+  top: 125px;
+  position: absolute;
+}
+.firstSectionIcon1 {
+  left: 95px;
+}
+.firstSectionIcon2 {
+  left: 299px;
+}
+.firstSectionIcon3 {
+  right: 95px;
+}
+.firstSectionLinkIcon {
+  width: 17px;
+  height: 17px;
+  top: 173px;
+  position: absolute;
+}
+.firstSectionLinkIconLeft {
+  left: 243px;
+}
+.firstSectionLinkIconRight {
+  right: 243px;
+}
+
+.firstSectionText1 {
+  width: 129px;
+  height: 40px;
+  left: 87px;
+  top: 258px;
+  position: absolute;
+  line-height: 40px;
+}
+.firstSectionText2 {
+  width: 114px;
+  height: 40px;
+  left: 296px;
+  top: 258px;
+  position: absolute;
+  line-height: 40px;
+}
+.firstSectionText3 {
+  width: 174px;
+  height: 40px;
+  right: 63px;
+  top: 258px;
+  position: absolute;
+  line-height: 40px;
+}
+.firstSectionRemark1 {
+  width: 102px;
+  height: 33px;
+  top: 303px;
+  left: 101px;
+  position: absolute;
+  line-height: 33px;
+}
+.firstSectionRemark2 {
+  width: 102px;
+  height: 33px;
+  top: 303px;
+  left: 304px;
+  position: absolute;
+  line-height: 33px;
+}
+.firstSectionRemark3 {
+  width: 102px;
+  height: 33px;
+  top: 303px;
+  right: 99px;
+  position: absolute;
+  line-height: 33px;
+}
+
+.secondSectionDiv {
+  margin-top: 20px;
+  height: 240px;
+}
+
+.secondSectionText {
+  margin-top: 63px;
   height: 56px;
-  left: 0;
-  top: 30px;
-  position: absolute;
-  text-align: center;
-  line-height: 40px;
+  line-height: 56px;
 }
 
-.forthSectionTitle {
-  width: 100%;
+.thirdSectionDiv {
+  margin-top: 20px;
+  height: 448px;
+}
+
+.thirdSectionIcon1 {
+  width: 161px;
+  height: 157px;
+  left: 101px;
+  top: 113px;
+  position: absolute;
+}
+.thirdSectionIcon2 {
+  width: 178px;
+  height: 150px;
+  right: 107px;
+  top: 127px;
+  position: absolute;
+}
+.thirdSectionArrowIcon {
+  width: 20px;
+  height: 33px;
+  left: 346px;
+  top: 182px;
+  position: absolute;
+}
+.thirdSectionText1 {
+  width: 175px;
   height: 40px;
-  left: 0;
-  top: 177px;
-  position: absolute;
-  line-height: 40px;
-  text-align: center;
-}
-
-.forthSectionText1 {
-  width: 171px;
-  height: 40px;
-  left: 117px;
-  top: 467px;
+  left: 95px;
+  top: 300px;
   position: absolute;
   line-height: 40px;
 }
-
-.forthSectionText2 {
+.thirdSectionText2 {
   width: 205px;
   height: 80px;
-  left: 437px;
-  top: 467px;
+  right: 86px;
+  top: 300px;
   position: absolute;
   line-height: 40px;
 }
-
-.fifthSectionTitle {
-  width: 100%;
-  height: 40px;
-  left: 0;
-  top: 645px;
-  position: absolute;
-  line-height: 40px;
-  text-align: center;
+.fourthSectionDiv {
+  margin-top: 20px;
+  height: 710px;
 }
-.fifthTitle {
-  left: 50px;
-  right: 50px;
-  height: 40px;
-  position: absolute;
-  text-align: left;
+.fourthSectionText{
+  margin-left: 30px;
+  margin-right: 24px;
+  height:40px;
   line-height: 40px;
   font-size: 28px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
-  color: #863d24;
-}
-
-.fifthText {
-  left: 50px;
-  right: 50px;
-  height: 80px;
-  position: absolute;
+  color: rgba(134, 61, 36, 1);
   text-align: left;
+}
+.fourthSectionRemark{
+  margin-left: 30px;
+  margin-right: 24px;
+  margin-top: 1px;
+  height:80px;
+  line-height: 40px;
   font-size: 24px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
-  color: #3b3b3b;
+  color: rgba(59, 59, 59, 1);
+  text-align: left;
 }
-
-.fifthTitle1Top {
-  top: 30px;
+.fourSectionTextTop1{
+  margin-top: 52px;
 }
-
-.fifthText1Top {
-  top: 70px;
+.fourSectionTextTopCommon{
+  margin-top: 30px;
 }
-
-.fifthTitle2Top {
-  top: 180px;
-}
-
-.fifthText2Top {
-  top: 220px;
-}
-
-.fifthTitle3Top {
-  top: 330px;
-}
-
-.fifthText3Top {
-  top: 370px;
-}
-
-.fifthTitle4Top {
-  top: 480px;
-}
-
-.fifthText4Top {
-  top: 520px;
+.bottomPrompt {
+  margin-top: 30px;
+  padding-bottom: 147px;
+  height: 33px;
+  font-size: 24px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(134, 61, 36, 1);
+  line-height: 33px;
 }
 
 .interpretationText {
