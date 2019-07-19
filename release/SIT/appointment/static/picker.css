@@ -1,0 +1,18 @@
+/* <div class="picker-toolbar"><span class="mint-datetime-action mint-datetime-cancel">取消</span> <span class="mint-datetime-action mint-datetime-confirm">确定</span></div> */
+.picker-toolbar{
+    height: 50px !important;
+}
+.mint-datetime-action {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 14px;
+    color: #26a2ff;
+}
+.picker-slot {
+    font-size: 14px;
+    overflow: hidden;
+    position: relative;
+    max-height: 100%;
+}

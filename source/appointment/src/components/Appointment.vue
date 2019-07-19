@@ -25,7 +25,7 @@
     </div>
     <div class="nameInputDiv">
       <span class="leftItem titleFont">你的姓名</span>
-      <mt-field class="textFont nameIuputClass" placeholder="请输入您的姓名" v-model="username"></mt-field>
+      <input class="textFont nameIuputClass" maxlength="10" autocomplete="off" placeholder="请输入您的姓名" v-model="username"></input>
     </div>
     <div class="submitBtn" @click="submitAction">完成</div>
     <mt-datetime-picker
@@ -359,7 +359,7 @@ export default {
 }
 
 .nameIuputClass {
-  width: 200px;
+  width: 400px;
   height: 100px;
   margin-right: 30px;
   text-align: right;
@@ -371,7 +371,7 @@ export default {
   right: 40px;
   bottom: 30px;
   height: 88px;
-  position: fixed;
+  position: absolute;
   background: rgba(248, 127, 58, 1);
   border-radius: 10px;
   font-size: 32px;
