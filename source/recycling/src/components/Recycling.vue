@@ -39,7 +39,7 @@
         <p class="processTitle processTitle3Left">等待回收奖励</p>
         <p class="processRemark1 processRemarkFont">线下服务网点回收电池和中控</p>
         <p class="processRemark2 processRemarkFont">e换电APP申请回收拿奖励</p>
-        <p class="processRemark3 processRemarkFont">1-2个工作日奖励到账</p>
+        <p class="processRemark3 processRemarkFont">1-7个工作日奖励到账</p>
       </div>
       <p class="sectionTitle sectionTop sectionTitleFont">当前回收奖励</p>
       <div class="recyclingCommodityDiv">
@@ -78,7 +78,6 @@
         <p class="footerRecyclingText">马上回收 ></p>
         <p class="footerRecyclingRemark">最终回收奖励以实际到账为准</p>
       </div>
-      <div class="footerLine"></div>
     </div>
     <div class="toastMask" v-if="refundFlag">
       <div class="toastBK">
@@ -656,16 +655,6 @@ img {
   font-weight: 400;
   color: rgba(255, 255, 255, 0.5);
   line-height: 28px;
-}
-
-.footerLine {
-  width: 268px;
-  height: 10px;
-  left: 241px;
-  bottom: 18px;
-  position: absolute;
-  background: rgba(0, 0, 0, 1);
-  border-radius: 5px;
 }
 
 .toastMask {
