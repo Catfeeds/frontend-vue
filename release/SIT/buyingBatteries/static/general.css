@@ -12,6 +12,7 @@
 html,
 body {
 	overflow: auto;
+	height: 100%;
 	-webkit-overflow-scrolling: touch;
 }
 

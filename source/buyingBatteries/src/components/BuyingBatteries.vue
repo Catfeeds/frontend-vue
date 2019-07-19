@@ -4,7 +4,7 @@
       <div class="batteriesDiv">
         <div class="batteryDiv" v-for="(item, index) in batteryList" @click="selectPackage(index)">
           <div class="imgDiv">
-            <img class="imgClass" src="../assets/battery.png" />
+            <img src="../assets/battery.png" />
           </div>
           <div class="rightBatteryDiv">
             <p class="batteryName">{{item.name}}</p>
@@ -16,20 +16,20 @@
             </p>
           </div>
           <div class="selectDiv" v-if="index==selectIndex">
-            <img class="imgClass" src="../assets/batterySelect.png" />
+            <img src="../assets/batterySelect.png" />
           </div>
         </div>
       </div>
       <div class="coupuSelectDiv">
         <div class="discountImgDiv">
-          <img class="imgClass" src="../assets/discount.png" />
+          <img src="../assets/discount.png" />
         </div>
         <p class="couponContent" @click="couponToastAction">
           <span class="couponRemarkFont">套餐优惠券</span>
           <span v-bind:class="couponContentClass">{{couponPrompt}}</span>
         </p>
         <div class="arrowImgDiv">
-          <img class="imgClass" src="../assets/arrow.png" />
+          <img src="../assets/arrow.png" />
         </div>
       </div>
       <div class="segmentationDiv"></div>
@@ -41,24 +41,26 @@
         <div class="paySelectDiv">
           <div class="payTypeSelectDiv">
             <div class="payTypeImgDiv">
-              <img class="imgClass" src="../assets/wechat.png" />
+              <img src="../assets/alipay.png" />
             </div>
-            <p class="payTypeText">微信支付</p>
-            <div class="payTypeSelect" @click="selectWechatAction">
-              <img class="imgClass" :src="wechatPaySelectSrc" />
+            <p class="payTypeText">支付宝支付（支持花呗）</p>
+            <div class="payTypeSelect" @click="selectAlipayAction">
+              <img  :src="alipaySelectSrc" />
             </div>
           </div>
           <div class="payTypeSelectDiv">
             <div class="payTypeImgDiv">
-              <img class="imgClass" src="../assets/alipay.png" />
+              <img src="../assets/wechat.png" />
             </div>
-            <p class="payTypeText">支付宝支付（支持花呗）</p>
-            <div class="payTypeSelect" @click="selectAlipayAction">
-              <img class="imgClass" :src="alipaySelectSrc" />
+            <p class="payTypeText">微信支付</p>
+            <div class="payTypeSelect" @click="selectWechatAction">
+              <img :src="wechatPaySelectSrc" />
             </div>
           </div>
         </div>
-        <div class="bottomPayDiv">
+      </div>
+      <div class="bottomPayDiv">
+        <div class="bottomDiv">
           <div class="protocolSelectImgDiv" @click="checkProtocolAction">
             <img class="imgClass" :src="protocolSelectImgSrc" />
           </div>
@@ -91,7 +93,7 @@
           <div class="line"></div>
           <div class="couponList">
             <div v-for="item in couponList" class="couponItem">
-              <img class="imgClass" src="../assets/couponBK.png" />
+              <img src="../assets/couponBK.png" />
               <p class="couponItemAmount">
                 <span class="couponUnitFont" v-if="item.discountType==1">¥</span>
                 <span class="couponAmountFont" v-if="item.discountType==1">{{item.amount}}</span>
@@ -196,7 +198,7 @@ export default {
         param += "d";
       }
       param += "&pid=" + this.batteryList[this.selectIndex].id;
-      param += "&rid="
+      param += "&rid=";
       if (this.selectCouponId.length > 0) {
         param += this.selectCouponId;
       }
@@ -346,9 +348,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-body {
-  height: 100%;
-}
 a {
   text-decoration: none;
 }
@@ -365,13 +364,15 @@ a:focus {
   background: none;
   text-decoration: none;
 }
-.imgClass {
+img{
   width: 100%;
   height: 100%;
   display: block;
 }
+
 .mainBK {
   width: 100%;
+  padding: 1px;
 }
 .batteriesDiv {
   padding: 20px;
@@ -593,11 +594,17 @@ a:focus {
 .bottomPayDiv {
   width: 100%;
   height: 200px;
-  bottom: 0;
+  bottom: 1px;
   left: 0;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.08);
-  position: fixed;
+  position: absolute;
+}
+.bottomDiv {
+  width: 100%;
+  height: 200px;
+  padding: 1px;
+  position: relative;
 }
 .protocolSelectImgDiv {
   width: 34px;
