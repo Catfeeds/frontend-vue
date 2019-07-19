@@ -694,7 +694,7 @@ export default {
   height: 602px;
   position: absolute;
   left: 0;
-  top: 167px;
+  top: 147px;
 }
 
 .beignLuckyDrawBtn {
@@ -708,7 +708,7 @@ export default {
 .prizeBK {
   margin-left: 34px;
   margin-right: 34px;
-  margin-top: -36px;
+  margin-top: -56px;
   background: linear-gradient(
     181deg,
     rgba(169, 41, 159, 1) 0%,
