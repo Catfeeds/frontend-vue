@@ -27,7 +27,7 @@
       <span class="leftItem titleFont">你的姓名</span>
       <input class="textFont nameIuputClass" maxlength="10" autocomplete="off" placeholder="请输入您的姓名" v-model="username"></input>
     </div>
-    <div class="submitBtn" @click="submitAction">完成</div>
+    <div class="submitBtn"  v-show="hidshow" @click="submitAction">完成</div>
     <mt-datetime-picker
       ref="picker"
       v-model="pickerValue"
@@ -76,8 +76,20 @@ export default {
       startDate: new Date(),
       siteId: "",
       siteName: "宝安车行",
-      toastShow: false
+      toastShow: false,
+      docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
+      showHeight: document.documentElement.clientHeight,   //实时屏幕高度
+      hidshow:true  //显示或者隐藏footer
     };
+  },
+  watch: {
+    showHeight:function() {
+        if(this.docmHeight > this.showHeight){
+            this.hidshow=false
+        }else{
+            this.hidshow=true
+        }
+    }
   },
   methods: {
     selectTimeAction: function(index) {
@@ -220,6 +232,12 @@ export default {
         token = token.substr(0, token.indexOf("&"));
         this.userToken = "bearer " + token;
       }
+    }
+    var vueThis = this;
+    window.onresize = ()=>{
+        return(()=>{
+            vueThis.showHeight = document.body.clientHeight;
+        })()
     }
   }
 };
@@ -364,6 +382,9 @@ export default {
   margin-right: 30px;
   text-align: right;
   line-height: 100px;
+  background-color: transparent;
+	border: 0;
+	-webkit-tap-highlight-color:rgba(255,0,0,0);
 }
 
 .submitBtn {
