@@ -193,6 +193,9 @@ input,
 textarea {
     text-shadow: 0px 0px 0px #000;
     -webkit-text-fill-color: transparent;
+    caret-color: #333;
+    resize: none;
+    font-size: 12px;
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder{
@@ -249,6 +252,7 @@ textarea::-webkit-input-placeholder{
   background: rgba(247, 247, 247, 1);
   border:none;
   -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+  line-height: 16px;
 }
 
 .textFontClass {
