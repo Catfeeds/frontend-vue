@@ -17,8 +17,7 @@
       ></textarea>
       <div class="lineClass"></div>
     </div>
-    <div class="bottom"></div>
-    <div class="submitButton" v-show="hidshow" @click="submitQuestionnaire()">提交</div>
+    <div class="submitButton" @click="submitQuestionnaire()">提交</div>
   </div>
 </template>
 
@@ -28,20 +27,8 @@ export default {
   data() {
     return {
       userToken: "",
-      docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
-      showHeight: document.documentElement.clientHeight,   //实时屏幕高度
-      hidshow: true,
       data: []
     };
-  },
-  watch: {
-    showHeight:function() {
-        if(this.docmHeight > this.showHeight){
-            this.hidshow=false
-        }else{
-            this.hidshow=true
-        }
-    }
   },
   methods: {
     fetchData: function() {
@@ -193,13 +180,6 @@ export default {
         this.fetchData();
       }
     }
-
-    var vueThis = this;
-    window.onresize = ()=>{
-        return(()=>{
-            vueThis.showHeight = document.body.clientHeight;
-        })()
-    }
   }
 };
 </script>
@@ -250,18 +230,11 @@ textarea::-webkit-input-placeholder{
   background: rgba(235, 235, 235, 1);
 }
 
-.bottom{
-  height: 100px;
-}
-
 .submitButton {
-  position: fixed;
-  left: 10px;
-  right: 10px;
-  bottom: 40px;
+  margin: 30px 15px 15px 15px;
   height: 50px;
   background: rgba(252, 145, 83, 1);
-  border-radius: 2px;
+  border-radius: 5px;
   font-size: 16px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
