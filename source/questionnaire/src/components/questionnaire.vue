@@ -3,21 +3,22 @@
     <div v-for="item in data">
       <div class="rowDiv">
         <span class="rowTitle">{{item.cause}}</span>
-        <img src="../assets/normal.png" class="rowImg" @click="checkQuest(item, $event)" />
+        <img :id="item.id" src="../assets/normal.png" class="rowImg" @click="checkQuest(item, $event)" />
       </div>
       <textarea
         type="text"
-        maxlength="50"
+        maxlength="200"
         autocomplete="off"
         v-if="item.levelCause"
         class="textAreaClass textFontClass"
-        placeholder="请输入"
+        :placeholder="item.placeholder"
         v-model="item.extension"
+        @input="descInput(item)"
       ></textarea>
       <div class="lineClass"></div>
     </div>
     <div class="bottom"></div>
-    <div class="submitButton" @click="submitQuestionnaire()">提交</div>
+    <div class="submitButton" v-show="hidshow" @click="submitQuestionnaire()">提交</div>
   </div>
 </template>
 
@@ -27,8 +28,20 @@ export default {
   data() {
     return {
       userToken: "",
+      docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
+      showHeight: document.documentElement.clientHeight,   //实时屏幕高度
+      hidshow: true,
       data: []
     };
+  },
+  watch: {
+    showHeight:function() {
+        if(this.docmHeight > this.showHeight){
+            this.hidshow=false
+        }else{
+            this.hidshow=true
+        }
+    }
   },
   methods: {
     fetchData: function() {
@@ -50,6 +63,13 @@ export default {
               if(el.levelCause && el.levelCause.length > 0){
                 el.extension = "";
               }
+              el.placeholder = "请输入内容";
+              if(el.desc == "其他"){
+                el.placeholder = "请输入原因和建议，我们将为您不断改进！";
+              }
+              else if(el.desc == "改换其他公司产品" ){
+                el.placeholder = "请填写产品名称";
+              }
             });
             vueThis.data = result.data.pageData;
           } else {
@@ -64,10 +84,17 @@ export default {
     },
     checkQuest: function(item, event) {
       item.checked = !item.checked;
-      var imgSrc = item.checked
+      let imgSrc= item.checked
         ? require("../assets/select.png")
         : require("../assets/normal.png");
       event.target.src = imgSrc;
+    },
+    descInput: function(item){
+      if(item.extension.length > 0){
+        item.checked = true;
+        let imgSrc= require("../assets/select.png");
+        document.getElementById(item.id).src = imgSrc;
+      }
     },
     submitQuestionnaire: function() {
       var selectIds = [];
@@ -166,12 +193,32 @@ export default {
         this.fetchData();
       }
     }
+
+    var vueThis = this;
+    window.onresize = ()=>{
+        return(()=>{
+            vueThis.showHeight = document.body.clientHeight;
+        })()
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+input:focus, textarea:focus {
+    outline: none;
+}
+input,
+textarea {
+    text-shadow: 0px 0px 0px #000;
+    -webkit-text-fill-color: transparent;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder{
+    text-shadow: none;
+    -webkit-text-fill-color: initial;
+}
 .rowDiv {
   height: 60px;
   padding: 0 18px;
@@ -227,7 +274,7 @@ export default {
   width: 90%;
   height: 45px;
   background: rgba(247, 247, 247, 1);
-  border: 0;
+  border:none;
   -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 }
 
