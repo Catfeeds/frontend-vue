@@ -6,10 +6,11 @@
         <img :id="item.id" src="../assets/normal.png" class="rowImg" @click="checkQuest(item, $event)" />
       </div>
       <textarea
+        :id="item.textId"
         type="text"
         maxlength="200"
         autocomplete="off"
-        v-if="item.levelCause"
+        v-show="item.checked"
         class="textAreaClass textFontClass"
         :placeholder="item.placeholder"
         v-model="item.extension"
@@ -47,6 +48,7 @@ export default {
             vueThis.data = result.data.pageData;
             result.data.pageData.forEach(function(el) {
               el.checked = false;
+              el.textId = "text" + el.id;
               if(el.levelCause && el.levelCause.length > 0){
                 el.extension = "";
               }
@@ -71,6 +73,12 @@ export default {
     },
     checkQuest: function(item, event) {
       item.checked = !item.checked;
+      if(item.checked && item.levelCause){
+        document.getElementById(item.textId).style.display = "";
+      }
+      else{
+        document.getElementById(item.textId).style.display = "none";
+      }
       let imgSrc= item.checked
         ? require("../assets/select.png")
         : require("../assets/normal.png");
