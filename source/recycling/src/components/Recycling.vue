@@ -88,9 +88,9 @@
           <img src="../assets/failure.png">
         </div>
         <p class="toastSuccessPrompt">
-          <span class="promptTextFont" v-if="refundFlag==1" >您的电池中控回收已经受理。金额：</span>
+          <span class="promptTextFont" v-if="refundFlag==1" >您的{{recyclingText}}回收已经受理。回收奖励金额：</span>
           <span class="promptAmountFont" v-if="refundFlag==1">{{recyclingAmount}}元</span>
-          <span class="promptTextFont" v-if="refundFlag==1">，预计3个工作日到账</span>
+          <span class="promptTextFont" v-if="refundFlag==1">，预计7个工作日到账</span>
           <span class="promptTextFont"  v-if="refundFlag==2">请把电池和中控带到附近的电池退还站点，再进行回收！</span>
         </p>
         <div class="toastBtn toastBtnTextFont" v-if="refundFlag==1" @click="confirmAction">确定</div>
@@ -111,6 +111,7 @@ export default {
   data() {
     return {
       recyclingAmount: 0,
+      recyclingText: '',
       depositId: "",
       scooterId: "",
       topRecyclingPrice: "",
@@ -163,6 +164,18 @@ export default {
           var result = resp.data;
           if (result.code == 600) {
             vueThis.refundFlag = 1;
+            vueThis.recyclingText = "";
+            if(vueThis.batteryChecked){
+              vueThis.recyclingText = "电池";
+            }
+            if(vueThis.scooterChecked){
+              if(vueThis.recyclingText.length == 0){
+                vueThis.recyclingText = "中控";
+              }
+              else{
+                vueThis.recyclingText += "和中控"; 
+              }
+            }
           } else {
             vueThis.refundFlag = 2;
           }
