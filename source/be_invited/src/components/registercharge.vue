@@ -30,13 +30,13 @@
             <div class="g_verification v relative">
               <input type="text" placeholder="验证码" maxlength="6" onkeyup="value=value.replace(/[^\d]/g ,'')" v-model="verification_code"/> 
               <div class="g_width absolute"></div>
-              <a class="btn absolute"><img src="../assets/images/code@2x.png" alt="" @click="btn()" v-if="btn_img"><span v-if="!btn_img">{{timeLeft}}s后获取</span></a>
+              <a class="btn absolute"><span @click="btn()" v-if="btn_img">获取验证码</span><span v-if="!btn_img">{{timeLeft}}s后获取</span></a>
             </div>
             <div class="g_city v">
               <!-- <input type="text" placeholder="所在城市" v-model="userCity"/>  -->
               <!-- <a class="btn">获取验证码</a> -->
               <van-cell-group>
-                  <van-cell v-model="citymodel" :title="title" value="" @click="show = true"></van-cell>
+                  <van-cell v-model="citymodel" :title="title" value="" @click="show = true" ></van-cell>
                   <van-popup v-model="show" position="bottom">
                       <van-area
                       ref="area"
@@ -44,7 +44,7 @@
                       :area-list="areaList"
                       :columns-num="2"
                       @change="onChange"
-                      @confirm="show = false"
+                      @confirm="onConfirm"
                       @cancel="show = false"
                       />
                   </van-popup>
@@ -85,7 +85,7 @@
 
 <script>
 import $ from 'jquery'
-import { Cell, CellGroup, Popup, Field,  Area, Picker } from 'vant'
+import { Cell, CellGroup, Popup, Field,  Area, Picker, Dialog  } from 'vant'
 import AddressInfo from "../assets/js/area.js";
 export default {
   name: "registercharge",
@@ -134,8 +134,8 @@ export default {
       btn_class:$(".btn"),
       userCity:'',
       // show:false
-      data_city:'https://test.ehuandian.net/server/promotion/app//userCity',//测试环境
-      // data_city:'https://promotion.ehuandian.net/',//正式环境
+      // data_city:'https://test.ehuandian.net/server/promotion/app//userCity',//促销测试环境
+      // data_city:'https://promotion.ehuandian.net/server/promotion/app//userCity',//促销正式环境
       show: false,
       citymodel: '',
       areaList:AddressInfo,
@@ -143,7 +143,6 @@ export default {
     };
   },
   created(){
-    // console.log(AddressInfo)
   },
   mounted(){
     // console.log($)
@@ -152,19 +151,37 @@ export default {
         }
   },
   methods:{
+    onConfirm: function (value, index) {
+      this.show = false
+      let areaName = ''
+      for (var i = 0; i < value.length; i++) {
+        // console.log(value[i])
+        areaName = areaName + value[i].name + ' '
+        // areacode = areacode + value[i].code + ' '
+      }
+      // console.log(areacode)
+      this.citymodel = areaName
+      this.title = ''
+    },
      onChange (picker, value, index) {
-                  // console.log('当前值：' + value + '当前索引：' + index)
         let areaName = ''
         for (var i = 0; i < value.length; i++) {
+          // console.log(value[i])
           areaName = areaName + value[i].name + ' '
+          // areacode = areacode + value[i].code + ' '
         }
+        // console.log(areacode)
         this.citymodel = areaName
         this.title='';
     },
     btn(){
       var _this = this;
       if (!_this.userPhone) {
-          alert('请输入手机号')
+            Dialog.alert({
+            message: '请输入手机号'
+              }).then(() => {
+                // on close
+            });
           return;
         }else{
           _this.axios({
@@ -176,13 +193,21 @@ export default {
           }).then(res=>{
             var code = res.data.code
             if (code == 600) {
-							alert('短信已发送，请注意查收')
+              Dialog.alert({
+                  message: '短信已发送，请注意查收'
+                }).then(() => {
+                  // on close
+              });
 							_this.timeLeft = 60
 							_this.timeCount();
 							_this.isBtnLoading = true;
 						}else {
 							var errorMsg = '获取验证码失败'
-							alert(errorMsg)
+              Dialog.alert({
+                  message: errorMsg
+                }).then(() => {
+                  // on close
+              });
 							// 恢复btn点击事件
 							 _this.btn_class.removeAttr('disabled')
 						}
@@ -214,20 +239,33 @@ export default {
       if(r!=null)return  unescape(r[2]); return null;
     },
     joinInESwap() {
-			window.location.href="http://download.immotor.com/app/downloads/ehuandian";
+      window.location.href="http://120.76.73.137:86/be_invited_1/index.html#/";//正式环境
+      // window.location.href="https://test.ehuandian.net/immotor/h5vue/be_invited_1/index.html#/";//测试环境
 		},
     buttonAward(){
       var _this = this;
       if (!_this.userPhone) {
-        alert('请输入手机号')
+        Dialog.alert({
+          message: '请输入手机号'
+        }).then(() => {
+          // on close
+        });
         return;
       }
       if (!_this.verification_code) {
-        alert('请输入验证码')
+         Dialog.alert({
+          message: '请输入验证码'
+        }).then(() => {
+          // on close
+        });
         return;
       }
       if (!_this.citymodel) {
-        alert('请输入城市')
+         Dialog.alert({
+          message: '请输入城市'
+        }).then(() => {
+          // on close
+        });
         return;
       }
       var regActId = _this.getQueryURLParam('regActId');
@@ -252,7 +290,7 @@ export default {
             // alert("加入e换电成功");
           _this.axios({
           method:"post",
-          url:_this.data_city,
+          url:_this.$yApi.postacquireCity,
           data:{
             phone:_this.userPhone,
             cityName:_this.citymodel
@@ -261,27 +299,54 @@ export default {
             var data = res.data.resultCode
             if(!data===1){
               return false;
+            }else{
+            Dialog.alert({
+                message: '注册成功'
+              }).then(() => {
+                // on close
+              _this.joinInESwap();
+              });
             }
           },err=>{
             console.log(err)
           })
-						joinInESwap();
+
 					}
 					else if (data.code == 644) {
-						alert("该用户已注册，不能参与本次活动");
+             Dialog.alert({
+                message: '该用户已注册，不能参与本次活动'
+              }).then(() => {
+                // on close
+              });
 					}
 					else if (data.code == 615) {
-						alert("输入的验证码不正确");
+             Dialog.alert({
+                message: '输入的验证码不正确'
+              }).then(() => {
+                // on close
+              });
 					}
 					else if (data.code == 638) {
-						alert("请确认您的手机号是否正确");
+             Dialog.alert({
+                message: '请确认您的手机号是否正确'
+              }).then(() => {
+                // on close
+              });
 					}
 					else{
-						alert("注册失败，如需要请拨打客服热线：0755-27787220");
+             Dialog.alert({
+                message: '注册失败，如需要请拨打客服热线：0755-27787220'
+              }).then(() => {
+                // on close
+              });
 					}
       },err=>{
+        Dialog.alert({
+            message: '注册失败，请检查您的网络是否连接'
+          }).then(() => {
+            // on close
+        });
         
-        alert("注册失败，请检查您的网络是否连接");
       })
     },
     g_regulation(){

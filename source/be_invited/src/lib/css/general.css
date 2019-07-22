@@ -63,3 +63,27 @@ em {
 .van-picker__confirm{
 	font-size: 16px!important;
 }
+.van-picker__toolbar{
+	height: 30px!important;
+}
+.van-picker__toolbar .van-picker__cancel{
+	padding: 5px!important;
+	padding-left: 15px!important;
+}
+.van-picker__toolbar .van-picker__confirm{
+	padding: 5px!important;
+	padding-right: 15px!important;
+}
+.van-dialog{
+	/* height: 120px!important; */
+	width: 70%!important;
+  }
+.van-dialog__message{
+	font-size: 16px!important;
+}
+.van-button__text{
+	font-size: 16px!important;
+}
+.van-button--large{
+	height: 50px!important;
+}

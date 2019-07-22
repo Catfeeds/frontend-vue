@@ -16,9 +16,9 @@
           <li class="g_interval">您的好友将获得20元优惠券+5天免费换电</li>
         </ul>
         <ul class="charge_ul">
-          <li class="g_separation g_separation_1">最高可获得</li>
-          <li class="g_gap g_gap_1">1年免费换电</li>
-          <li class="g_interval g_interval_1">可叠加获取使用</li>
+          <li class="g_separation_1">最高可获得</li>
+          <li class="g_gap_1">1年免费换电</li>
+          <li class="g_interval_1">可叠加获取使用</li>
         </ul>
       </div>
       <div class="inviter_flow relative">
@@ -51,45 +51,82 @@
       </div>
       <div class="g_invite_my invite_announcement relative" v-if="flos">
         <img class="absolute" src="../assets/images/pk@2x.png" alt="">
-        <div class="invite_my absolute">
-          <img src="../assets/images/my invite@2x.png" alt="">
-          <img class="invite_ranking" src="../assets/images/Invitation ranking@2x.png" alt="">
+        <div class="invite_my absolute" v-for="(item,index) in invite_show" :key="index">
+          <span class="g_my_invite01 r_s">{{item.my}}</span>
+          <span class="g_my_invite01 invite_ranking s_r" @click="btns(index)">{{item.ranking}}</span>
+        </div>
+        <!-- <div class="invite_my invite_ranking absolute">
+        </div> -->
+      </div>
+       <div class="g_invite_my invite_announcement relative" v-if="flos_seniority">
+        <img class="absolute" src="../assets/images/pk@2x.png" alt="">
+        <div class="invite_my absolute" v-for="(item,index) in invite_show" :key="index">
+          <span class="g_my_invite01 s_r" @click="g_btns()">{{item.my}}</span>
+          <span class="g_my_invite01 invite_ranking r_s" @click="btns(index)">{{item.ranking}}</span>
         </div>
         <!-- <div class="invite_my invite_ranking absolute">
         </div> -->
       </div>
 
       <div class="g_invite_my relative g_invite" v-if="g_flos">
-        <img class="absolute" src="../assets/images/pk@2x(1).png" alt="">
-        <div class="invite_my absolute">
-          <img src="../assets/images/my invite@2x.png" alt="">
-          <img class="invite_ranking" src="../assets/images/Invitation ranking@2x.png" alt="" @click="btns()">
+        <img class="absolute" src="../assets/images/pk@2x(3).png" alt="">
+        <div class="invite_my absolute" v-for="(item,index) in invite_show" :key="index">
+          <span class="g_my_invite01 r_s">{{item.my}}</span>
+          <span class="g_my_invite01 invite_ranking s_r" @click="btns()">{{item.ranking}}</span>
         </div>
         <!-- <div class="invite_my invite_ranking absolute">
         </div> -->
+        <div class="table_data absolute">
+           <table border="1" width="100%" style="border-collapse: collapse;" bordercolor="#FFE4C0">
+              <tr>
+                <th class="list_arrange_1">序号</th>
+                <th class="list_arrange_2">手机号</th>
+                <th class="list_arrange_3">状态</th>
+              </tr>
+           </table>
+        </div>
         <div class="list_arrange absolute">
-          <ul v-for="(item,index) in my_arrange" :key="index">
-            <li class="list_arrange_1">{{index+1}}</li>
-            <li class="list_arrange_2">{{item.phone}}</li>
-            <li class="list_arrange_3">{{item.statusZH}} <span><img :src="contact_img" alt="" v-if="item.status ===0? true:false" @click="callPhone(item.phone)"></span></li>
-          </ul>
+          <table border="1" width="100%" style="border-collapse: collapse;" bordercolor="#FFE4C0">
+            <tbody>
+              <tr v-for="(item,index) in my_arrange" :key="index">
+                <td class="list_arrange_1">{{index+1}}</td>
+                <td class="list_arrange_2">{{item.phone}}</td>
+                <td class="list_arrange_3">{{item.statusZH}} <span><img :src="contact_img" alt="" v-if="item.status ===0? true:false" @click="callPhone(item.phone)"></span></td>
+              </tr>
+            </tbody>
+            
+          </table>
+          
         </div>
       </div>
 
        <div class="g_invite_my relative seniority" v-if="g_seniority">
-        <img class="absolute" src="../assets/images/pk@2x(2).png" alt="">
-        <div class="invite_my absolute">
-          <img src="../assets/images/my invite@2x.png" alt="" @click="g_btns()">
-          <img class="invite_ranking" src="../assets/images/Invitation ranking@2x.png" alt="">
+        <img class="absolute" src="../assets/images/pk@2x(3).png" alt="">
+        <div class="invite_my absolute" v-for="(item,index) in invite_show" :key="index">
+          <span class="g_my_invite01" @click="g_btns()">{{item.my}}</span>
+          <span class="g_my_invite01 invite_ranking r_s" @click="btns()">{{item.ranking}}</span>
         </div>
         <!-- <div class="invite_my invite_ranking absolute">
         </div> -->
+        <div class="table_data absolute">
+           <table border="1" width="100%" style="border-collapse: collapse;" bordercolor="#FFE4C0">
+              <tr>
+                <th class="list_arrange_1">序号</th>
+                <th class="list_arrange_2">手机号</th>
+                <th class="list_arrange_3">邀请成功人数</th>
+              </tr>
+           </table>
+        </div>
         <div class="list_arrange absolute">
-          <ul v-for="(item,index) in seniority_data" :key="index">
-            <li class="list_arrange_1">{{index+1}}</li>
-            <li class="list_arrange_2">{{item.phone}}</li>
-            <li class="list_arrange_3">{{item.inviteeNum}}</li>
-          </ul>
+          <table border="1" width="100%" style="border-collapse: collapse;" bordercolor="#FFE4C0">
+            <tbody>
+              <tr v-for="(item,index) in seniority_data" :key="index">
+                <td class="list_arrange_1">{{index+1}}</td>
+                <td class="list_arrange_2">{{item.phone}}</td>
+                <td class="list_arrange_3">{{item.inviteeNum}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <div class="immediately_invitation immediately_invitation_1">
@@ -102,6 +139,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 export default {
   name: "inviter",
   data() {
@@ -127,30 +165,58 @@ export default {
       flos:true,
       g_seniority:false,
       g_flos:false,
+      flos_seniority:false,
       pageIndex:1,
-      pageSize:1000
+      pageSize:1000,
+      invite_show:[
+        {
+          my:'我的邀请',
+          ranking:'邀请排行'
+        }
+      ]
 
     };
   },
   created(){
-      let name,value,str=location.href,num=str.indexOf("?"); //取得整个地址栏
+      // let name,value,str=location.href,num=str.indexOf("?"); //取得整个地址栏
+      // str=str.substr(num+1); //取得所有参数 stringvar.substr(start [, length ]
+      // let arr=str.split("&"); //各个参数放到数组里
+      // // console.log(arr)
+      // this.invActId = arr[1];
+      // for(let i=0;i < arr.length;i++){
+      //     num=arr[i].indexOf("=");
+      //     if(num>0){
+      //     name=arr[i].substring(0,num);
+      //     value=arr[i].substr(num+1);
+      //     this[name]=value;
+      //     }
+      // }
+    let name,value,str=location.href,num=str.indexOf("?"); //取得整个地址栏
       str=str.substr(num+1); //取得所有参数 stringvar.substr(start [, length ]
-      let arr=str.split("&"); //各个参数放到数组里
-      // console.log(arr)
-      this.invActId = arr[0];
-      for(let i=0;i < arr.length;i++){
-          num=arr[i].indexOf("=");
-          if(num>0){
-          name=arr[i].substring(0,num);
-          value=arr[i].substr(num+1);
-          this[name]=value;
-          }
-      }
+      let arr=str.split("?"); //各个参数放到数组里
+      let arr_s=arr[0].split("&"); //各个参数放到数组里
+      this.invActId = arr_s[0];
+    //   for(let i=0;i < arr.length;i++){
+    //       num=arr[i].indexOf("=");
+    //       if(num>0){
+    //       name=arr[i].substring(0,num);
+    //       value=arr[i].substr(num+1);
+    //       this[name]=value;
+    //       }
+    // }
   },
   mounted() {
-   
+    //获取id
+    // if(this.getUrlParam("lotteryID")){
+    //   this.invActId = this.getUrlParam("lotteryID");
+    // }{
+    //   this.invActId = 'lotteryID=5d2fd94d848dea0001234271';
+    // }
     //获取token
     var token = this.getUrlParam("token");
+    // this.reward();
+    // this.invitelist();
+    // this.toptenreviews();
     if (token && token.length > 0) {
       this.userToken = "bearer " + token;
 
@@ -215,7 +281,7 @@ export default {
     },
       reward(){
         var _this = this;
-        // _this.userToken = 'bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwaG9uZSI6IjE4NjM5MjkxNTg1IiwidUlEIjoyNiwidGltZSI6MTU2MTYwNDA2NjEyM30.x5AyEmjh2V08fRn0uySpA7BTkEzleOJGFxguqdXQ6t8';
+        // _this.userToken = 'bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwaG9uZSI6IjE4MTM4ODE5NDk1IiwidUlEIjoxMSwidGltZSI6MTU2MzU5Njk1MjYwNn0.dTHfl-EB4Yh3nZWT40UCwyON_e7MoUcfFV4YPQ-f4uU';
         _this.axios({
          method:"get",
         //  url:_this.$yApi.gainMyReward +'?'+ _this.invActId,
@@ -251,6 +317,9 @@ export default {
           // console.log(res)
           _this.my_arrange = res.data.data.pageData;
           // console.log(_this.my_arrange.length)
+          // if(_this.my_arrange.length<5){
+          //   $('.list_arrange tr').append('')
+          // }
           if(_this.my_arrange.length===0){
             _this.flos=true;
             _this.g_flos=false;
@@ -258,6 +327,7 @@ export default {
             _this.g_flos=true;
             _this.flos=false;
           }
+
         }).catch(err=>{
           console.log('Error',error.messgae)
         })
@@ -272,19 +342,36 @@ export default {
             Authorization: _this.userToken
           }
         }).then(res=>{
-          // console.log(res)
+          console.log(res)
         _this.seniority_data = res.data.data;
         }).catch(err=>{
           console.log('Error',error.messgae)
         })
       },
       btns(){
-        this.g_seniority=true;
-        this.g_flos=false;
+        if(this.seniority_data.length ===0){
+          this.flos_seniority =true
+          this.flos=false;
+          this.g_flos=false;
+        }else{
+          this.g_seniority=true;
+          this.flos=false;
+          this.g_flos=false;
+        }
+       
       },
       g_btns(){
-        this.g_seniority=false;
-        this.g_flos=true;
+        if(this.my_arrange.length===0){
+          this.flos_seniority =false
+          this.flos=true;
+          this.g_seniority=false;
+        }else{
+          this.g_flos=true;
+          this.g_seniority=false;
+        }
+        // console.log(index)
+       
+       
       },
       immediatelyinvited(){
         window.location.href="IMMOTOR://shareAction";
@@ -301,6 +388,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to _this component only -->
 <style scoped>
+.s_r{
+  color:#F8A136FF!important;
+}
+.r_s{
+  background-color: #F8A136FF!important;
+  color: #413A3A!important;
+}
 .inviter {
   height: 3182px;
   overflow: hidden;
@@ -347,22 +441,33 @@ img{
 }
 .charge .g_separation{
   margin-top: 13px;
-  font-size: 21px;
+  height:21px;
+  font-size:21px;
+  font-family:SourceHanSansCN-Regular;
+  font-weight:400;
+  color:rgba(254,254,254,1);
   margin-left: 17px;
-  color: #fefefeff;
-  opacity: 0.8;
+  line-height:32px;
 }
 .charge .g_gap{
-  margin-top: 12px;
-  font-size: 42px;
-  color: #fefefeff;
+  margin-top: 28px;
+  height:42px;
+  font-size:42px;
+  font-family:SourceHanSansCN-Bold;
   text-align: center;
+  font-weight:bold;
+  color:rgba(254,254,254,1);
+  line-height:63px;
 }
 .charge .g_interval{
-  margin-top: 30px;
-  font-size: 21px;
-  color: #413a3aff;
+  margin-top: 45px;
+  height:21px;
+  font-size:21px;
+  font-family:SourceHanSansCN-Regular;
+  font-weight:400;
   text-align: center;
+  color:rgba(65,58,58,1);
+  line-height:32px;
 }
 .charge ul{
   display: flex;
@@ -376,14 +481,35 @@ img{
   height: 182px;
 }
 .g_separation_1{
-  margin-top: 10px!important;
+  margin-top: 13px;
+  height:20px;
+  font-size:20px;
+  font-family:SourceHanSansCN-Regular;
+  font-weight:400;
+  margin-left: 17px;
+  color:rgba(254,254,254,1);
+  line-height:30px;
 }
 .g_gap_1{
-  margin-top: 8px!important;
+  margin-top: 23px;
+  height:42px;
+  font-size:42px;
+  font-family:SourceHanSansCN-Bold;
+  font-weight:bold;
+  text-align: center;
+  color:rgba(254,254,254,1);
+  line-height:63px;
 }
 .g_interval_1{
-  margin-top: 28px!important;
-}
+  margin-top: 43px;
+  height:21px;
+  font-size:21px;
+  font-family:SourceHanSansCN-Regular;
+  font-weight:400;
+  text-align: center;
+  color:rgba(65,58,58,1);
+  line-height:32px;
+  }
 .inviter_flow {
   top: 776px;
 }
@@ -425,29 +551,29 @@ img{
   margin-left:-332px;
 }
 .award_data{
-  width: 750px;
+  width:664px;
+  height:389px; 
   top: 1000px;
   left: 50%;
-  margin-left:-395px;
+  margin-left:-332px;
 }
 .award_data ul{
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
   font-size: 30px;
+  width:664px;
   color: #F6335BFF;
   margin-top: 20px;
 }
+
 .award_data ul .award_data_1{
-  margin-left: 70px;
-  /* margin-top: 20px; */
+  margin-right: 220px;
 }
 .award_data ul .award_data_2{
-  /* margin-top: 20px; */
-  margin-left: 110px
+  margin-right: 115px;
 }
 .award_data ul .award_data_3{
-  /* margin-top: 20px; */
-  margin-right: 60px
+  margin-right: 96px;
 }
 .g_invite_my{
   width:664px;
@@ -464,10 +590,26 @@ img{
   width:284px;
   height:69px;
   margin-top: 144px;
-  margin-left: 32px;
+  margin-left: 45px;
 }
-.g_invite_my .invite_ranking img{
+.g_invite_my .invite_my .g_my_invite01{
+  display: inline-block;
+  width:285px;
+  height:69px;
+  line-height: 69px;
+  text-align: center;
+  margin-top: 144px;
+  margin-left: 32px;
+  background-color: #FAE6ACFF;
+  color: #F8A136FF;
+  /* border-radius: 5px; */
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.g_invite_my .invite_my .invite_ranking{
   margin-left: 138px;
+  /* background-color: #FDB257FF; */
+  color: #413A3AFF;
 }
 .g_invite_my .invite_ranking{
   margin-left: -6px!important;
@@ -479,29 +621,49 @@ img{
 .list_arrange{
   width: 570px;
   height: 350px;
+  min-height:350px;
+  max-height:350px;
   overflow-x:hidden;
   overflow-y: auto;
-  margin-top: 290px;
+  margin-top: 282px;
   margin-left: 32px;
   -webkit-overflow-scrolling: touch;
-
+  background: #ffffff;
 }
-.list_arrange ul{
-  display: flex;
+.table_data{
+  width: 570px;
+  margin-top: 213px;
+  margin-left: 32px;
+}
+.list_arrange tr{
+  /* display: flex; */
   height: 69px;
   line-height: 69px;
   justify-content: space-around;
   text-align: center;
 }
-.list_arrange ul .list_arrange_1{
+.table_data tr{
+  height: 69px;
+  line-height: 69px;
+  justify-content: space-around;
+  text-align: center;
+  background: #FFFFFFFF;
+}
+.list_arrange tr:nth-child(2n){
+  background: #FFFFFFFF;
+}
+.list_arrange tr:nth-child(2n-1){
+  background: #FFF4E9;
+}
+.list_arrange_1{
   width: 119px;
   /* margin-left: 41px; */
 }
-.list_arrange ul .list_arrange_2{
+.list_arrange_2{
   width: 231px;
   /* margin-left: 38px; */
 }
-.list_arrange ul .list_arrange_3{
+.list_arrange_3{
   width: 217px;
   margin-right: -15px;
 }
@@ -509,6 +671,9 @@ img{
   width: 75px;
   height: 30px;
   margin-top: 20px;
+}
+.list_arrange li{
+  border: 1px solid #FFF4E9FF;
 }
 /*定义了滚动条整体样式；*/ 
 	/* .list_arrange::-webkit-scrollbar{

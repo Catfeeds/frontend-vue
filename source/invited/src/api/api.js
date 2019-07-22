@@ -1,9 +1,9 @@
 /* eslint-disable */
 
 //测试环境
-const promotionServerPath = 'https://test.ehuandian.net/server/promotion/app/';
+// const promotionServerPath = 'https://test.ehuandian.net/server/promotion/app/';
 //正式环境
-// const promotionServerPath = 'https://promotion.ehuandian.net/';
+const promotionServerPath = 'https://promotion.ehuandian.net/';//促销正式环境
 var yApi = {
 	//获取我的奖励
 	// gainMyReward: promotionServerPath + '/invitation/mySummary?invActId=5d245b3c5c108800016e4c0a',

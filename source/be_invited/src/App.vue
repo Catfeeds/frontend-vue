@@ -5,11 +5,19 @@
 </template>
 
 <script>
-
+import $ from 'jquery'
 export default {
   name: 'App',
   components:{
 
+  },
+  mounted(){
+     $("input,select").blur(function(){
+        setTimeout(function() {
+                var scrollHeight = document.documentElement.scrollTop || document.body.scrollTop || 0;
+                window.scrollTo(0, Math.max(scrollHeight - 1, 0));
+            }, 100);
+      })
   }
 }
 </script>
