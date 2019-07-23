@@ -176,8 +176,12 @@ export default {
                 vueThis.recyclingText += "和中控"; 
               }
             }
-          } else {
+          } else if(result.code == 603 || result.code == 636 || result.code == 647){
             vueThis.refundFlag = 2;
+          }
+          else{
+            window.location.href =
+            "IMMOTOR://showPrompt?code=0&message=" + result.msg;
           }
         })
         .catch(resp => {
@@ -287,23 +291,25 @@ export default {
     }
   },
   mounted() {
-    this.userToken = this.getUrlParam("token");
-    if (this.userToken && this.userToken.length > 0) {
-      this.userToken = "bearer " + this.userToken;
-      this.getRecylingInfo();
+    var token = this.getUrlParam("token");
+    if (token && token.length > 0) {
+      this.userToken = "bearer " + token;
     }
     //如果在参数中没有token,从userAgent中获取
     else {
       var u = navigator.userAgent;
       //userAgent中没有token字段使用jsbridge获取
-      if (u.indexOf("token=") == -1) {
-        this.getEhdUserInfoFromBridge();
-      } else {
-        var token = u.substr(u.indexOf("token=") + 6, u.length);
+      if (u.indexOf("token=") != -1) {
+        token = u.substr(u.indexOf("token=") + 6, u.length);
         token = token.substr(0, token.indexOf("&"));
         this.userToken = "bearer " + token;
-        this.getRecylingInfo();
       }
+    }
+    if(this.userToken.length > 0){
+        this.getRecylingInfo();
+    }
+    else{
+      this.getEhdUserInfoFromBridge();
     }
   }
 };
