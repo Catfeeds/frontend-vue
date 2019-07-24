@@ -6,7 +6,7 @@
         <div class="rightItem">
           <p class="rightDate textFont">{{selectDate}}</p>
           <div class="arrowIcon">
-            <img class="imgClass" src="../assets/arrow.png" />
+            <img src="../assets/arrow.png" />
           </div>
         </div>
       </span>
@@ -18,7 +18,7 @@
         <li v-for="(item, index) in sliceData">
           <div class="leftTimeText timeTextFont">{{item}}</div>
           <div class="rightSelectIcon" @click="selectTimeAction(index)">
-            <img class="imgClass" :src="[index==selectIndex?selectImgSrc:normalImgSrc]" />
+            <img :src="[index==selectIndex?selectImgSrc:normalImgSrc]" />
           </div>
         </li>
       </ul>
@@ -41,7 +41,7 @@
     <div class="toastMask" v-if="toastShow">
       <div class="toastBK">
         <div class="toastSuccessIcon">
-          <img class="imgClass" src="../assets/success.png" />
+          <img src="../assets/success.png" />
         </div>
         <p class="toastSucessPrompt">预约成功</p>
         <p class="toastAppointmentInfo">
@@ -56,6 +56,7 @@
 </template>
 
 <script>
+
 export default {
   name: "Appointment",
   data() {
@@ -245,7 +246,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.imgClass {
+
+input:focus{
+  outline: none;
+}
+input{
+  text-shadow: 0px 0px 0px #000;
+  -webkit-text-fill-color: transparent;
+  caret-color: #333;
+  resize: none;
+  font-size: 12px;
+}
+input::-webkit-input-placeholder{
+  text-shadow: none;
+  -webkit-text-fill-color: initial;
+}
+img{
   width: 100%;
   height: 100%;
   display: block;

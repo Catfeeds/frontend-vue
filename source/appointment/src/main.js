@@ -26,7 +26,6 @@ Vue.prototype.$bridge = Bridge
 Vue.prototype.$yApi=yApi
 Vue.use(VueAxios, axios)
 
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

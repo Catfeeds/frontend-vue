@@ -10,7 +10,10 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import yApi from './api/api.js';
 
-import 'lib-flexible/flexible.js'
+import { Dialog } from 'vant';
+import 'vant/lib/Dialog/style';
+Vue.component(Dialog.name, Dialog);
+// Vue.use(Dialog);
 
 require('es6-promise').polyfill()
 Es6Promise.polyfill()
@@ -19,7 +22,17 @@ Vue.config.productionTip = false
 
 Vue.prototype.$bridge = Bridge
 Vue.prototype.$yApi=yApi
+Vue.prototype.$dialog = Dialog   
 Vue.use(VueAxios, axios)
+
+window.onresize = setHtmlFontSize;
+function setHtmlFontSize(){
+    const htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+    const htmlDom = document.getElementsByTagName('html')[0];
+    htmlDom.style.fontSize = htmlWidth / 10 + 'px';
+};
+setHtmlFontSize();
+
 
 /* eslint-disable no-new */
 new Vue({

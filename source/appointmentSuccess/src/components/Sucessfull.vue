@@ -61,8 +61,13 @@
 </template>
 
 <script>
+import { Dialog } from "vant";
+
 export default {
   name: "Sucessfull",
+  components: {
+    [Dialog.Component.name]: Dialog.Component
+  },
   data() {
     return {
       userToken: "",
@@ -88,6 +93,25 @@ export default {
     },
     cancerAction: function() {
       var vueThis = this;
+      vueThis.$dialog
+        .confirm({
+          title: "提示",
+          message: "确定执行此操作?"
+        })
+        .then(() => {
+          // on confirm
+          vueThis.cancerAppointment();
+        })
+        .catch(() => {
+          // on cancel
+        });
+    },
+    rescheduleAction: function() {
+      window.location.href =
+        "https://test.ehuandian.net/immotor/h5vue/consumerGuide/index.html";
+    },
+    cancerAppointment: function() {
+      var vueThis = this;
       vueThis
         .axios({
           method: "patch",
@@ -109,10 +133,6 @@ export default {
           window.location.href =
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });
-    },
-    rescheduleAction: function() {
-      window.location.href =
-        "https://test.ehuandian.net/immotor/h5vue/consumerGuide/index.html";
     },
     getUserAppointmentInfo: function() {
       var vueThis = this;
@@ -221,18 +241,18 @@ export default {
 
 .header {
   width: 100%;
-  height: 431px;
+  height: 216px;
   position: relative;
 }
 
 .appointTitle {
-  left: 70px;
-  right: 70px;
-  top: 70px;
-  height: 70px;
+  left: 35px;
+  right: 35px;
+  top: 35px;
+  height: 35px;
   position: absolute;
-  line-height: 70px;
-  font-size: 56px;
+  line-height: 35px;
+  font-size: 18px;
   font-family: PingFangSC-Semibold;
   font-weight: 600;
   color: rgba(181, 88, 51, 1);
@@ -240,27 +260,30 @@ export default {
 }
 
 .storesName {
-  left: 70px;
-  right: 70px;
-  top: 140px;
-  height: 50px;
+  left: 35px;
+  right: 35px;
+  top: 70px;
+  height: 25px;
   position: absolute;
-  line-height: 50px;
-  font-size: 48px;
+  line-height: 25px;
+  font-size: 18px;
   font-family: PingFangSC-Semibold;
   font-weight: 600;
   color: rgba(181, 88, 51, 1);
   text-align: left;
+  overflow: hidden; /*超出部分隐藏*/
+  white-space: nowrap; /*不换行*/
+  text-overflow: ellipsis; /*超出部分文字以...显示*/
 }
 
 .prompt {
-  left: 70px;
-  right: 70px;
-  top: 210px;
-  height: 40px;
+  left: 35px;
+  right: 35px;
+  top: 105px;
+  height: 20px;
   position: absolute;
-  line-height: 40px;
-  font-size: 28px;
+  line-height: 20px;
+  font-size: 14px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(181, 88, 51, 1);
@@ -268,120 +291,120 @@ export default {
 }
 
 .contentDiv {
-  margin-top: -100px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-top: -50px;
+  margin-left: 10px;
+  margin-right: 10px;
   background: rgba(255, 255, 255, 1);
-  border-radius: 10px;
+  border-radius: 5px;
   z-index: 101;
   position: relative;
 }
 
 .contentHeader {
-  height: 99px;
+  height: 50px;
   position: relative;
 }
 
 .headerTitle {
-  width: 140px;
-  height: 48px;
-  left: 30px;
-  top: 26px;
+  width: 70px;
+  height: 24px;
+  left: 15px;
+  top: 13px;
   position: absolute;
-  font-size: 32px;
+  font-size: 16px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(69, 69, 69, 1);
-  line-height: 48px;
+  line-height: 24px;
   text-align: left;
 }
 
 .headerTelText {
-  width: 48px;
-  height: 33px;
-  right: 32px;
-  top: 34px;
+  width: 24px;
+  height: 17px;
+  right: 16px;
+  top: 17px;
   position: absolute;
-  line-height: 33px;
+  line-height: 17px;
 }
 
-.sectionRightTitleFont{
-  font-size: 22px;
+.sectionRightTitleFont {
+  font-size: 11px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(69, 69, 69, 1);
 }
 
 .textFont {
-  font-size: 24px;
+  font-size: 12px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(69, 69, 69, 1);
 }
 
 .btnTitleFont {
-  font-size: 26px;
+  font-size: 13px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(69, 69, 69, 1);
 }
 
 .headerTelIcon {
-  width: 33px;
-  height: 32px;
-  right: 90px;
-  top: 35px;
+  width: 17px;
+  height: 16px;
+  right: 45px;
+  top: 18px;
   position: absolute;
 }
 
 .headerRightLine {
-  width: 2px;
-  height: 20px;
-  right: 151px;
-  top: 41px;
+  width: 1px;
+  height: 10px;
+  right: 75px;
+  top: 20px;
   position: absolute;
   background: #c8c8c8;
 }
 
 .headerNavgationText {
-  width: 48px;
-  height: 33px;
-  right: 184px;
-  top: 34px;
+  width: 24px;
+  height: 17px;
+  right: 92px;
+  top: 17px;
   position: absolute;
-  line-height: 33px;
+  line-height: 17px;
 }
 
 .headerNavgationIcon {
-  width: 33px;
-  height: 32px;
-  right: 242px;
-  top: 35px;
+  width: 17px;
+  height: 16px;
+  right: 121px;
+  top: 17px;
   position: absolute;
 }
 
 .line {
   margin: 0 30px;
-  height: 2px;
+  height: 1px;
   background: #e8e8e8;
 }
 
 .leftTextFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(118, 118, 118, 1);
 }
 
 .rightTextFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(69, 69, 69, 1);
 }
 
 .contentSectionDiv {
-  padding: 25px 30px;
+  padding: 13px 15px;
 }
 
 .contentSection {
@@ -390,31 +413,31 @@ export default {
 }
 
 .sectionTop {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .sectionLeftText {
-  height: 54px;
-  margin-right: 10px;
+  height: 27px;
+  margin-right: 5px;
   text-align: left;
 }
 .sectionRightText {
-  width: 460px;
+  width: 230px;
   text-align: left;
 }
 
 .contentFooter {
-  height: 99px;
+  height: 50px;
   position: relative;
 }
 
 .footerBtn {
   width: 100%;
-  height: 88px;
+  height: 44px;
   left: 0;
   top: 0;
   position: absolute;
-  line-height: 88px;
+  line-height: 44px;
 }
 
 .toastMask {
@@ -428,66 +451,66 @@ export default {
 }
 
 .toastBK {
-  width: 600px;
-  height: 637px;
+  width: 300px;
+  height: 319px;
   margin: auto;
   background: rgba(255, 255, 255, 1);
-  border-radius: 10px;
+  border-radius: 5px;
   position: relative;
 }
 
 .toastSuccessIcon {
-  width: 134px;
-  height: 124px;
+  width: 67px;
+  height: 62px;
   margin: auto;
-  margin-top: 132px;
+  margin-top: 66px;
 }
 
 .toastSucessPrompt {
-  width: 200px;
-  height: 50px;
+  width: 100px;
+  height: 25px;
   margin: auto;
-  margin-top: 60px;
-  font-size: 36px;
+  margin-top: 30px;
+  font-size: 18px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(69, 69, 69, 1);
-  line-height: 50px;
+  line-height: 25px;
 }
 
 .toastAppointmentInfo {
   width: 100%;
-  height: 40px;
+  height: 20px;
   margin: auto;
-  margin-top: 20px;
-  line-height: 40px;
+  margin-top: 10px;
+  line-height: 20px;
 }
 
 .infoRemarkFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(165, 165, 165, 1);
 }
 
 .infoNameFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: #454545;
 }
 
 .toastRescheduleBtn {
-  width: 510px;
-  height: 88px;
+  width: 255px;
+  height: 44px;
   margin: auto;
-  margin-top: 74px;
+  margin-top: 37px;
   background: rgba(248, 127, 58, 1);
-  border-radius: 10px;
-  font-size: 32px;
+  border-radius: 5px;
+  font-size: 16px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
-  line-height: 88px;
+  line-height: 44px;
 }
 </style>
