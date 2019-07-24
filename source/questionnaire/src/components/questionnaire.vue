@@ -1,9 +1,15 @@
 <template>
   <div>
+    <div class="pageTitle">押金退还原因（可多选）</div>
     <div v-for="item in data">
       <div class="rowDiv">
         <span class="rowTitle">{{item.cause}}</span>
-        <img :id="item.id" src="../assets/normal.png" class="rowImg" @click="checkQuest(item, $event)" />
+        <img
+          :id="item.id"
+          src="../assets/normal.png"
+          class="rowImg"
+          @click="checkQuest(item, $event)"
+        />
       </div>
       <textarea
         :id="item.textId"
@@ -49,14 +55,13 @@ export default {
             result.data.pageData.forEach(function(el) {
               el.checked = false;
               el.textId = "text" + el.id;
-              if(el.levelCause && el.levelCause.length > 0){
+              if (el.levelCause && el.levelCause.length > 0) {
                 el.extension = "";
               }
               el.placeholder = "请输入内容";
-              if(el.desc == "其他"){
+              if (el.desc == "其他") {
                 el.placeholder = "请输入原因和建议，我们将为您不断改进！";
-              }
-              else if(el.desc == "改换其他公司产品" ){
+              } else if (el.desc == "改换其他公司产品") {
                 el.placeholder = "请填写产品名称";
               }
             });
@@ -73,21 +78,20 @@ export default {
     },
     checkQuest: function(item, event) {
       item.checked = !item.checked;
-      if(item.checked && item.levelCause){
+      if (item.checked && item.levelCause) {
         document.getElementById(item.textId).style.display = "";
-      }
-      else{
+      } else {
         document.getElementById(item.textId).style.display = "none";
       }
-      let imgSrc= item.checked
+      let imgSrc = item.checked
         ? require("../assets/select.png")
         : require("../assets/normal.png");
       event.target.src = imgSrc;
     },
-    descInput: function(item){
-      if(item.extension.length > 0){
+    descInput: function(item) {
+      if (item.extension.length > 0) {
         item.checked = true;
-        let imgSrc= require("../assets/select.png");
+        let imgSrc = require("../assets/select.png");
         document.getElementById(item.id).src = imgSrc;
       }
     },
@@ -97,8 +101,8 @@ export default {
       vueThis.data.forEach(function(el) {
         if (el.checked) {
           var id = el.id;
-          if(el.levelCause && el.extension.length > 0){
-            id += ("&" + el.extension); 
+          if (el.levelCause && el.extension.length > 0) {
+            id += "&" + el.extension;
           }
           selectIds.push(id);
         }
@@ -194,22 +198,36 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-input:focus, textarea:focus {
-    outline: none;
+input:focus,
+textarea:focus {
+  outline: none;
 }
 input,
 textarea {
-    text-shadow: 0px 0px 0px #000;
-    -webkit-text-fill-color: transparent;
-    caret-color: #333;
-    resize: none;
-    font-size: 12px;
+  text-shadow: 0px 0px 0px #000;
+  -webkit-text-fill-color: transparent;
+  caret-color: #333;
+  resize: none;
+  font-size: 12px;
 }
 input::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder{
-    text-shadow: none;
-    -webkit-text-fill-color: initial;
+textarea::-webkit-input-placeholder {
+  text-shadow: none;
+  -webkit-text-fill-color: initial;
 }
+
+.pageTitle {
+  height: 44px;
+  padding-left: 15px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color:rgba(118,118,118,1);
+  line-height: 44px;
+  text-align: left;
+  background:rgba(247,247,247,1);
+}
+
 .rowDiv {
   height: 60px;
   padding: 0 18px;
@@ -223,7 +241,7 @@ textarea::-webkit-input-placeholder{
   font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
-  color: rgba(102, 102, 102, 1);
+  color: rgba(69, 69, 69, 1);
   text-align: left;
   line-height: 60px;
 }
@@ -258,7 +276,7 @@ textarea::-webkit-input-placeholder{
   width: 90%;
   height: 45px;
   background: rgba(247, 247, 247, 1);
-  border:none;
+  border: none;
   -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
   line-height: 16px;
 }
