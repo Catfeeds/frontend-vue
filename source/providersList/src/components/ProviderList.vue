@@ -1,8 +1,8 @@
 <template>
-  <div class="mainBody">
-    <div v-if="providerList.length>0">
+  <div>
+    <div v-if="showList">
       <p class="topPrompt textFont">* 为提高服务质量，请选择附近的门店进行预约</p>
-      <div
+      <div 
         v-for="(item, index) in providerList"
         v-bind:class="[selectIndex==index ? 'providerItemSelect providerItem' : 'providerItem']"
         @click="providerItemSelectAction(item, index)"
@@ -49,7 +49,8 @@ export default {
       userToken: "",
       cityCode: "",
       userLat: 0,
-      userLon: 0
+      userLon: 0,
+      showList: true
     };
   },
   methods: {
@@ -107,6 +108,9 @@ export default {
           var result = resp.data;
           if (result.resultCode == 1) {
             vueThis.providerList = result.data.pageData;
+            if(vueThis.providerList.length == 0){
+              vueThis.showList = false;
+            }
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.resultMsg;
@@ -132,7 +136,7 @@ export default {
               vueThis.userToken = "bearer " + dataObj.token;
               vueThis.userLat = dataObj.lat;
               vueThis.userLon = dataObj.lon;
-              vueThis.cityCode = dataObj.cityCode;
+              vueThis.cityCode = dataObj.citycode;
               vueThis.getConsumerSitesData();
             }
           }
@@ -145,7 +149,7 @@ export default {
             vueThis.userToken = "bearer " + responseData.token;
             vueThis.userLat = responseData.lat;
             vueThis.userLon = responseData.lon;
-            vueThis.cityCode = responseData.cityCode;
+            vueThis.cityCode = responseData.citycode;
             vueThis.getConsumerSitesData();
           });
         }
@@ -201,10 +205,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.mainBody {
-  width: 100%;
-  position: relative;
-}
+
 .imgClass {
   width: 100%;
   height: 100%;
@@ -344,8 +345,8 @@ export default {
 .nextBtn {
   left: 40px;
   right: 40px;
-  height: 88px;
   bottom: 30px;
+  height: 88px;
   position: fixed;
   background: rgba(248, 127, 58, 1);
   border-radius: 10px;
