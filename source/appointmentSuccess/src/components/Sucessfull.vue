@@ -12,12 +12,12 @@
         <div class="headerNavgationIcon" @click="navAction">
           <img class="imgClass" src="../assets/navigation.png" />
         </div>
-        <p class="headerNavgationText textFont" @click="navAction">导航</p>
+        <p class="headerNavgationText sectionRightTitleFont" @click="navAction">导航</p>
         <div class="headerRightLine"></div>
         <div class="headerTelIcon" @click="telAction">
           <img class="imgClass" src="../assets/tel.png" />
         </div>
-        <p class="headerTelText textFont" @click="telAction">电话</p>
+        <p class="headerTelText sectionRightTitleFont" @click="telAction">电话</p>
       </div>
       <div class="line"></div>
       <div class="contentSectionDiv" v-if="siteInfo">
@@ -40,7 +40,7 @@
       </div>
       <div class="line"></div>
       <div class="contentFooter">
-        <div class="footerBtn textFont" @click="cancerAction">取消预约</div>
+        <div class="footerBtn btnTitleFont" @click="cancerAction">取消预约</div>
       </div>
       <div class="toastMask" v-if="cancerToast">
         <div class="toastBK">
@@ -80,7 +80,7 @@ export default {
         this.siteInfo.latitude +
         "&lon=" +
         this.siteInfo.longitude +
-        "&addr" +
+        "&addr=" +
         this.siteInfo.address;
     },
     telAction: function() {
@@ -183,7 +183,7 @@ export default {
     formatDateToYYYYMMDD: function(timestamp) {
       var oDate = new Date(timestamp);
       var year = oDate.getFullYear();
-      var month = oDate.getMonth();
+      var month = oDate.getMonth() + 1;
       var day = oDate.getDate();
       return year + "年" + month + "月" + day + "日";
     }
@@ -283,7 +283,7 @@ export default {
 }
 
 .headerTitle {
-  width: 128px;
+  width: 140px;
   height: 48px;
   left: 30px;
   top: 26px;
@@ -293,6 +293,7 @@ export default {
   font-weight: 500;
   color: rgba(69, 69, 69, 1);
   line-height: 48px;
+  text-align: left;
 }
 
 .headerTelText {
@@ -304,8 +305,22 @@ export default {
   line-height: 33px;
 }
 
+.sectionRightTitleFont{
+  font-size: 22px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(69, 69, 69, 1);
+}
+
 .textFont {
   font-size: 24px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(69, 69, 69, 1);
+}
+
+.btnTitleFont {
+  font-size: 26px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(69, 69, 69, 1);

@@ -32,7 +32,7 @@ exports.cssLoaders = function (options) {
   const px2remLoader = {
     loader: 'px2rem-loader',
     options: {
-      emUnit: 75 // 设计稿的1/10
+      emUnit: 37.5 // 设计稿的1/10
     }
   }
 
