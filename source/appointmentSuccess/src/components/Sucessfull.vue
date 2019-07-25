@@ -88,9 +88,9 @@ export default {
         "&addr=" +
         this.siteInfo.address;
     },
-    telAction: function() {
-      window.location.href = "IMMOTOR://tel:" + this.siteInfo.contactsPhone;
-    },
+    telAction:_.debounce(function (refName) {
+          window.location.href = "IMMOTOR://tel:" + this.siteInfo.contactsPhone;
+    }, 1000),
     cancerAction: function() {
       var vueThis = this;
       vueThis.$dialog
