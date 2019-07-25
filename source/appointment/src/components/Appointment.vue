@@ -76,7 +76,7 @@ export default {
       startDate: new Date(),
       siteId: "",
       siteName: "宝安车行",
-      toastShow: true,
+      toastShow: false,
       docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
       showHeight: document.documentElement.clientHeight,   //实时屏幕高度
       hidshow:true, //显示或者隐藏footer
