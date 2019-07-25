@@ -1,101 +1,113 @@
 <template>
-  <div class="mainBody">
-    <div class="header">
-      <img class="imgClass" src="../assets/header.png" />
-      <p class="headerRemark">电池+中控绿色回收</p>
-      <div class="headerTitle">
-        <img src="../assets/headerTitle.png" />
+  <div>
+    <div class="mainBody" v-if="isClient==1">
+      <div class="header">
+        <img class="imgClass" src="../assets/header.png" />
+        <p class="headerRemark">电池+中控绿色回收</p>
+        <div class="headerTitle">
+          <img src="../assets/headerTitle.png" />
+        </div>
+        <div class="headerRecyclingTitle">
+          <span class="headerRecylingLeftFont">回收奖励高达</span>
+          <span class="headerRecylingRightFont">{{topRecyclingPrice}}元</span>
+        </div>
       </div>
-      <div class="headerRecyclingTitle">
-        <span class="headerRecylingLeftFont">回收奖励高达</span>
-        <span class="headerRecylingRightFont">{{topRecyclingPrice}}元</span>
-      </div>
-    </div>
-    <div class="contentDiv">
-      <p class="sectionTitle sectionTop sectionTitleFont">中控+电池回收奖励</p>
-      <div class="recyclingPriceChart">
-        <barChart :xData="recyclingTime" :yData="recyclingPrice"></barChart>
-      </div>
-      <p class="chartBottomRemark">月限区间（一个月=30天）</p>
-      <p class="sectionTitle sectionTop sectionTitleFont">绿色回收流程</p>
-      <div class="recyclingProcessDiv">
-        <div class="icon1Left processIconDiv">
-          <img src="../assets/offline.png" />
+      <div class="contentDiv">
+        <p class="sectionTitle sectionTop sectionTitleFont">中控+电池回收奖励</p>
+        <div class="recyclingPriceChart">
+          <barChart :xData="recyclingTime" :yData="recyclingPrice"></barChart>
         </div>
-        <div class="processArrowDiv arrow1Left">
-          <img src="../assets/arrow.png" />
-        </div>
-        <div class="icon2Left processIconDiv">
-          <img src="../assets/online.png" />
-        </div>
-        <div class="processArrowDiv arrow2Left">
-          <img src="../assets/arrow.png" />
-        </div>
-        <div class="icon3Left processIconDiv">
-          <img src="../assets/wait.png" />
-        </div>
-        <p class="processTitle processTitle1Left">线下实物归还</p>
-        <p class="processTitle processTitle2Left">线上申请奖励</p>
-        <p class="processTitle processTitle3Left">等待回收奖励</p>
-        <p class="processRemark1 processRemarkFont">线下服务网点回收电池和中控</p>
-        <p class="processRemark2 processRemarkFont">e换电APP申请回收拿奖励</p>
-        <p class="processRemark3 processRemarkFont">1-7个工作日奖励到账</p>
-      </div>
-      <p class="sectionTitle sectionTop sectionTitleFont">当前回收奖励</p>
-      <div class="recyclingCommodityDiv">
-        <div class="commodityItem" v-if="recyclingDepositAmount">
-          <div class="commodityItemIcon" @click="batteryCheckAction">
-            <img :src="[batteryChecked?selectSrc:normalSrc]" />
+        <p class="chartBottomRemark">月限区间（一个月=30天）</p>
+        <p class="sectionTitle sectionTop sectionTitleFont">绿色回收流程</p>
+        <div class="recyclingProcessDiv">
+          <div class="icon1Left processIconDiv">
+            <img src="../assets/offline.png" />
           </div>
-          <div class="commodityItemLine"></div>
-          <p class="commodityItemName">超级电池</p>
-          <p class="commodityItemRemark">当前回收奖励</p>
-          <p class="commodityItemAmount">
-            <span class="amountFont">{{recyclingDepositAmount}}</span>
-            <span class="amountUnitFont">元</span>
-          </p>
-        </div>
-        <div class="commodityItem" v-if="recyclingScooterAmount">
-          <div class="commodityItemIcon" @click="scooterCheckAction">
-            <img :src="[scooterChecked?selectSrc:normalSrc]" />
+          <div class="processArrowDiv arrow1Left">
+            <img src="../assets/arrow.png" />
           </div>
-          <div class="commodityItemLine"></div>
-          <p class="commodityItemName">智慧中控</p>
-          <p class="commodityItemRemark">当前回收奖励</p>
-          <p class="commodityItemAmount">
-            <span class="amountFont">{{recyclingScooterAmount}}</span>
-            <span class="amountUnitFont">元</span>
+          <div class="icon2Left processIconDiv">
+            <img src="../assets/online.png" />
+          </div>
+          <div class="processArrowDiv arrow2Left">
+            <img src="../assets/arrow.png" />
+          </div>
+          <div class="icon3Left processIconDiv">
+            <img src="../assets/wait.png" />
+          </div>
+          <p class="processTitle processTitle1Left">线下实物归还</p>
+          <p class="processTitle processTitle2Left">线上申请奖励</p>
+          <p class="processTitle processTitle3Left">等待回收奖励</p>
+          <p class="processRemark1 processRemarkFont">线下服务网点回收电池和中控</p>
+          <p class="processRemark2 processRemarkFont">e换电APP申请回收拿奖励</p>
+          <p class="processRemark3 processRemarkFont">1-7个工作日奖励到账</p>
+        </div>
+        <p class="sectionTitle sectionTop sectionTitleFont">当前回收奖励</p>
+        <div class="recyclingCommodityDiv">
+          <div class="commodityItem" v-if="recyclingDepositAmount">
+            <div class="commodityItemIcon" @click="batteryCheckAction">
+              <img :src="[batteryChecked?selectSrc:normalSrc]" />
+            </div>
+            <div class="commodityItemLine"></div>
+            <p class="commodityItemName">超级电池</p>
+            <p class="commodityItemRemark">当前回收奖励</p>
+            <p class="commodityItemAmount">
+              <span class="amountFont">{{recyclingDepositAmount}}</span>
+              <span class="amountUnitFont">元</span>
+            </p>
+          </div>
+          <div class="commodityItem" v-if="recyclingScooterAmount">
+            <div class="commodityItemIcon" @click="scooterCheckAction">
+              <img :src="[scooterChecked?selectSrc:normalSrc]" />
+            </div>
+            <div class="commodityItemLine"></div>
+            <p class="commodityItemName">智慧中控</p>
+            <p class="commodityItemRemark">当前回收奖励</p>
+            <p class="commodityItemAmount">
+              <span class="amountFont">{{recyclingScooterAmount}}</span>
+              <span class="amountUnitFont">元</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="footerLeftItem">
+          <span class="remarkFont">可得</span>
+          <span class="footerAmountFont">{{recyclingAmount}}元</span>
+        </div>
+        <div class="footerRightItem" @click="recyclingAction">
+          <p class="footerRecyclingText">马上回收 ></p>
+          <p class="footerRecyclingRemark">最终回收奖励以实际到账为准</p>
+        </div>
+      </div>
+      <div class="toastMask" v-if="refundFlag">
+        <div class="toastBK">
+          <div class="toastSuccessIcon" v-if="refundFlag==1">
+            <img src="../assets/success.png" />
+          </div>
+          <div class="toastFailureIcon" v-if="refundFlag==2">
+            <img src="../assets/failure.png" />
+          </div>
+          <p class="toastSuccessPrompt">
+            <span class="promptTextFont" v-if="refundFlag==1">您的{{recyclingText}}回收已经受理。回收奖励金额：</span>
+            <span class="promptAmountFont" v-if="refundFlag==1">{{recyclingAmount}}元</span>
+            <span class="promptTextFont" v-if="refundFlag==1">，预计7个工作日到账</span>
+            <span class="promptTextFont" v-if="refundFlag==2">请把电池和中控带到附近的电池退还站点，再进行回收！</span>
           </p>
+          <div class="toastBtn toastBtnTextFont" v-if="refundFlag==1" @click="confirmAction">确定</div>
+          <div
+            class="toastBtn toastBtnTextFont"
+            v-if="refundFlag==2"
+            @click="goSitesAction"
+          >查看附近的电池退还站点</div>
         </div>
       </div>
     </div>
-    <div class="footer">
-      <div class="footerLeftItem">
-        <span class="remarkFont">可得</span>
-        <span class="footerAmountFont">{{recyclingAmount}}元</span>
-      </div>
-      <div class="footerRightItem" @click="recyclingAction">
-        <p class="footerRecyclingText">马上回收 ></p>
-        <p class="footerRecyclingRemark">最终回收奖励以实际到账为准</p>
-      </div>
-    </div>
-    <div class="toastMask" v-if="refundFlag">
-      <div class="toastBK">
-        <div class="toastSuccessIcon" v-if="refundFlag==1">
-          <img src="../assets/success.png" />
+    <div class="notRecyclableDiv" v-if="isClient==0">
+        <div class="notRecyclableIconDiv">
+          <img src="../assets/notRecyclable.png">
         </div>
-        <div class="toastFailureIcon" v-if="refundFlag==2">
-          <img src="../assets/failure.png">
-        </div>
-        <p class="toastSuccessPrompt">
-          <span class="promptTextFont" v-if="refundFlag==1" >您的{{recyclingText}}回收已经受理。回收奖励金额：</span>
-          <span class="promptAmountFont" v-if="refundFlag==1">{{recyclingAmount}}元</span>
-          <span class="promptTextFont" v-if="refundFlag==1">，预计7个工作日到账</span>
-          <span class="promptTextFont"  v-if="refundFlag==2">请把电池和中控带到附近的电池退还站点，再进行回收！</span>
-        </p>
-        <div class="toastBtn toastBtnTextFont" v-if="refundFlag==1" @click="confirmAction">确定</div>
-        <div class="toastBtn toastBtnTextFont" v-if="refundFlag==2" @click="goSitesAction">查看附近的电池退还站点</div>
-      </div>
+        <p class="notRecyclableTitle">抱歉，您的电池不能进行环保回收 请联系当地服务商处理！</p>
     </div>
   </div>
 </template>
@@ -111,7 +123,7 @@ export default {
   data() {
     return {
       recyclingAmount: 0,
-      recyclingText: '',
+      recyclingText: "",
       depositId: "",
       scooterId: "",
       topRecyclingPrice: "",
@@ -123,7 +135,8 @@ export default {
       scooterChecked: false,
       normalSrc: require("../assets/normal.png"),
       selectSrc: require("../assets/select.png"),
-      refundFlag: 0        //0初始状态  1成功 2失败
+      refundFlag: 0, //0初始状态  1成功 2失败
+      isClient: 0
     };
   },
   methods: {
@@ -165,23 +178,25 @@ export default {
           if (result.code == 600) {
             vueThis.refundFlag = 1;
             vueThis.recyclingText = "";
-            if(vueThis.batteryChecked){
+            if (vueThis.batteryChecked) {
               vueThis.recyclingText = "电池";
             }
-            if(vueThis.scooterChecked){
-              if(vueThis.recyclingText.length == 0){
+            if (vueThis.scooterChecked) {
+              if (vueThis.recyclingText.length == 0) {
                 vueThis.recyclingText = "中控";
-              }
-              else{
-                vueThis.recyclingText += "和中控"; 
+              } else {
+                vueThis.recyclingText += "和中控";
               }
             }
-          } else if(result.code == 603 || result.code == 636 || result.code == 647){
+          } else if (
+            result.code == 603 ||
+            result.code == 636 ||
+            result.code == 647
+          ) {
             vueThis.refundFlag = 2;
-          }
-          else{
+          } else {
             window.location.href =
-            "IMMOTOR://showPrompt?code=0&message=" + result.msg;
+              "IMMOTOR://showPrompt?code=0&message=" + result.msg;
           }
         })
         .catch(resp => {
@@ -189,11 +204,10 @@ export default {
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });
     },
-    confirmAction: function(){
-      window.location.href =
-            "IMMOTOR://consumerRefundSucceed";
+    confirmAction: function() {
+      window.location.href = "IMMOTOR://consumerRefundSucceed";
     },
-    goSitesAction: function(){
+    goSitesAction: function() {
       window.location.href =
         "https://test.ehuandian.net/immotor/h5vue/providersList/index.html";
     },
@@ -245,6 +259,7 @@ export default {
               result.result.recyclingScooterAmount;
             vueThis.depositId = result.result.depositId;
             vueThis.scooterId = result.result.scooterId;
+            vueThis.isClient = result.result.isClient;
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.msg;
@@ -305,10 +320,9 @@ export default {
         this.userToken = "bearer " + token;
       }
     }
-    if(this.userToken.length > 0){
-        this.getRecylingInfo();
-    }
-    else{
+    if (this.userToken.length > 0) {
+      this.getRecylingInfo();
+    } else {
       this.getEhdUserInfoFromBridge();
     }
   }
@@ -676,6 +690,33 @@ img {
   line-height: 28px;
 }
 
+.notRecyclableDiv {
+  width: 100%;
+  height: 314px;
+  margin: auto;
+  position: relative;
+}
+
+.notRecyclableIconDiv {
+  width: 144px;
+  height: 188px;
+  margin: auto;
+  margin-top: 208px;
+}
+
+.notRecyclableTitle {
+  width: 420px;
+  height: 80px;
+  font-size: 28px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(118, 118, 118, 1);
+  line-height: 40px;
+  margin: auto;
+  margin-top: 45px;
+  text-align: center;
+}
+
 .toastMask {
   width: 100%;
   height: 100%;
@@ -702,7 +743,7 @@ img {
   margin-top: 136px;
 }
 
-.toastFailureIcon{
+.toastFailureIcon {
   width: 236px;
   height: 152px;
   margin: auto;
