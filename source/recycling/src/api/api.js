@@ -1,5 +1,5 @@
 //测试环境
-const ehdServerPath = 'https://test.ehuandian.net/';
+const ehdServerPath = 'https://test.ehuandian.net/server/ehd/app/';
 //正式环境
 // const ehdServerPath = 'https://ehd.ehuandian.net/';
 
