@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mainBK">
+    <div class="page-content">
       <div class="batteriesDiv">
         <div class="batteryDiv" v-for="(item, index) in batteryList" @click="selectPackage(index)">
           <div class="imgDiv">
@@ -370,10 +370,15 @@ img{
   display: block;
 }
 
-.mainBK {
-  width: 100%;
-  padding: 1px;
+.page-content {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+    height: 100%;
+    position: relative;
+    z-index: 1;
 }
+
 .batteriesDiv {
   padding: 20px;
   background: #f7f7f7;
@@ -384,7 +389,9 @@ img{
   background: rgba(255, 255, 255, 1);
   border-radius: 10px;
   border: 2px solid rgba(255, 141, 89, 1);
+  position: relative;
   display: flex;
+  overflow: hidden;
 }
 .imgDiv {
   width: 104px;
@@ -434,11 +441,9 @@ img{
 .selectDiv {
   width: 55px;
   height: 55px;
-  right: 20px;
-  top: 20px;
+  right: 0;
+  top: 0;
   position: absolute;
-  border-radius: 0 10px 0 0;
-  overflow: hidden;
 }
 
 .unitFont {
@@ -524,6 +529,7 @@ img{
 .payContentDiv {
   width: 100%;
   background: #fff;
+  margin-bottom: 240px;
 }
 .payTitleDiv {
   width: 100%;
@@ -594,11 +600,12 @@ img{
 .bottomPayDiv {
   width: 100%;
   height: 200px;
-  bottom: 1px;
+  bottom: 0;
   left: 0;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.08);
-  position: absolute;
+  position: fixed;
+  z-index: 99;
 }
 .bottomDiv {
   width: 100%;

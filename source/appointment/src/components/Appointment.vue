@@ -75,7 +75,7 @@ export default {
       selectImgSrc: require("../assets/select.png"),
       startDate: new Date(),
       siteId: "",
-      siteName: "宝安车行",
+      siteName: "",
       toastShow: false,
       docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
       showHeight: document.documentElement.clientHeight,   //实时屏幕高度
