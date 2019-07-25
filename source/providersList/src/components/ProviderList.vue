@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-content">
     <div v-if="showList">
       <p class="topPrompt textFont">* 为提高服务质量，请选择附近的门店进行预约</p>
       <div 
@@ -26,6 +26,7 @@
           <img class="imgClass" src="../assets/select.png" />
         </div>
       </div>
+      <div class="pageBottom"></div>
       <div v-if="appointment" class="nextBtn" @click="nextAction">下一步</div>
     </div>
     <div v-else>
@@ -206,6 +207,15 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.page-content {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
 .imgClass {
   width: 100%;
   height: 100%;
@@ -297,6 +307,9 @@ export default {
   height: 50px;
   line-height: 50px;
   text-align: left;
+  overflow: hidden; /*超出部分隐藏*/
+  white-space: nowrap; /*不换行*/
+  text-overflow: ellipsis; /*超出部分文字以...显示*/
 }
 
 .providerItemShopHours {
@@ -342,6 +355,10 @@ export default {
   text-align: left;
 }
 
+.pageBottom{
+  height: 160px;
+}
+
 .nextBtn {
   left: 40px;
   right: 40px;
@@ -356,6 +373,7 @@ export default {
   color: rgba(255, 255, 255, 1);
   line-height: 88px;
   text-align: center;
+  z-index: 999;
 }
 
 .emptyIconDiv {
