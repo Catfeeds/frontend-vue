@@ -168,7 +168,7 @@ export default {
     },
     finishAction: function() {
       window.location.href =
-        "https://test.ehuandian.net/immotor/h5vue/appointmentSuccess/index.html";
+        "IMMOTOR://AppointmentSuccess";
     },
     datePickerFormatter:function(type, value){
       if (type === 'year') {
