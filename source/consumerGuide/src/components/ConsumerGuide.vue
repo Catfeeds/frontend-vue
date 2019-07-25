@@ -1,88 +1,96 @@
 <template>
-  <div class="mainBody">
-    <div class="headerImgDiv">
-      <img src="../assets/header.png" />
-      <div class="headerLogoIconDiv">
-        <img src="../assets/headerLogo.png" />
+  <div>
+    <div class="mainBody">
+      <div class="headerImgDiv">
+        <img src="../assets/header.png" />
+        <div class="headerLogoIconDiv">
+          <img src="../assets/headerLogo.png" />
+        </div>
+        <div class="textBK"></div>
+        <p class="priceRemark">仅售</p>
+        <p class="priceText">1680元</p>
       </div>
-      <div class="textBK"></div>
-      <p class="priceRemark">仅售</p>
-      <p class="priceText">1680元</p>
+      <div class="firstSectionDiv sectionCommon">
+        <div class="sectionTitleBKDiv">
+          <img src="../assets/sectionTitle.png" />
+          <p class="sectionTitle sectionTitleFont">1680元包含以下产品和服务</p>
+        </div>
+        <div class="firstSectionIcon firstSectionIcon1">
+          <img src="../assets/times.png" />
+        </div>
+        <div class="firstSectionLinkIconLeft firstSectionLinkIcon">
+          <img src="../assets/link.png" />
+        </div>
+        <div class="firstSectionIcon firstSectionIcon2">
+          <img src="../assets/scooter.png" />
+        </div>
+        <div class="firstSectionLinkIconRight firstSectionLinkIcon">
+          <img src="../assets/link.png" />
+        </div>
+        <div class="firstSectionIcon firstSectionIcon3">
+          <img src="../assets/battery.png" />
+        </div>
+        <p class="firstSectionText1 firSectionTextFont">3年600次</p>
+        <p class="firstSectionText2 firSectionTextFont">智慧中控</p>
+        <p class="firstSectionText3 firSectionTextFont">一颗超级电池</p>
+        <p class="firstSectionRemark1 firstSectionRemarkFont">免费充电</p>
+        <p class="firstSectionRemark2 firstSectionRemarkFont">智慧大脑</p>
+        <p class="firstSectionRemark3 firstSectionRemarkFont">绿色环保</p>
+      </div>
+      <div class="secondSectionDiv sectionCommon">
+        <div class="sectionTitleBKDiv">
+          <img src="../assets/sectionTitle.png" />
+          <p class="sectionTitle sectionTitleFont">环保回收奖励</p>
+          <p class="secondSectionText">
+            <span class="recyclingRemarkFont">超级电池+中控回收奖励高达</span>
+            <span class="recyclingMoneyFont">1300</span>
+            <span class="recyclingUnitFont">元</span>
+          </p>
+        </div>
+      </div>
+      <div class="thirdSectionDiv sectionCommon">
+        <div class="sectionTitleBKDiv">
+          <img src="../assets/sectionTitle.png" />
+          <p class="sectionTitle sectionTitleFont">两步即可完成预约 开启换电新时代</p>
+        </div>
+        <div class="thirdSectionIcon1">
+          <img src="../assets/provider.png" />
+        </div>
+        <div class="thirdSectionArrowIcon">
+          <img src="../assets/arrow.png" />
+        </div>
+        <div class="thirdSectionIcon2">
+          <img src="../assets/arrivalDate.png" />
+        </div>
+        <p class="thirdSectionText1 firSectionTextFont">1. 选择服务商</p>
+        <p class="thirdSectionText2 firSectionTextFont">2. 选择到店日期 并提交信息</p>
+      </div>
+      <div class="fourthSectionDiv sectionCommon">
+        <div class="sectionTitleBKDiv">
+          <img src="../assets/sectionTitle.png" />
+          <p class="sectionTitle sectionTitleFont">为什么选择e换电超级电池包</p>
+        </div>
+        <p class="fourthSectionText fourSectionTextTop1">1.更安全</p>
+        <p class="fourthSectionRemark">革新性的新一代动力电池，多重安全保护；智能换电系统全自助换电，告别充电难与充电安全隐患。</p>
+        <p class="fourthSectionText fourSectionTextTopCommon">2.更省钱</p>
+        <p class="fourthSectionRemark">一次购买，享受充电免费、1颗超级电池及智慧中控，可随时绿色回收，奖励高达1300元。</p>
+        <p class="fourthSectionText fourSectionTextTopCommon">3.更高效</p>
+        <p class="fourthSectionRemark">APP预约换电，智能规划寻找电池路径，随时随地满足所需；换电只需3秒，高效便捷，无需等待。</p>
+        <p class="fourthSectionText fourSectionTextTopCommon">4.更环保</p>
+        <p class="fourthSectionRemark">智能锂电，统一回收再利用，解决铅酸污染，绿色环保。</p>
+      </div>
+      <p class="bottomPrompt">* 最终解释权归深圳市易马达科技公司所有</p>
+      <div class="bottomOprBtn" @click="bottomAction">
+        <span v-if="hasGroup" class="bottomTitleFont">购买超级电池+智慧中控</span>
+        <span v-if="hasGroup" class="bottomAmountFont">&nbsp;&nbsp;¥1680</span>
+        <span v-else class="bottomTitleFont">马上预约服务商 ></span>
+      </div>
     </div>
-    <div class="firstSectionDiv sectionCommon">
-      <div class="sectionTitleBKDiv">
-        <img src="../assets/sectionTitle.png" />
-        <p class="sectionTitle sectionTitleFont">1680元包含以下产品和服务</p>
+    <div class="toastMask" v-if="showDailog">
+      <div class="toastBK">
+        <p class="toastTitle">如要购买超级电池包，请联系当地服务商先退中控押金！</p>
+        <div class="toastBtn toastBtnTextFont" @click="confirmAction">确定</div>
       </div>
-      <div class="firstSectionIcon firstSectionIcon1">
-        <img src="../assets/times.png" />
-      </div>
-      <div class="firstSectionLinkIconLeft firstSectionLinkIcon">
-        <img src="../assets/link.png" />
-      </div>
-      <div class="firstSectionIcon firstSectionIcon2">
-        <img src="../assets/scooter.png" />
-      </div>
-      <div class="firstSectionLinkIconRight firstSectionLinkIcon">
-        <img src="../assets/link.png" />
-      </div>
-      <div class="firstSectionIcon firstSectionIcon3">
-        <img src="../assets/battery.png" />
-      </div>
-      <p class="firstSectionText1 firSectionTextFont">3年600次</p>
-      <p class="firstSectionText2 firSectionTextFont">智慧中控</p>
-      <p class="firstSectionText3 firSectionTextFont">一颗超级电池</p>
-      <p class="firstSectionRemark1 firstSectionRemarkFont">免费充电</p>
-      <p class="firstSectionRemark2 firstSectionRemarkFont">智慧大脑</p>
-      <p class="firstSectionRemark3 firstSectionRemarkFont">绿色环保</p>
-    </div>
-    <div class="secondSectionDiv sectionCommon">
-      <div class="sectionTitleBKDiv">
-        <img src="../assets/sectionTitle.png" />
-        <p class="sectionTitle sectionTitleFont">环保回收奖励</p>
-        <p class="secondSectionText">
-          <span class="recyclingRemarkFont">超级电池+中控回收奖励高达</span>
-          <span class="recyclingMoneyFont">1300</span>
-          <span class="recyclingUnitFont">元</span>
-        </p>
-      </div>
-    </div>
-    <div class="thirdSectionDiv sectionCommon">
-      <div class="sectionTitleBKDiv">
-        <img src="../assets/sectionTitle.png" />
-        <p class="sectionTitle sectionTitleFont">两步即可完成预约 开启换电新时代</p>
-      </div>
-      <div class="thirdSectionIcon1">
-        <img src="../assets/provider.png" />
-      </div>
-      <div class="thirdSectionArrowIcon">
-        <img src="../assets/arrow.png" />
-      </div>
-      <div class="thirdSectionIcon2">
-        <img src="../assets/arrivalDate.png" />
-      </div>
-      <p class="thirdSectionText1 firSectionTextFont">1. 选择服务商</p>
-      <p class="thirdSectionText2 firSectionTextFont">2. 选择到店日期 并提交信息</p>
-    </div>
-    <div class="fourthSectionDiv sectionCommon">
-      <div class="sectionTitleBKDiv">
-        <img src="../assets/sectionTitle.png" />
-        <p class="sectionTitle sectionTitleFont">为什么选择e换电超级电池包</p>
-      </div>
-      <p class="fourthSectionText fourSectionTextTop1">1.更安全</p>
-      <p class="fourthSectionRemark">革新性的新一代动力电池，多重安全保护；智能换电系统全自助换电，告别充电难与充电安全隐患。</p>
-      <p class="fourthSectionText fourSectionTextTopCommon">2.更省钱</p>
-      <p class="fourthSectionRemark">一次购买，享受充电免费、1颗超级电池及智慧中控，可随时绿色回收，奖励高达1300元。</p>
-      <p class="fourthSectionText fourSectionTextTopCommon">3.更高效</p>
-      <p class="fourthSectionRemark">APP预约换电，智能规划寻找电池路径，随时随地满足所需；换电只需3秒，高效便捷，无需等待。</p>
-      <p class="fourthSectionText fourSectionTextTopCommon">4.更环保</p>
-      <p class="fourthSectionRemark">智能锂电，统一回收再利用，解决铅酸污染，绿色环保。</p>
-    </div>
-    <p class="bottomPrompt">* 最终解释权归深圳市易马达科技公司所有</p>
-    <div class="bottomOprBtn" @click="bottomAction">
-      <span v-if="hasGroup" class="bottomTitleFont">购买超级电池+智慧中控</span>
-      <span v-if="hasGroup" class="bottomAmountFont">&nbsp;&nbsp;¥1680</span>
-      <span v-else class="bottomTitleFont">马上预约服务商 ></span>
     </div>
   </div>
 </template>
@@ -92,7 +100,8 @@ export default {
   name: "ConsumerGuide",
   data() {
     return {
-      hasGroup: false
+      hasGroup: false,
+      showDailog: false
     };
   },
   methods: {
@@ -119,6 +128,9 @@ export default {
           param;
       }
     },
+    confirmAction: function(){
+        window.location.href = "IMMOTOR://backAction";
+    },
     getUrlParam: function(name) {
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
       var r = window.location.search.substr(1).match(reg);
@@ -130,6 +142,15 @@ export default {
     var by_client = this.getUrlParam("by_client");
     if (by_client == "1") {
       this.hasGroup = true;
+    }
+    var show = this.getUrlParam("show");
+    if (show == "1") {
+      this.showDailog = true;
+      var mo = function(e) {
+        e.preventDefault();
+      };
+      document.body.style.overflow = "hidden";
+      document.addEventListener("touchmove", mo, { passive: false }); //禁止页面滑动
     }
   }
 };
@@ -365,10 +386,10 @@ img {
   margin-top: 20px;
   height: 710px;
 }
-.fourthSectionText{
+.fourthSectionText {
   margin-left: 30px;
   margin-right: 24px;
-  height:40px;
+  height: 40px;
   line-height: 40px;
   font-size: 28px;
   font-family: PingFangSC-Medium;
@@ -376,11 +397,11 @@ img {
   color: rgba(134, 61, 36, 1);
   text-align: left;
 }
-.fourthSectionRemark{
+.fourthSectionRemark {
   margin-left: 30px;
   margin-right: 24px;
   margin-top: 1px;
-  height:80px;
+  height: 80px;
   line-height: 40px;
   font-size: 24px;
   font-family: PingFangSC-Regular;
@@ -388,10 +409,10 @@ img {
   color: rgba(59, 59, 59, 1);
   text-align: left;
 }
-.fourSectionTextTop1{
+.fourSectionTextTop1 {
   margin-top: 52px;
 }
-.fourSectionTextTopCommon{
+.fourSectionTextTopCommon {
   margin-top: 30px;
 }
 .bottomPrompt {
@@ -447,4 +468,50 @@ img {
   font-weight: 500;
   color: rgba(223, 40, 40, 1);
 }
+
+
+.toastMask {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+}
+
+.toastBK {
+  width: 598px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  margin: auto;
+  position: relative;
+}
+
+.toastTitle{
+  margin: 50px 30px;
+  height: 100px;
+  font-size: 28px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+}
+
+.toastBtnTextFont {
+  font-size: 28px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.toastBtn {
+  width: 508px;
+  height: 88px;
+  margin: auto;
+  margin-bottom: 46px;
+  background: rgba(248, 127, 58, 1);
+  border-radius: 10px;
+  line-height: 88px;
+}
+
 </style>
