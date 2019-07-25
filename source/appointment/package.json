@@ -14,8 +14,7 @@
     "babel-polyfill": "^6.26.0",
     "es6-promise": "^4.2.8",
     "lib-flexible": "^0.3.2",
-    "mint-ui": "^2.2.13",
-    "px2rem-loader": "^0.1.9",
+    "vant": "^2.0.9",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.4"
   },
@@ -42,6 +41,7 @@
     "portfinder": "^1.0.13",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
+    "postcss-pxtorem": "^4.0.1",
     "postcss-url": "^7.2.1",
     "rimraf": "^2.6.0",
     "semver": "^5.3.0",

@@ -9,22 +9,31 @@ import Es6Promise from 'es6-promise'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import yApi from './api/api.js';
-import 'mint-ui/lib/style.css'
 
 import 'lib-flexible/flexible.js'
 
 require('es6-promise').polyfill()
 Es6Promise.polyfill()
 
-import { Field, DatetimePicker} from 'mint-ui';
-Vue.component(Field.name, Field);
+import { DatetimePicker, Popup} from 'vant';
+import 'vant/lib/datetime-picker/style';
+import 'vant/lib/popup/style';
 Vue.component(DatetimePicker.name, DatetimePicker);
+Vue.component(Popup.name, Popup);
 
 Vue.config.productionTip = false
 
 Vue.prototype.$bridge = Bridge
 Vue.prototype.$yApi=yApi
 Vue.use(VueAxios, axios)
+
+window.onresize = setHtmlFontSize;
+function setHtmlFontSize(){
+    const htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+    const htmlDom = document.getElementsByTagName('html')[0];
+    htmlDom.style.fontSize = htmlWidth / 10 + 'px';
+};
+setHtmlFontSize();
 
 /* eslint-disable no-new */
 new Vue({

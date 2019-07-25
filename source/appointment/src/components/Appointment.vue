@@ -28,16 +28,16 @@
       <input class="textFont nameIuputClass" maxlength="10" autocomplete="off" placeholder="请输入您的姓名" v-model="username"></input>
     </div>
     <div class="submitBtn"  v-show="hidshow" @click="submitAction">完成</div>
-    <mt-datetime-picker
-      ref="picker"
+    <van-popup v-model="showDatePicker"  position="bottom">
+      <van-datetime-picker
       v-model="pickerValue"
       type="date"
-      year-format="{value} 年"
-      month-format="{value} 月"
-      date-format="{value} 日"
-      :startDate="startDate"
+      :min-date="startDate"
+      :formatter="datePickerFormatter"
       @confirm="handleConfirm"
-    ></mt-datetime-picker>
+      @cancel="showDatePicker=false"
+    ></van-datetime-picker>
+    </van-popup>
     <div class="toastMask" v-if="toastShow">
       <div class="toastBK">
         <div class="toastSuccessIcon">
@@ -71,7 +71,6 @@ export default {
       selectDate: "请选择到店日期",
       selectIndex: 0,
       pickerValue: "",
-      showPicker: false,
       normalImgSrc: require("../assets/normal.png"),
       selectImgSrc: require("../assets/select.png"),
       startDate: new Date(),
@@ -80,7 +79,8 @@ export default {
       toastShow: false,
       docmHeight: document.documentElement.clientHeight,  //默认屏幕高度
       showHeight: document.documentElement.clientHeight,   //实时屏幕高度
-      hidshow:true  //显示或者隐藏footer
+      hidshow:true, //显示或者隐藏footer
+      showDatePicker: false
     };
   },
   watch: {
@@ -97,10 +97,10 @@ export default {
       this.selectIndex = index;
     },
     datePickerAction: function() {
-      this.showPicker = true;
-      this.$refs.picker.open();
+      this.showDatePicker = true;
     },
     handleConfirm: function() {
+      this.showDatePicker = false;
       this.selectDate = this.formatDateToYYYYMMDD(this.pickerValue);
     },
     submitAction: function() {
@@ -169,6 +169,17 @@ export default {
     finishAction: function() {
       window.location.href =
         "https://test.ehuandian.net/immotor/h5vue/appointmentSuccess/index.html";
+    },
+    datePickerFormatter:function(type, value){
+      if (type === 'year') {
+        return `${value}年`;
+      } else if (type === 'month') {
+        return `${value}月`
+      }
+      else if (type === 'day') {
+        return `${value}日`
+      }
+      return value;
     },
     formatDateToYYYYMMDD: function(oDate) {
       var year = oDate.getFullYear();
@@ -268,21 +279,21 @@ img{
 }
 
 .titleFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(69, 69, 69, 1);
 }
 
 .textFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(118, 118, 118, 1);
 }
 
 .timeTextFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(69, 69, 69, 1);
@@ -290,132 +301,133 @@ img{
 
 .datePickerDiv {
   width: 100%;
-  height: 100px;
-  margin-top: 20px;
+  height: 50px;
+  margin-top: 10px;
   background: #fff;
   justify-content: space-between;
   display: flex;
 }
 
 .leftItem {
-  margin-left: 30px;
-  height: 100px;
-  line-height: 100px;
+  margin-left: 15px;
+  height: 50px;
+  line-height: 50px;
   text-align: left;
 }
 
 .rightItem {
-  margin-left: 30px;
-  margin-right: 30px;
-  height: 100px;
-  line-height: 100px;
+  margin-left: 15px;
+  margin-right: 15px;
+  height: 50px;
+  line-height: 50px;
   text-align: right;
   position: relative;
 }
 
 .rightDate {
-  width: 200px;
-  right: 30px;
-  height: 100px;
+  width: 100px;
+  right: 15px;
+  height: 50px;
   top: 0;
   position: absolute;
-  line-height: 100px;
+  line-height: 50px;
   text-align: right;
 }
 
 .arrowIcon {
-  width: 10px;
-  height: 20px;
-  top: 40px;
+  width: 5px;
+  height: 10px;
+  top: 20px;
   right: 0;
   position: absolute;
 }
 
 .timeSelectDiv {
   width: 100%;
-  height: 420px;
-  margin-top: 20px;
+  height: 210px;
+  margin-top: 10px;
   background: #fff;
 }
 
 .timeSelectTitle {
-  margin-left: 30px;
-  height: 98px;
-  line-height: 98px;
+  margin-left: 15px;
+  height: 49px;
+  line-height: 49px;
   text-align: left;
   justify-content: space-between;
   display: flex;
 }
 
 .timeSelectUL {
-  margin-top: 30px;
-  margin-bottom: 40px;
+  margin-top: 15px;
+  margin-bottom: 20px;
   padding: 1px;
 }
 
 .timeSelectUL li {
-  height: 40px;
+  height: 20px;
   margin-top: 0;
-  margin-bottom: 30px;
-  margin-left: 50px;
-  margin-right: 50px;
+  margin-bottom: 15px;
+  margin-left: 25px;
+  margin-right: 25px;
   justify-content: space-between;
   display: flex;
 }
 
 .leftTimeText {
-  height: 40px;
-  margin-right: 10px;
+  height: 20px;
+  margin-right: 5px;
   text-align: left;
 }
 
 .rightSelectIcon {
-  width: 34px;
-  height: 34px;
+  width: 17px;
+  height: 17px;
   margin: auto;
   margin-right: 0;
 }
 
 .lineClass {
-  height: 2px;
-  margin-left: 30px;
-  margin-right: 30px;
+  height: 1px;
+  margin-left: 15px;
+  margin-right: 15px;
   background-color: #f7f7f7;
 }
 
 .nameInputDiv {
   width: 100%;
-  height: 100px;
-  margin-top: 20px;
+  height: 50px;
+  margin-top: 10px;
   background: #fff;
   justify-content: space-between;
   display: flex;
 }
 
 .nameIuputClass {
-  width: 400px;
-  height: 100px;
-  margin-right: 30px;
+  width: 200px;
+  height: 16px;
+  margin: auto;
+  margin-right: 15px;
   text-align: right;
-  line-height: 100px;
+  line-height: 16px;
   background-color: transparent;
 	border: 0;
 	-webkit-tap-highlight-color:rgba(255,0,0,0);
 }
 
 .submitBtn {
-  left: 40px;
-  right: 40px;
-  bottom: 30px;
-  height: 88px;
+  left: 20px;
+  right: 20px;
+  bottom: 15px;
+  height: 44px;
   position: absolute;
   background: rgba(248, 127, 58, 1);
-  border-radius: 10px;
-  font-size: 32px;
+  border-radius: 5px;
+  font-size: 16px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
-  line-height: 88px;
+  line-height: 44px;
 }
 
 .pickerDiv {
@@ -437,66 +449,66 @@ img{
 }
 
 .toastBK {
-  width: 600px;
-  height: 637px;
+  width: 300px;
+  height: 319px;
   margin: auto;
   background: rgba(255, 255, 255, 1);
-  border-radius: 10px;
+  border-radius: 5px;
   position: relative;
 }
 
 .toastSuccessIcon {
-  width: 134px;
-  height: 124px;
+  width: 67px;
+  height: 62px;
   margin: auto;
   margin-top: 132px;
 }
 
 .toastSucessPrompt {
-  width: 200px;
-  height: 50px;
+  width: 100px;
+  height: 25px;
   margin: auto;
-  margin-top: 60px;
-  font-size: 36px;
+  margin-top: 30px;
+  font-size: 18px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(69, 69, 69, 1);
-  line-height: 50px;
+  line-height: 25px;
 }
 
 .toastAppointmentInfo {
   width: 100%;
-  height: 40px;
+  height: 20px;
   margin: auto;
-  margin-top: 20px;
-  line-height: 40px;
+  margin-top: 10px;
+  line-height: 20px;
 }
 
 .infoRemarkFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(165, 165, 165, 1);
 }
 
 .infoNameFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: #454545;
 }
 
 .toastFinishBtn {
-  width: 510px;
-  height: 88px;
+  width: 255px;
+  height: 44px;
   margin: auto;
-  margin-top: 74px;
+  margin-top: 37px;
   background: rgba(248, 127, 58, 1);
-  border-radius: 10px;
-  font-size: 32px;
+  border-radius: 5px;
+  font-size: 16px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
-  line-height: 88px;
+  line-height: 44px;
 }
 </style>
