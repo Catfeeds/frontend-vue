@@ -12,7 +12,7 @@
             <p class="batteryPrice">
               <span class="unitFont">¥</span>
               <span class="priceFont">{{item.price + " "}}</span>
-              <span class="originalPriceFont">{{item.original_price}}</span>
+              <span class="originalPriceFont" v-if="item.original_price>item.price">{{item.original_price}}</span>
             </p>
           </div>
           <div class="selectDiv" v-if="index==selectIndex">
