@@ -89,7 +89,7 @@
             <img src="../assets/failure.png" />
           </div>
           <div class="toastClose" v-if="refundFlag==2" @click="closeAction">
-            <img src="../assets/toastClose.png">
+            <img src="../assets/toastClose.png" />
           </div>
           <p class="toastSuccessPrompt">
             <span class="promptTextFont" v-if="refundFlag==1">您的{{recyclingText}}回收已经受理。回收奖励金额：</span>
@@ -218,18 +218,18 @@ export default {
       window.location.href =
         "https://test.ehuandian.net/immotor/h5vue/providersList/index.html";
     },
-    closeAction: function(){
+    closeAction: function() {
       this.beforeToastClose();
       this.refundFlag = 0;
     },
-    afterOpenToast:function(){
+    afterOpenToast: function() {
       var mo = function(e) {
         e.preventDefault();
       };
       document.body.style.overflow = "hidden";
       document.addEventListener("touchmove", mo, false); //禁止页面滑动
     },
-    beforeToastClose: function(){
+    beforeToastClose: function() {
       var mo = function(e) {
         e.preventDefault();
       };
@@ -258,38 +258,46 @@ export default {
         .then(function(resp) {
           var result = resp.data;
           if (result.code == 600) {
-            var recyclingsChartInfoXData = [];
-            var recyclingsChartInfoYData = [];
-            for (
-              let index = 0;
-              index < result.result.recyclings.length - 1;
-              index++
-            ) {
-              const element = result.result.recyclings[index];
-              const nextElement = result.result.recyclings[index + 1];
-              let xItem =
-                element.duration / 30 + "-" + nextElement.duration / 30;
-              let yItem = element.scooterAmount + element.depositAmount;
-              recyclingsChartInfoXData.push(xItem);
-              recyclingsChartInfoYData.push(yItem);
-            }
-            vueThis.recyclingTime = recyclingsChartInfoXData;
-            vueThis.recyclingPrice = recyclingsChartInfoYData;
-            vueThis.topRecyclingPrice = 0;
-            if(result.result.recyclingDepositAmount){
-              vueThis.topRecyclingPrice =
-              result.result.recyclingDepositAmount;
-            }
-            if(result.result.recyclingScooterAmount){
-              vueThis.topRecyclingPrice += result.result.recyclingScooterAmount;
-            }
-            vueThis.recyclingDepositAmount =
-              result.result.recyclingDepositAmount;
-            vueThis.recyclingScooterAmount =
-              result.result.recyclingScooterAmount;
-            vueThis.depositId = result.result.depositId;
-            vueThis.scooterId = result.result.scooterId;
             vueThis.isClient = result.result.isClient;
+            if (vueThis.isClient == 1) {
+              var recyclingsChartInfoXData = [];
+              var recyclingsChartInfoYData = [];
+              if (
+                result.result.recyclings &&
+                result.result.recyclings.length > 0
+              ) {
+                for (
+                  let index = 0;
+                  index < result.result.recyclings.length - 1;
+                  index++
+                ) {
+                  const element = result.result.recyclings[index];
+                  const nextElement = result.result.recyclings[index + 1];
+                  let xItem =
+                    element.duration / 30 + "-" + nextElement.duration / 30;
+                  let yItem = element.scooterAmount + element.depositAmount;
+                  recyclingsChartInfoXData.push(xItem);
+                  recyclingsChartInfoYData.push(yItem);
+                }
+              }
+              vueThis.recyclingTime = recyclingsChartInfoXData;
+              vueThis.recyclingPrice = recyclingsChartInfoYData;
+              vueThis.topRecyclingPrice = 0;
+              if (result.result.recyclingDepositAmount) {
+                vueThis.topRecyclingPrice =
+                  result.result.recyclingDepositAmount;
+              }
+              if (result.result.recyclingScooterAmount) {
+                vueThis.topRecyclingPrice +=
+                  result.result.recyclingScooterAmount;
+              }
+              vueThis.recyclingDepositAmount =
+                result.result.recyclingDepositAmount;
+              vueThis.recyclingScooterAmount =
+                result.result.recyclingScooterAmount;
+              vueThis.depositId = result.result.depositId;
+              vueThis.scooterId = result.result.scooterId;
+            }
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.msg;
@@ -773,7 +781,7 @@ img {
   position: relative;
 }
 
-.toastClose{
+.toastClose {
   width: 28px;
   height: 28px;
   right: 40px;
