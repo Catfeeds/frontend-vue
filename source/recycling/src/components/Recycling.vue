@@ -151,7 +151,46 @@ export default {
       this.batteryChecked = !this.batteryChecked;
       this.updateRecyclingAmount();
     },
-    recyclingAction: function() {
+    recyclingAction:_.debounce(function (refName) {
+      this.submitRecylingInfo();
+    }, 1000),
+    confirmAction: function() {
+      this.beforeToastClose();
+      window.location.href = "IMMOTOR://consumerRefundSucceed";
+    },
+    goSitesAction: function() {
+      this.beforeToastClose();
+      window.location.href =
+        "https://test.ehuandian.net/immotor/h5vue/providersList/index.html";
+    },
+    closeAction: function() {
+      this.beforeToastClose();
+      this.refundFlag = 0;
+    },
+    afterOpenToast: function() {
+      var mo = function(e) {
+        e.preventDefault();
+      };
+      document.body.style.overflow = "hidden";
+      document.addEventListener("touchmove", mo, false); //禁止页面滑动
+    },
+    beforeToastClose: function() {
+      var mo = function(e) {
+        e.preventDefault();
+      };
+      document.body.style.overflow = ""; //出现滚动条
+      document.removeEventListener("touchmove", mo, false);
+    },
+    updateRecyclingAmount: function() {
+      this.recyclingAmount = 0;
+      if (this.batteryChecked) {
+        this.recyclingAmount += this.recyclingDepositAmount;
+      }
+      if (this.scooterChecked) {
+        this.recyclingAmount += this.recyclingScooterAmount;
+      }
+    },
+    submitRecylingInfo: function(){
       //调用提交接口
       var vueThis = this;
       if (vueThis.recyclingAmount == 0) {
@@ -208,42 +247,6 @@ export default {
           window.location.href =
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });
-    },
-    confirmAction: function() {
-      this.beforeToastClose();
-      window.location.href = "IMMOTOR://consumerRefundSucceed";
-    },
-    goSitesAction: function() {
-      this.beforeToastClose();
-      window.location.href =
-        "https://test.ehuandian.net/immotor/h5vue/providersList/index.html";
-    },
-    closeAction: function() {
-      this.beforeToastClose();
-      this.refundFlag = 0;
-    },
-    afterOpenToast: function() {
-      var mo = function(e) {
-        e.preventDefault();
-      };
-      document.body.style.overflow = "hidden";
-      document.addEventListener("touchmove", mo, false); //禁止页面滑动
-    },
-    beforeToastClose: function() {
-      var mo = function(e) {
-        e.preventDefault();
-      };
-      document.body.style.overflow = ""; //出现滚动条
-      document.removeEventListener("touchmove", mo, false);
-    },
-    updateRecyclingAmount: function() {
-      this.recyclingAmount = 0;
-      if (this.batteryChecked) {
-        this.recyclingAmount += this.recyclingDepositAmount;
-      }
-      if (this.scooterChecked) {
-        this.recyclingAmount += this.recyclingScooterAmount;
-      }
     },
     getRecylingInfo: function() {
       var vueThis = this;
