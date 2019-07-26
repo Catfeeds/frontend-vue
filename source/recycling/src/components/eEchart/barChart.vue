@@ -125,6 +125,14 @@ export default {
       }
     };
   },
+  watch: {
+    xData: function(val){
+      this.setBarData();
+    },
+    yData: function(val){
+      this.setBarData();
+    }
+  },
   methods: {
     setBarData() {
       this.option.xAxis[0].data = this.xData;

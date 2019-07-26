@@ -104,10 +104,10 @@
       </div>
     </div>
     <div class="notRecyclableDiv" v-if="isClient==0">
-        <div class="notRecyclableIconDiv">
-          <img src="../assets/notRecyclable.png">
-        </div>
-        <p class="notRecyclableTitle">抱歉，您的电池不能进行环保回收 请联系当地服务商处理！</p>
+      <div class="notRecyclableIconDiv">
+        <img src="../assets/notRecyclable.png" />
+      </div>
+      <p class="notRecyclableTitle">抱歉，您的电池不能进行环保回收 请联系当地服务商处理！</p>
     </div>
   </div>
 </template>
@@ -136,7 +136,7 @@ export default {
       normalSrc: require("../assets/normal.png"),
       selectSrc: require("../assets/select.png"),
       refundFlag: 0, //0初始状态  1成功 2失败
-      isClient: 0
+      isClient: 1
     };
   },
   methods: {
@@ -344,6 +344,11 @@ img {
     rgba(228, 247, 255, 1) 0%,
     rgba(3, 154, 242, 1) 100%
   );
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
 }
 
 .sectionTitleFont {
@@ -445,7 +450,7 @@ img {
   border-radius: 20px 20px 8px 8px;
   position: relative;
   margin-top: -20px;
-  margin-bottom: 168px;
+  margin-bottom: 100px;
 }
 
 .sectionTitle {
@@ -645,12 +650,13 @@ img {
 
 .footer {
   width: 100%;
-  height: 168px;
+  height: 100px;
   left: 0;
   bottom: 0;
   position: fixed;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px -10px 10px 0px rgba(0, 0, 0, 0.06);
+  z-index: 999;
 }
 
 .footerLeftItem {
