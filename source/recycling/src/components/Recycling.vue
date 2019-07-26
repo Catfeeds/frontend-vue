@@ -88,6 +88,9 @@
           <div class="toastFailureIcon" v-if="refundFlag==2">
             <img src="../assets/failure.png" />
           </div>
+          <div class="toastClose" v-if="refundFlag==2" @click="closeAction">
+            <img src="../assets/toastClose.png">
+          </div>
           <p class="toastSuccessPrompt">
             <span class="promptTextFont" v-if="refundFlag==1">您的{{recyclingText}}回收已经受理。回收奖励金额：</span>
             <span class="promptAmountFont" v-if="refundFlag==1">{{recyclingAmount}}元</span>
@@ -188,12 +191,14 @@ export default {
                 vueThis.recyclingText += "和中控";
               }
             }
+            vueThis.afterOpenToast();
           } else if (
             result.code == 603 ||
             result.code == 636 ||
             result.code == 647
           ) {
             vueThis.refundFlag = 2;
+            vueThis.afterOpenToast();
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.msg;
@@ -205,11 +210,31 @@ export default {
         });
     },
     confirmAction: function() {
+      this.beforeToastClose();
       window.location.href = "IMMOTOR://consumerRefundSucceed";
     },
     goSitesAction: function() {
+      this.beforeToastClose();
       window.location.href =
         "https://test.ehuandian.net/immotor/h5vue/providersList/index.html";
+    },
+    closeAction: function(){
+      this.beforeToastClose();
+      this.refundFlag = 0;
+    },
+    afterOpenToast:function(){
+      var mo = function(e) {
+        e.preventDefault();
+      };
+      document.body.style.overflow = "hidden";
+      document.addEventListener("touchmove", mo, false); //禁止页面滑动
+    },
+    beforeToastClose: function(){
+      var mo = function(e) {
+        e.preventDefault();
+      };
+      document.body.style.overflow = ""; //出现滚动条
+      document.removeEventListener("touchmove", mo, false);
     },
     updateRecyclingAmount: function() {
       this.recyclingAmount = 0;
@@ -250,9 +275,14 @@ export default {
             }
             vueThis.recyclingTime = recyclingsChartInfoXData;
             vueThis.recyclingPrice = recyclingsChartInfoYData;
-            vueThis.topRecyclingPrice =
-              result.result.recyclingDepositAmount +
-              result.result.recyclingScooterAmount;
+            vueThis.topRecyclingPrice = 0;
+            if(result.result.recyclingDepositAmount){
+              vueThis.topRecyclingPrice =
+              result.result.recyclingDepositAmount;
+            }
+            if(result.result.recyclingScooterAmount){
+              vueThis.topRecyclingPrice += result.result.recyclingScooterAmount;
+            }
             vueThis.recyclingDepositAmount =
               result.result.recyclingDepositAmount;
             vueThis.recyclingScooterAmount =
@@ -731,6 +761,7 @@ img {
   position: fixed;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
+  z-index: 1000;
 }
 
 .toastBK {
@@ -740,6 +771,14 @@ img {
   border-radius: 10px;
   margin: auto;
   position: relative;
+}
+
+.toastClose{
+  width: 28px;
+  height: 28px;
+  right: 40px;
+  top: 40px;
+  position: absolute;
 }
 
 .toastSuccessIcon {
