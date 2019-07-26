@@ -687,6 +687,7 @@ img{
   height: 100%;
   position: fixed;
   background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
 }
 
 .toastBK {
