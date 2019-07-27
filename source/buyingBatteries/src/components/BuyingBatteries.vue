@@ -122,6 +122,7 @@ export default {
       selectPayType: 1,
       selectCouponId: "",
       checkedProtocol: false,
+      deductionAmount: 0,
       couponPrompt: "无可用优惠劵",
       couponContentClass: "couponContentUsableNoneFont",
       wechatPaySelectSrc: require("../assets/checkbox_normal.png"),
@@ -135,7 +136,7 @@ export default {
   methods: {
     selectPackage: function(index) {
       this.selectIndex = index;
-      this.payAmount = this.batteryList[index].price;
+      this.payAmount = this.batteryList[index].price - this.deductionAmount;
     },
     couponToastAction: function() {
       if (this.couponList.length > 0) {
@@ -166,6 +167,7 @@ export default {
       this.couponPrompt = "有待使用的优惠劵";
       this.couponContentClass = "couponContentFont";
       this.payAmount = this.batteryList[this.selectIndex].price;
+      this.deductionAmount = 0;
     },
     toastCloseAction: function() {
       this.couponToastShow = false;
@@ -179,6 +181,7 @@ export default {
       } else if (item.discountType == 2) {
         this.payAmount = (amount * item.discount) / 10;
       }
+      this.deductionAmount = (amount - this.payAmount);
       this.couponPrompt = "已抵扣" + (amount - this.payAmount) + "元";
       this.couponContentClass = "couponContentFont";
     },
