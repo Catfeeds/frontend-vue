@@ -139,7 +139,8 @@ export default {
       normalSrc: require("../assets/normal.png"),
       selectSrc: require("../assets/select.png"),
       refundFlag: 0, //0初始状态  1成功 2失败
-      isClient: 1
+      isClient: 1,
+      userToken: ""
     };
   },
   methods: {
