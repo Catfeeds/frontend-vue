@@ -720,7 +720,7 @@ img{
   font-size: 28px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
-  color: rgba(118, 118, 118, 1);
+  color: #F87F3A;
   text-align: left;
 }
 
