@@ -109,7 +109,7 @@ export default {
       //有群组直接去购买电池套餐页面
       if (this.hasGroup) {
         window.location.href =
-          "https://test.ehuandian.net/immotor/h5vue/buyingBatteries/index.html";
+          "../buyingBatteries/index.html";
       }
       //无群组去预约
       else {
@@ -124,7 +124,7 @@ export default {
           param = "?appointment=1";
         }
         window.location.href =
-          "https://test.ehuandian.net/immotor/h5vue/providersList/index.html" +
+          "../providersList/index.html" +
           param;
       }
     },

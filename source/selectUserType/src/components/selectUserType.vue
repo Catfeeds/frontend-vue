@@ -32,10 +32,10 @@ export default {
       let currentUrl =  window.location.href;
       var param = currentUrl.substr(currentUrl.indexOf("?"), currentUrl.length); 
       if(param.indexOf('?') == -1){
-         window.location.href = "https://test.ehuandian.net/immotor/h5vue/consumerGuide/index.html"
+         window.location.href = "../consumerGuide/index.html"
       }
       else{
-        window.location.href = "https://test.ehuandian.net/immotor/h5vue/consumerGuide/index.html" + param;
+        window.location.href = "../consumerGuide/index.html" + param;
       }
     },
     commercialClick: function(){

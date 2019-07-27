@@ -179,7 +179,7 @@ export default {
     goSitesAction: function() {
       this.beforeToastClose();
       window.location.href =
-        "https://test.ehuandian.net/immotor/h5vue/providersList/index.html";
+        "../providersList/index.html";
     },
     closeAction: function() {
       this.beforeToastClose();
