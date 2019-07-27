@@ -2,7 +2,7 @@
   <div class="page-content">
     <div v-if="showList">
       <p class="topPrompt textFont">* 为提高服务质量，请选择附近的门店进行预约</p>
-      <div 
+      <div
         v-for="(item, index) in providerList"
         v-bind:class="[selectIndex==index ? 'providerItemSelect providerItem' : 'providerItem']"
         @click="providerItemSelectAction(item, index)"
@@ -51,7 +51,8 @@ export default {
       cityCode: "",
       userLat: 0,
       userLon: 0,
-      showList: true
+      showList: true,
+      appointmentId: ""
     };
   },
   methods: {
@@ -77,10 +78,33 @@ export default {
       this.selectIndex = index;
     },
     nextAction: function() {
-      let item = this.providerList[this.selectIndex];
-      window.location.href =
-        "https://test.ehuandian.net/immotor/h5vue/appointment/index.html?siteId=" +
-        item.id;
+      if (this.appointmentId && this.appointmentId.length > 0) {
+        window.location.href =
+          "https://test.ehuandian.net/immotor/h5vue/appointmentSuccess/index.html";
+      } else {
+        let item = this.providerList[this.selectIndex];
+        window.location.href =
+          "https://test.ehuandian.net/immotor/h5vue/appointment/index.html?siteId=" +
+          item.id;
+      }
+    },
+    getUserAppointmentInfo: function() {
+      var vueThis = this;
+      vueThis
+        .axios({
+          method: "get",
+          url: vueThis.$yApi.getUserAppointment,
+          headers: {
+            Authorization: vueThis.userToken
+          }
+        })
+        .then(function(resp) {
+          var result = resp.data;
+          if (result.resultCode == 1) {
+            vueThis.appointmentId = result.data.id;
+          }
+        })
+        .catch(resp => {});
     },
     getConsumerSitesData: function() {
       var vueThis = this;
@@ -109,7 +133,7 @@ export default {
           var result = resp.data;
           if (result.resultCode == 1) {
             vueThis.providerList = result.data.pageData;
-            if(vueThis.providerList.length == 0){
+            if (vueThis.providerList.length == 0) {
               vueThis.showList = false;
             }
           } else {
@@ -139,6 +163,7 @@ export default {
               vueThis.userLon = dataObj.lon;
               vueThis.cityCode = dataObj.citycode;
               vueThis.getConsumerSitesData();
+              vueThis.getUserAppointmentInfo();
             }
           }
         );
@@ -152,6 +177,7 @@ export default {
             vueThis.userLon = responseData.lon;
             vueThis.cityCode = responseData.citycode;
             vueThis.getConsumerSitesData();
+            vueThis.getUserAppointmentInfo();
           });
         }
       }
@@ -169,7 +195,7 @@ export default {
       this.appointment = appointmentParam;
     }
     let cityCode = this.getUrlParam("cityCode");
-    if (cityCode && cityCode.length>0 &&cityCode != "(null)") {
+    if (cityCode && cityCode.length > 0 && cityCode != "(null)") {
       this.cityCode = cityCode;
     }
     let lat = this.getUrlParam("lat");
@@ -196,6 +222,7 @@ export default {
     }
     if (this.userToken.length > 0 && this.cityCode.length > 0) {
       this.getConsumerSitesData();
+      this.getUserAppointmentInfo();
     } else {
       //使用jsbridage获取token 和 城市code信息
       this.getEhdUserInfoFromBridge();
@@ -206,14 +233,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .page-content {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    box-sizing: border-box;
-    height: 100%;
-    position: relative;
-    z-index: 1;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  height: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .imgClass {
@@ -355,7 +381,7 @@ export default {
   text-align: left;
 }
 
-.pageBottom{
+.pageBottom {
   height: 160px;
 }
 

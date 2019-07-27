@@ -5,6 +5,8 @@ const promotionServerPath = 'https://test.ehuandian.net/server/promotion/app/';
 var yApi = {
 	//获取C端服务网点
 	getConsumerSites: promotionServerPath + 'site/findSiteList',
+	//获取预约信息
+	getUserAppointment: promotionServerPath + 'site/reservation',
 };
 
 export default yApi;
