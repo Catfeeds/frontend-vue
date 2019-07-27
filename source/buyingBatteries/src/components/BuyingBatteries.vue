@@ -70,7 +70,7 @@
               <a
                 class="protocolFont"
                 href="IMMOTOR://openWebView?url=https://test.ehuandian.net/immotor/apph5/batteryRecycling/recyclingProtocol.html"
-              >《超级电池、智能中控环保回收服务协议》</a>
+              >《超级电池包环保回收服务协议》</a>
             </span>
           </p>
           <div class="costsText">
@@ -188,7 +188,7 @@ export default {
     confirmPayAction: function() {
       if (!this.checkedProtocol) {
         window.location.href =
-          "IMMOTOR://showPrompt?code=0&message=请阅读并同意相关协议";
+          "IMMOTOR://showPrompt?code=0&message=请阅读并同意“超级电池包环保回收服务协议”";
         return;
       }
       var param = "type=";
