@@ -80,11 +80,11 @@ export default {
     nextAction: function() {
       if (this.appointmentId && this.appointmentId.length > 0) {
         window.location.href =
-          "https://test.ehuandian.net/immotor/h5vue/appointmentSuccess/index.html";
+          "../appointmentSuccess/index.html";
       } else {
         let item = this.providerList[this.selectIndex];
         window.location.href =
-          "https://test.ehuandian.net/immotor/h5vue/appointment/index.html?siteId=" +
+          "../appointment/index.html?siteId=" +
           item.id;
       }
     },
