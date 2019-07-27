@@ -110,7 +110,7 @@
       <div class="notRecyclableIconDiv">
         <img src="../assets/notRecyclable.png" />
       </div>
-      <p class="notRecyclableTitle">抱歉，您的电池不能进行环保回收 请联系当地服务商处理！</p>
+      <p class="notRecyclableTitle">抱歉，您当前不能进行环保回收，请联系当地服务商处理！</p>
     </div>
   </div>
 </template>
@@ -152,18 +152,19 @@ export default {
       this.batteryChecked = !this.batteryChecked;
       this.updateRecyclingAmount();
     },
-    recyclingAction:function () {
+    recyclingAction: function() {
       var vueThis = this;
       vueThis.$dialog.setDefaultOptions({
-          messageAlign: "left",
-          cancelButtonText:"已知悉，马上回收",
-          confirmButtonText: "取消",
-          confirmButtonColor: "#333"
+        messageAlign: "left",
+        cancelButtonText: "已知悉，马上回收",
+        confirmButtonText: "取消",
+        confirmButtonColor: "#333"
       });
       vueThis.$dialog
         .confirm({
           title: "环保回收须知",
-          message: "1.电池环保回收后赠送的免费套餐将会被清空。<br>2.中控环保回收后您将不能正常使用免费换电服务"
+          message:
+            "1.电池环保回收后赠送的免费套餐将会被清空。<br>2.中控环保回收后您将不能正常使用免费换电服务"
         })
         .then(() => {
           // on confirm
@@ -171,7 +172,7 @@ export default {
         .catch(() => {
           // on cancel
           vueThis.submitRecylingInfo();
-      });
+        });
     },
     confirmAction: function() {
       this.beforeToastClose();
@@ -179,8 +180,7 @@ export default {
     },
     goSitesAction: function() {
       this.beforeToastClose();
-      window.location.href =
-        "../providersList/index.html";
+      window.location.href = "../providersList/index.html";
     },
     closeAction: function() {
       this.beforeToastClose();
@@ -209,7 +209,7 @@ export default {
         this.recyclingAmount += this.recyclingScooterAmount;
       }
     },
-    submitRecylingInfo: function(){
+    submitRecylingInfo: function() {
       //调用提交接口
       var vueThis = this;
       if (vueThis.recyclingAmount == 0) {
@@ -290,16 +290,24 @@ export default {
               ) {
                 for (
                   let index = 0;
-                  index < result.result.recyclings.length - 1;
+                  index < result.result.recyclings.length;
                   index++
                 ) {
-                  const element = result.result.recyclings[index];
-                  const nextElement = result.result.recyclings[index + 1];
-                  let xItem =
-                    element.duration / 30 + "-" + nextElement.duration / 30;
-                  let yItem = element.scooterAmount + element.depositAmount;
-                  recyclingsChartInfoXData.push(xItem);
-                  recyclingsChartInfoYData.push(yItem);
+                  if (index == result.result.recyclings.length - 1) {
+                    const element = result.result.recyclings[index];
+                    let xItem =  element.duration / 30 + "月以上";
+                    let yItem = element.scooterAmount + element.depositAmount;
+                    recyclingsChartInfoXData.push(xItem);
+                    recyclingsChartInfoYData.push(yItem);
+                  } else {
+                    const element = result.result.recyclings[index];
+                    const nextElement = result.result.recyclings[index + 1];
+                    let xItem =
+                      element.duration / 30 + "-" + nextElement.duration / 30;
+                    let yItem = element.scooterAmount + element.depositAmount;
+                    recyclingsChartInfoXData.push(xItem);
+                    recyclingsChartInfoYData.push(yItem);
+                  }
                 }
               }
               vueThis.recyclingTime = recyclingsChartInfoXData;
