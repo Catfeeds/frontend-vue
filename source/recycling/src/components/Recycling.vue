@@ -151,9 +151,27 @@ export default {
       this.batteryChecked = !this.batteryChecked;
       this.updateRecyclingAmount();
     },
-    recyclingAction:_.debounce(function (refName) {
-      this.submitRecylingInfo();
-    }, 1000),
+    recyclingAction:function () {
+      var vueThis = this;
+      vueThis.$dialog.setDefaultOptions({
+          messageAlign: "left",
+          cancelButtonText:"已知悉，马上回收",
+          confirmButtonText: "取消",
+          confirmButtonColor: "#333"
+      });
+      vueThis.$dialog
+        .confirm({
+          title: "环保回收须知",
+          message: "1.电池环保回收后赠送的免费套餐将会被清空。<br>2.中控环保回收后您将不能正常使用免费换电服务"
+        })
+        .then(() => {
+          // on confirm
+        })
+        .catch(() => {
+          // on cancel
+          vueThis.submitRecylingInfo();
+      });
+    },
     confirmAction: function() {
       this.beforeToastClose();
       window.location.href = "IMMOTOR://consumerRefundSucceed";
@@ -172,14 +190,14 @@ export default {
         e.preventDefault();
       };
       document.body.style.overflow = "hidden";
-      document.addEventListener("touchmove", mo, false); //禁止页面滑动
+      document.addEventListener("touchmove", mo, { passive: false }); //禁止页面滑动
     },
     beforeToastClose: function() {
       var mo = function(e) {
         e.preventDefault();
       };
       document.body.style.overflow = ""; //出现滚动条
-      document.removeEventListener("touchmove", mo, false);
+      document.removeEventListener("touchmove", mo, { passive: false });
     },
     updateRecyclingAmount: function() {
       this.recyclingAmount = 0;
@@ -393,28 +411,28 @@ img {
 }
 
 .sectionTitleFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
 .remarkFont {
-  font-size: 24px;
+  font-size: 12px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(89, 89, 89, 1);
 }
 
 .processRemarkFont {
-  font-size: 24px;
+  font-size: 12px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(153, 153, 153, 1);
 }
 
 .footerAmountFont {
-  font-size: 32px;
+  font-size: 16px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(243, 130, 86, 1);
@@ -422,63 +440,63 @@ img {
 
 .header {
   width: 100%;
-  height: 1028px;
+  height: 514px;
   position: relative;
 }
 
 .headerRemark {
   width: 100%;
-  height: 36px;
+  height: 18px;
   left: 0;
-  top: 168px;
+  top: 84px;
   position: absolute;
-  font-size: 32px;
+  font-size: 16px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
 .headerTitle {
-  width: 600px;
-  height: 100px;
-  left: 75px;
-  top: 234px;
+  width: 300px;
+  height: 50px;
+  left: 38px;
+  top: 117px;
   position: absolute;
 }
 
 .headerRecyclingTitle {
-  width: 400px;
-  height: 80px;
-  left: 175px;
-  top: 368px;
+  width: 200px;
+  height: 40px;
+  left: 88px;
+  top: 184px;
   position: absolute;
   background: rgba(255, 141, 89, 1);
-  border-radius: 40px;
-  line-height: 80px;
+  border-radius: 20px;
+  line-height: 40px;
 }
 
 .headerRecylingLeftFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(255, 255, 255, 1);
 }
 
 .headerRecylingRightFont {
-  font-size: 40px;
+  font-size: 20px;
   font-family: PingFangSC-Semibold;
   color: rgba(255, 255, 255, 1);
 }
 
 .amountFont {
-  font-size: 48px;
+  font-size: 24px;
   font-family: PingFangSC-Semibold;
   font-weight: 600;
   color: rgba(243, 130, 86, 1);
 }
 
 .amountUnitFont {
-  font-size: 32px;
+  font-size: 16px;
   font-family: PingFangSC-Semibold;
   font-weight: 600;
   color: rgba(243, 130, 86, 1);
@@ -488,210 +506,210 @@ img {
   width: 100%;
   background: rgba(255, 255, 255, 1);
   padding: 1px;
-  border-radius: 20px 20px 8px 8px;
+  border-radius: 10px 10px 4px 4px;
   position: relative;
-  margin-top: -20px;
-  margin-bottom: 100px;
+  margin-top: -10px;
+  margin-bottom: 50px;
 }
 
 .sectionTitle {
-  width: 320px;
-  height: 68px;
+  width: 160px;
+  height: 34px;
   background: rgba(3, 132, 98, 1);
-  border-radius: 0px 200px 200px 0px;
-  line-height: 68px;
-  padding-left: 40px;
+  border-radius: 0px 100px 100px 0px;
+  line-height: 34px;
+  padding-left: 20px;
   text-align: left;
 }
 
 .sectionTop {
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 .recyclingPriceChart {
   margin-top: 0px;
-  margin-bottom: -24px;
+  margin-bottom: -12px;
 }
 
 .chartBottomRemark {
-  margin-top: 36px;
-  margin-right: 66px;
+  margin-top: 18px;
+  margin-right: 33px;
   text-align: right;
-  height: 28px;
-  font-size: 20px;
+  height: 14px;
+  font-size: 10px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(153, 153, 153, 1);
-  line-height: 28px;
+  line-height: 14px;
   z-index: 9999;
 }
 
 .recyclingProcessDiv {
-  height: 258px;
-  margin-top: 60px;
+  height: 129px;
+  margin-top: 30px;
   position: relative;
 }
 
 .processIconDiv {
-  width: 172px;
-  height: 120px;
+  width: 86px;
+  height: 60px;
   top: 0;
   position: absolute;
 }
 
 .icon1Left {
-  left: 55px;
+  left: 28px;
 }
 
 .icon2Left {
-  left: 287px;
+  left: 144px;
 }
 
 .icon3Left {
-  right: 55px;
+  right: 28px;
 }
 
 .processArrowDiv {
-  width: 16px;
-  height: 28px;
-  top: 46px;
+  width: 8px;
+  height: 14px;
+  top: 23px;
   position: absolute;
 }
 
 .arrow1Left {
-  left: 251px;
+  left: 126px;
 }
 
 .arrow2Left {
-  right: 251px;
+  right: 126px;
 }
 
 .processTitle {
-  width: 172px;
-  height: 40px;
-  top: 142px;
+  width: 86px;
+  height: 20px;
+  top: 71px;
   position: absolute;
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(102, 102, 102, 1);
-  line-height: 40px;
+  line-height: 20px;
 }
 
 .processTitle1Left {
-  left: 57px;
+  left: 29px;
 }
 
 .processTitle2Left {
-  left: 289px;
+  left: 145px;
 }
 
 .processTitle3Left {
-  right: 57px;
+  right: 29px;
 }
 
 .processRemark1 {
-  width: 204px;
-  height: 68px;
-  left: 41px;
-  top: 190px;
+  width: 102px;
+  height: 34px;
+  left: 21px;
+  top: 95px;
   position: absolute;
-  line-height: 34px;
+  line-height: 17px;
 }
 
 .processRemark2 {
-  width: 170px;
-  height: 68px;
-  left: 291px;
-  top: 190px;
+  width: 85px;
+  height: 34px;
+  left: 146px;
+  top: 95px;
   position: absolute;
-  line-height: 34px;
+  line-height: 17px;
 }
 
 .processRemark3 {
-  width: 148px;
-  height: 68px;
-  top: 190px;
-  right: 56px;
+  width: 74px;
+  height: 34px;
+  top: 95px;
+  right: 28px;
   position: absolute;
-  font-size: 24px;
-  line-height: 34px;
+  font-size: 12px;
+  line-height: 17px;
 }
 
 .recyclingCommodityDiv {
-  margin-top: 60px;
-  margin-bottom: 60px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .commodityItem {
-  height: 160px;
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-bottom: 20px;
+  height: 80px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 10px;
   background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.06);
-  border-radius: 10px;
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.06);
+  border-radius: 5px;
   position: relative;
 }
 
 .commodityItemIcon {
-  width: 38px;
-  height: 38px;
-  left: 30px;
-  top: 64px;
+  width: 19px;
+  height: 19px;
+  left: 15px;
+  top: 32px;
   position: absolute;
 }
 
 .commodityItemLine {
-  width: 2px;
-  height: 86px;
-  left: 92px;
-  top: 38px;
+  width: 1px;
+  height: 43px;
+  left: 46px;
+  top: 19px;
   position: absolute;
   background: #ededed;
 }
 
 .commodityItemName {
-  left: 126px;
-  right: 40px;
-  top: 34px;
-  height: 44px;
+  left: 63px;
+  right: 20px;
+  top: 17px;
+  height: 22px;
   position: absolute;
-  font-size: 32px;
+  font-size: 16px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(89, 89, 89, 1);
-  line-height: 44px;
+  line-height: 22px;
   text-align: left;
 }
 
 .commodityItemRemark {
-  width: 150px;
-  height: 34px;
-  left: 126px;
-  top: 86px;
+  width: 75px;
+  height: 17px;
+  left: 63px;
+  top: 43px;
   position: absolute;
-  font-size: 24px;
+  font-size: 12px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(89, 89, 89, 1);
-  line-height: 34px;
+  line-height: 17px;
   text-align: left;
 }
 
 .commodityItemAmount {
-  left: 280px;
-  right: 40px;
-  top: 62px;
-  height: 66px;
+  left: 140px;
+  right: 20px;
+  top: 31px;
+  height: 33px;
   position: absolute;
-  line-height: 66px;
+  line-height: 33px;
   text-align: right;
 }
 
 .footer {
   width: 100%;
-  height: 100px;
+  height: 50px;
   left: 0;
   bottom: 0;
   position: fixed;
@@ -701,66 +719,66 @@ img {
 }
 
 .footerLeftItem {
-  width: 242px;
-  height: 100px;
+  width: 121px;
+  height: 50px;
   left: 0;
   top: 0;
   position: absolute;
-  line-height: 100px;
+  line-height: 50px;
 }
 
 .footerRightItem {
-  left: 242px;
+  left: 121px;
   right: 0;
-  height: 100px;
+  height: 50px;
   top: 0;
   position: absolute;
   background: rgba(3, 132, 98, 1);
 }
 
 .footerRecyclingText {
-  height: 44px;
-  margin-top: 12px;
-  font-size: 32px;
+  height: 22px;
+  margin-top: 6px;
+  font-size: 16px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
-  line-height: 44px;
+  line-height: 22px;
 }
 
 .footerRecyclingRemark {
-  height: 28px;
-  font-size: 20px;
+  height: 14px;
+  font-size: 10px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.5);
-  line-height: 28px;
+  line-height: 14px;
 }
 
 .notRecyclableDiv {
   width: 100%;
-  height: 314px;
+  height: 157px;
   margin: auto;
   position: relative;
 }
 
 .notRecyclableIconDiv {
-  width: 144px;
-  height: 188px;
+  width: 72px;
+  height: 94px;
   margin: auto;
-  margin-top: 208px;
+  margin-top: 104px;
 }
 
 .notRecyclableTitle {
-  width: 420px;
-  height: 80px;
-  font-size: 28px;
+  width: 210px;
+  height: 40px;
+  font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(118, 118, 118, 1);
-  line-height: 40px;
+  line-height: 20px;
   margin: auto;
-  margin-top: 45px;
+  margin-top: 22px;
   text-align: center;
 }
 
@@ -776,72 +794,72 @@ img {
 }
 
 .toastBK {
-  width: 598px;
-  height: 634px;
+  width: 299px;
+  height: 317px;
   background: rgba(255, 255, 255, 1);
-  border-radius: 10px;
+  border-radius: 5px;
   margin: auto;
   position: relative;
 }
 
 .toastClose {
-  width: 28px;
-  height: 28px;
-  right: 40px;
-  top: 40px;
+  width: 14px;
+  height: 14px;
+  right: 20px;
+  top: 20px;
   position: absolute;
 }
 
 .toastSuccessIcon {
-  width: 112px;
-  height: 112px;
+  width: 56px;
+  height: 56px;
   margin: auto;
-  margin-top: 136px;
+  margin-top: 68px;
 }
 
 .toastFailureIcon {
-  width: 236px;
-  height: 152px;
+  width: 118px;
+  height: 76px;
   margin: auto;
-  margin-top: 116px;
+  margin-top: 58px;
 }
 
 .promptTextFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
 
 .promptAmountFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: #ff761b;
 }
 
 .toastSuccessPrompt {
-  width: 508px;
-  height: 170px;
+  width: 254px;
+  height: 85px;
   margin: auto;
-  margin-top: 54px;
-  line-height: 48px;
+  margin-top: 27px;
+  line-height: 24px;
 }
 
 .toastBtnTextFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
 .toastBtn {
-  width: 508px;
-  height: 88px;
+  width: 254px;
+  height: 44px;
   margin: auto;
-  margin-bottom: 46px;
+  margin-bottom: 23px;
   background: rgba(248, 127, 58, 1);
   border-radius: 10px;
-  line-height: 88px;
+  line-height: 44px;
 }
 </style>
