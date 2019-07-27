@@ -108,7 +108,7 @@ export default {
     },
     rescheduleAction: function() {
       window.location.href =
-        "https://test.ehuandian.net/immotor/h5vue/consumerGuide/index.html";
+        "../consumerGuide/index.html";
     },
     cancerAppointment: function() {
       var vueThis = this;
