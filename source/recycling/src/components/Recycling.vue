@@ -277,15 +277,19 @@ export default {
                 ) {
                   if (index == result.result.recyclings.length - 1) {
                     const element = result.result.recyclings[index];
-                    let xItem =  element.duration / 30 + "月以上";
+                    var start = element.duration / 30;
+                    start = (start == 0 ) ? start : start + 1;
+                    let xItem =  start + "月以上";
                     let yItem = element.scooterAmount + element.depositAmount;
                     recyclingsChartInfoXData.push(xItem);
                     recyclingsChartInfoYData.push(yItem);
                   } else {
                     const element = result.result.recyclings[index];
                     const nextElement = result.result.recyclings[index + 1];
+                    var start = element.duration / 30;
+                    start = (start == 0 ) ? start : start + 1;
                     let xItem =
-                      element.duration / 30 + "-" + nextElement.duration / 30;
+                      start + "-" + nextElement.duration / 30;
                     let yItem = element.scooterAmount + element.depositAmount;
                     recyclingsChartInfoXData.push(xItem);
                     recyclingsChartInfoYData.push(yItem);
