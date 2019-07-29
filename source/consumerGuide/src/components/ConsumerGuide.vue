@@ -86,7 +86,7 @@
         <span v-else class="bottomTitleFont">马上预约服务商 ></span>
       </div>
     </div>
-    <div class="toastMask" v-if="showDailog">
+    <div class="toastMask" @touchmove.prevent v-if="showDailog">
       <div class="toastBK">
         <p class="toastTitle">如要购买超级电池包，请联系当地服务商先退中控押金！</p>
         <div class="toastBtn toastBtnTextFont" @click="confirmAction">确定</div>
@@ -146,11 +146,6 @@ export default {
     var show = this.getUrlParam("show");
     if (show == "1") {
       this.showDailog = true;
-      var mo = function(e) {
-        e.preventDefault();
-      };
-      document.body.style.overflow = "hidden";
-      document.addEventListener("touchmove", mo, { passive: false }); //禁止页面滑动
     }
   }
 };
