@@ -81,7 +81,7 @@
         </div>
       </div>
       <div class="toastMask" @touchmove.prevent v-if="refundFlag">
-        <div class="toastBK">
+        <div class="toastBK" >
           <div class="toastSuccessIcon" v-if="refundFlag==1">
             <img src="../assets/success.png" />
           </div>
@@ -175,15 +175,12 @@ export default {
         });
     },
     confirmAction: function() {
-      this.beforeToastClose();
       window.location.href = "IMMOTOR://consumerRefundSucceed";
     },
     goSitesAction: function() {
-      this.beforeToastClose();
       window.location.href = "../providersList/index.html";
     },
     closeAction: function() {
-      this.beforeToastClose();
       this.refundFlag = 0;
     },
     updateRecyclingAmount: function() {
@@ -236,14 +233,12 @@ export default {
                 vueThis.recyclingText += "和中控";
               }
             }
-            vueThis.afterOpenToast();
           } else if (
             result.code == 603 ||
             result.code == 636 ||
             result.code == 647
           ) {
             vueThis.refundFlag = 2;
-            vueThis.afterOpenToast();
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.msg;
