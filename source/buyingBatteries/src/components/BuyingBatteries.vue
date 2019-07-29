@@ -12,7 +12,10 @@
             <p class="batteryPrice">
               <span class="unitFont">¥</span>
               <span class="priceFont">{{item.price + " "}}</span>
-              <span class="originalPriceFont" v-if="item.original_price>item.price">{{item.original_price}}</span>
+              <span
+                class="originalPriceFont"
+                v-if="item.original_price>item.price"
+              >{{item.original_price}}</span>
             </p>
           </div>
           <div class="selectDiv" v-if="index==selectIndex">
@@ -45,7 +48,7 @@
             </div>
             <p class="payTypeText">支付宝支付（支持花呗）</p>
             <div class="payTypeSelect" @click="selectAlipayAction">
-              <img  :src="alipaySelectSrc" />
+              <img :src="alipaySelectSrc" />
             </div>
           </div>
           <div class="payTypeSelectDiv">
@@ -123,6 +126,8 @@ export default {
       selectCouponId: "",
       checkedProtocol: false,
       deductionAmount: 0,
+      deductionType: 0,
+      deductionDisCount: 0,
       couponPrompt: "无可用优惠劵",
       couponContentClass: "couponContentUsableNoneFont",
       wechatPaySelectSrc: require("../assets/checkbox_normal.png"),
@@ -136,7 +141,7 @@ export default {
   methods: {
     selectPackage: function(index) {
       this.selectIndex = index;
-      this.payAmount = this.batteryList[index].price - this.deductionAmount;
+      this.updateAmount();
     },
     couponToastAction: function() {
       if (this.couponList.length > 0) {
@@ -164,10 +169,10 @@ export default {
     clearCouponAction: function() {
       this.couponToastShow = false;
       this.selectCouponId = "";
-      this.couponPrompt = "有待使用的优惠劵";
-      this.couponContentClass = "couponContentFont";
-      this.payAmount = this.batteryList[this.selectIndex].price;
       this.deductionAmount = 0;
+      this.deductionType = 0;
+      this.deductionDisCount = 0;
+      this.updateAmount();
     },
     toastCloseAction: function() {
       this.couponToastShow = false;
@@ -175,15 +180,38 @@ export default {
     couponUseAction: function(item) {
       this.couponToastShow = false;
       this.selectCouponId = item.id;
-      var amount = this.batteryList[this.selectIndex].price;
+      this.deductionType = item.discountType;
       if (item.discountType == 1) {
-        this.payAmount = amount - item.amount;
+        this.deductionAmount = item.amount;
       } else if (item.discountType == 2) {
-        this.payAmount = (amount * item.discount) / 10;
+        this.deductionDisCount = item.discount;
       }
-      this.deductionAmount = (amount - this.payAmount);
-      this.couponPrompt = "已抵扣" + (amount - this.payAmount) + "元";
-      this.couponContentClass = "couponContentFont";
+      this.updateAmount();
+    },
+    updateAmount: function() {
+      var amount = this.batteryList[this.selectIndex].price;
+      if (this.deductionType == 0) {
+        this.payAmount = amount;
+        if (this.couponList.length > 0) {
+          this.couponPrompt = "有待使用的优惠劵";
+          this.couponContentClass = "couponContentFont";
+        } else {
+          this.couponPrompt = "无可用优惠劵";
+          this.couponContentClass = "couponContentUsableNoneFont";
+        }
+      } else if (this.deductionType == 1) {
+        this.payAmount = amount - this.deductionAmount;
+        this.payAmount = this.payAmount < 0 ? 0 : this.payAmount.toFixed(2);
+        this.couponPrompt =
+          "已抵扣" + (amount - this.payAmount).toFixed(2) + "元";
+        this.couponContentClass = "couponContentFont";
+      } else if (this.deductionType == 2) {
+        this.payAmount = (amount * this.deductionDisCount) / 10;
+        this.payAmount = this.payAmount < 0 ? 0 : this.payAmount.toFixed(2);
+        this.couponPrompt =
+          "已抵扣" + (amount - this.payAmount).toFixed(2) + "元";
+        this.couponContentClass = "couponContentFont";
+      }
     },
     confirmPayAction: function() {
       if (!this.checkedProtocol) {
@@ -367,19 +395,19 @@ a:focus {
   background: none;
   text-decoration: none;
 }
-img{
+img {
   width: 100%;
   height: 100%;
   display: block;
 }
 
 .page-content {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    box-sizing: border-box;
-    height: 100%;
-    position: relative;
-    z-index: 1;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  height: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .batteriesDiv {
@@ -720,7 +748,7 @@ img{
   font-size: 28px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
-  color: #F87F3A;
+  color: #f87f3a;
   text-align: left;
 }
 
