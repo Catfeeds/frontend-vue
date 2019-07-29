@@ -80,7 +80,7 @@
           <p class="footerRecyclingRemark">最终回收奖励以实际到账为准</p>
         </div>
       </div>
-      <div class="toastMask" v-if="refundFlag">
+      <div class="toastMask" @touchmove.prevent v-if="refundFlag">
         <div class="toastBK">
           <div class="toastSuccessIcon" v-if="refundFlag==1">
             <img src="../assets/success.png" />
@@ -185,20 +185,6 @@ export default {
     closeAction: function() {
       this.beforeToastClose();
       this.refundFlag = 0;
-    },
-    afterOpenToast: function() {
-      var mo = function(e) {
-        e.preventDefault();
-      };
-      document.body.style.overflow = "hidden";
-      document.addEventListener("touchmove", mo, { passive: false }); //禁止页面滑动
-    },
-    beforeToastClose: function() {
-      var mo = function(e) {
-        e.preventDefault();
-      };
-      document.body.style.overflow = ""; //出现滚动条
-      document.removeEventListener("touchmove", mo, { passive: false });
     },
     updateRecyclingAmount: function() {
       this.recyclingAmount = 0;
