@@ -208,6 +208,7 @@ export default {
       if (this.scooterChecked) {
         this.recyclingAmount += this.recyclingScooterAmount;
       }
+      this.recyclingAmount =  this.recyclingAmount.toFixed(2);
     },
     submitRecylingInfo: function() {
       //调用提交接口
@@ -321,6 +322,7 @@ export default {
                 vueThis.topRecyclingPrice +=
                   result.result.recyclingScooterAmount;
               }
+              vueThis.topRecyclingPrice = vueThis.topRecyclingPrice.toFixed(2);
               vueThis.recyclingDepositAmount =
                 result.result.recyclingDepositAmount;
               vueThis.recyclingScooterAmount =
