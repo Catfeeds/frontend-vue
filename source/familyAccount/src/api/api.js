@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 //测试环境
-const ehdServerPath = 'http://test.ehuandian.net/';
+const ehdServerPath = 'https://test.ehuandian.net/server/ehd/app/';
 
 var yApi = {
 	//获取验证码
