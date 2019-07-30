@@ -96,7 +96,7 @@
     <div class="bottom">
       <img src="../assets/bottom.png" class="imgClass" />
     </div>
-    <div class="toast" v-if="toastShow">
+    <div class="toast" @touchmove.prevent v-if="toastShow">
       <div class="toastContent">
         <div v-bind:class="toastBKClass">
           <img class="imgClass" :src="toastBKUrl" />
@@ -269,7 +269,6 @@ export default {
       var that = this;
       setTimeout(() => {
         that.toastShow = true;
-        that.afterOpenToast();
       }, 1000)
     },
     onLuckyDrawException: function() {
@@ -284,7 +283,6 @@ export default {
       timer = null;
     },
     toastCloseAction: function() {
-      this.beforeToastClose();
       this.selectBKShow = false;
       this.toastShow = false;
     },
@@ -313,7 +311,6 @@ export default {
         }
         this.recordEntityInfo();
       }
-      this.beforeToastClose();
       this.selectBKShow = false;
       this.toastShow = false;
     },
@@ -572,27 +569,6 @@ export default {
         }
       }
       return -1;
-    },
-    afterOpenToast:function(){
-      this.scrollTop = document.scrollingElement.scrollTop;
-      document.body.style.position = "fixed";
-      document.body.style.top = this.scrollTop + "px";
-      var mo = function(e) {
-        e.preventDefault();
-      };
-      document.body.style.overflow = "hidden";
-      document.addEventListener("touchmove", mo, false); //禁止页面滑动
-    },
-    beforeToastClose: function(){
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.scrollingElement.scrollTop = this.scrollTop;
-      var mo = function(e) {
-        e.preventDefault();
-      };
-      document.body.style.overflow = ""; //出现滚动条
-      document.removeEventListener("touchmove", mo, false);
-
     },
     getEhdUserInfoFromBridge: function() {
       var vueThis = this;
