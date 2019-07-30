@@ -79,7 +79,7 @@
         <p class="fourthSectionText fourSectionTextTopCommon">4.更环保</p>
         <p class="fourthSectionRemark">智能锂电，统一回收再利用，解决铅酸污染，绿色环保。</p>
       </div>
-      <p class="bottomPrompt">* 最终解释权归深圳市易马达科技有限公司所有</p>
+      <p class="bottomPrompt">* 最终解释权归深圳易马达科技有限公司所有</p>
       <div class="bottomOprBtn" @click="bottomAction">
         <span v-if="hasGroup" class="bottomTitleFont">购买超级电池+智慧中控</span>
         <span v-if="hasGroup" class="bottomAmountFont">&nbsp;&nbsp;¥1680</span>
