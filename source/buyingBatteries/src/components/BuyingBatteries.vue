@@ -62,7 +62,8 @@
           </div>
         </div>
       </div>
-      <div class="bottomPayDiv">
+    </div>
+    <div class="bottomPayDiv">
         <div class="bottomDiv">
           <div class="protocolSelectImgDiv" @click="checkProtocolAction">
             <img class="imgClass" :src="protocolSelectImgSrc" />
@@ -83,7 +84,6 @@
           </div>
           <div class="payBtn" @click="confirmPayAction">确认支付</div>
         </div>
-      </div>
     </div>
     <div v-if="couponToastShow" class="toastMask">
       <div class="toastBK">
