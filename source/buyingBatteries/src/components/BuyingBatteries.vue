@@ -402,10 +402,10 @@ img {
 }
 
 .page-content {
-  overflow: auto;
+  width: 100%;
+  /* overflow: auto;
   -webkit-overflow-scrolling: touch;
-  box-sizing: border-box;
-  height: 100%;
+  box-sizing: border-box; */
   position: relative;
   z-index: 1;
 }
