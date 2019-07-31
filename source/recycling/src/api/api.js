@@ -1,7 +1,7 @@
 //测试环境
-const ehdServerPath = 'https://test.ehuandian.net/server/ehd/app/';
+// const ehdServerPath = 'https://test.ehuandian.net/server/ehd/app/';
 //正式环境
-// const ehdServerPath = 'https://ehd.ehuandian.net/';
+const ehdServerPath = 'https://ehd.ehuandian.net/';
 
 var yApi = {
 	//获取回收信息 

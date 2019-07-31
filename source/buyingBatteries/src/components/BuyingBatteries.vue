@@ -73,7 +73,7 @@
             <span>
               <a
                 class="protocolFont"
-                href="IMMOTOR://openWebView?url=https://test.ehuandian.net/immotor/apph5/batteryRecycling/recyclingProtocol.html"
+                href="IMMOTOR://openWebView?url=https://imgcn.immotor.com/app/protocol/recyclingProtocol.html"
               >《超级电池包环保回收服务协议》</a>
             </span>
           </p>
