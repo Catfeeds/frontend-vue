@@ -35,7 +35,7 @@
       <p class="emptyText1 textFont">抱歉，你的城市没有服务网点</p>
       <p class="emptyText2 textFont">敬请期待！</p>
     </div>
-    <div v-if="appointment" class="nextBtn" @click="nextAction">下一步</div>
+    <div v-if="appointment&&showList" class="nextBtn" @click="nextAction">下一步</div>
   </div>
 </template>
 
