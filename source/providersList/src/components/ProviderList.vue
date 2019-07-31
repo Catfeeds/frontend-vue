@@ -1,6 +1,6 @@
 <template>
-  <div class="page-content">
-    <div v-if="showList">
+  <div>
+    <div v-if="showList" class="page-content">
       <p class="topPrompt textFont">* 为提高服务质量，请选择附近的门店进行预约</p>
       <div
         v-for="(item, index) in providerList"
@@ -27,7 +27,6 @@
         </div>
       </div>
       <div class="pageBottom"></div>
-      <div v-if="appointment" class="nextBtn" @click="nextAction">下一步</div>
     </div>
     <div v-else>
       <div class="emptyIconDiv">
@@ -36,6 +35,7 @@
       <p class="emptyText1 textFont">抱歉，你的城市没有服务网点</p>
       <p class="emptyText2 textFont">敬请期待！</p>
     </div>
+    <div v-if="appointment" class="nextBtn" @click="nextAction">下一步</div>
   </div>
 </template>
 
@@ -234,10 +234,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .page-content {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  box-sizing: border-box;
-  height: 100%;
+  width: 100%;
   position: relative;
   z-index: 1;
 }
