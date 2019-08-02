@@ -76,10 +76,10 @@
     </div>
     <div class="rulesBK">
       <ul>
-        <li class="remarkFont" style="margin-top: 0px">活动期间，凡购买冰爽套餐，即默认您已阅读并同意本次活动规则，为保障您的合法权益，请在购买前仔细阅读活动规则：</li>
+        <li class="remarkFont" style="margin-top: 0px">活动期间，凡购买七夕特惠套餐，即默认您已阅读并同意本次活动规则，为保障您的合法权益，请在购买前仔细阅读活动规则：</li>
         <li>
           <span class="remarkFont">1、活动期间，</span>
-          <span class="prominentFont">凡购买冰爽套餐，可获得一次抽奖机会，可叠加获取；</span>
+          <span class="prominentFont">凡购买七夕特惠套餐，可获得一次抽奖机会，可叠加获取；</span>
         </li>
         <li>
           <span class="remarkFont">2、抽奖所获实物奖励将于活动结束后</span>
@@ -659,9 +659,9 @@ export default {
 
 .headerImg {
   width: 100%;
-  height: 134px;
+  height: 143px;
   position: absolute;
-  top: 28px;
+  top: 0px;
   left: 0;
 }
 
