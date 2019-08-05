@@ -26,7 +26,7 @@
         <div class="waringIcon">
           <img src="../assets/warning.png" />
         </div>
-        <p class="waringText">文本框内容必须填写！</p>
+        <p class="waringText">请填写文本框内容！</p>
       </div>
       <div class="lineClass"></div>
     </div>
