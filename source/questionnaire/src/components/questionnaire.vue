@@ -22,6 +22,12 @@
         v-model="item.extension"
         @input="descInput(item)"
       ></textarea>
+      <div class="waringDiv" :id="item.warningId">
+        <div class="waringIcon">
+          <img src="../assets/warning.png" />
+        </div>
+        <p class="waringText">不可以为空</p>
+      </div>
       <div class="lineClass"></div>
     </div>
     <div class="submitButton" @click="submitQuestionnaire()">提交</div>
@@ -34,6 +40,7 @@ export default {
   data() {
     return {
       userToken: "",
+      submitState: false,
       data: []
     };
   },
@@ -55,6 +62,7 @@ export default {
             result.data.pageData.forEach(function(el) {
               el.checked = false;
               el.textId = "text" + el.id;
+              el.warningId = "warning" + el.id;
               if (el.levelCause && el.levelCause.length > 0) {
                 el.extension = "";
               }
@@ -87,6 +95,10 @@ export default {
         ? require("../assets/select.png")
         : require("../assets/normal.png");
       event.target.src = imgSrc;
+
+      if(!item.checked){
+        document.getElementById(item.warningId).style.display = "none";
+      }
     },
     descInput: function(item) {
       if (item.extension.length > 0) {
@@ -103,10 +115,11 @@ export default {
         if (el.checked) {
           var id = el.id;
           if (el.levelCause) {
-            if(el.extension.length > 0){
+            if (el.extension.length > 0) {
               id += "&" + el.extension;
-            }
-            else{
+              document.getElementById(el.warningId).style.display = "none";
+            } else {
+               document.getElementById(el.warningId).style.display = "flex";
               isExtensionEmpty = true;
             }
           }
@@ -118,9 +131,7 @@ export default {
           "IMMOTOR://showPrompt?code=0&message=请选择押金退还原因";
         return;
       }
-      if(isExtensionEmpty){
-        window.location.href =
-          "IMMOTOR://showPrompt?code=0&message=请输入选择输入项内容";
+      if (isExtensionEmpty) {
         return;
       }
       vueThis
@@ -227,16 +238,22 @@ textarea::-webkit-input-placeholder {
   -webkit-text-fill-color: initial;
 }
 
+img{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .pageTitle {
   height: 44px;
   padding-left: 15px;
   font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
-  color:rgba(118,118,118,1);
+  color: rgba(118, 118, 118, 1);
   line-height: 44px;
   text-align: left;
-  background:rgba(247,247,247,1);
+  background: rgba(247, 247, 247, 1);
 }
 
 .rowDiv {
@@ -262,6 +279,31 @@ textarea::-webkit-input-placeholder {
   width: 20px;
   height: 20px;
   display: block;
+}
+
+.waringDiv {
+  height: 44px;
+  display: none;
+}
+
+.waringIcon {
+  height: 10px;
+  width: 10px;
+  margin-top: 13px;
+  margin-left: 15px;
+}
+
+.waringText {
+  width: 100px;
+  height: 17px;
+  margin-left: 5px;
+  margin-top: 10px;
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 85, 85, 1);
+  line-height: 17px;
+  text-align: left;
 }
 
 .lineClass {
