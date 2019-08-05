@@ -26,7 +26,7 @@
         <div class="waringIcon">
           <img src="../assets/warning.png" />
         </div>
-        <p class="waringText">不可以为空</p>
+        <p class="waringText">文本框内容必须填写！</p>
       </div>
       <div class="lineClass"></div>
     </div>
@@ -294,7 +294,7 @@ img{
 }
 
 .waringText {
-  width: 100px;
+  width: 200px;
   height: 17px;
   margin-left: 5px;
   margin-top: 10px;
