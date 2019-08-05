@@ -97,12 +97,18 @@ export default {
     },
     submitQuestionnaire: function() {
       var selectIds = [];
+      var isExtensionEmpty = false;
       var vueThis = this;
       vueThis.data.forEach(function(el) {
         if (el.checked) {
           var id = el.id;
-          if (el.levelCause && el.extension.length > 0) {
-            id += "&" + el.extension;
+          if (el.levelCause) {
+            if(el.extension.length > 0){
+              id += "&" + el.extension;
+            }
+            else{
+              isExtensionEmpty = true;
+            }
           }
           selectIds.push(id);
         }
@@ -110,6 +116,11 @@ export default {
       if (selectIds.length === 0) {
         window.location.href =
           "IMMOTOR://showPrompt?code=0&message=请选择押金退还原因";
+        return;
+      }
+      if(isExtensionEmpty){
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=请输入选择输入项内容";
         return;
       }
       vueThis
