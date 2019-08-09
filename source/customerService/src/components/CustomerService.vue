@@ -45,7 +45,7 @@ export default {
           questions: [
             {
               text: "怎么退电池？",
-              link: "../static/frame/pages/returnBattery.html"
+              link: "./static/frame/pages/returnBattery.html"
             }
           ]
         },
