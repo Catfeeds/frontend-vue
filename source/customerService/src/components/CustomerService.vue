@@ -7,6 +7,7 @@
     <van-tabs
       :swipeable="true"
       :border="false"
+      :swipe-threshold="5"
       color="#FF8D59"
       title-active-color="#333"
       title-inactive-color="#999"
