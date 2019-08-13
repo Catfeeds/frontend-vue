@@ -1,24 +1,26 @@
 <template>
   <div class="pageContent">
-    <div class="serviceHeader">
-      <img src="../assets/serviceHeader.png" />
+    <div class="contentDiv">
+      <div class="serviceHeader">
+        <img src="../assets/serviceHeader.png" />
+      </div>
+      <p class="sectionTitle">常见问题</p>
+      <van-tabs
+        :swipeable="true"
+        :border="false"
+        :swipe-threshold="5"
+        color="#FF8D59"
+        title-active-color="#333"
+        title-inactive-color="#999"
+      >
+        <van-tab v-for="item in questions" :title="item.type" :key="item.type">
+          <div v-for="question in item.questions" class="questionContentDiv" :key="question.text">
+            <p class="questionText textFont" @click="gotoAction(question)">{{question.text}}</p>
+            <div class="qustionLine"></div>
+          </div>
+        </van-tab>
+      </van-tabs>
     </div>
-    <p class="sectionTitle">常见问题</p>
-    <van-tabs
-      :swipeable="true"
-      :border="false"
-      :swipe-threshold="5"
-      color="#FF8D59"
-      title-active-color="#333"
-      title-inactive-color="#999"
-    >
-      <van-tab v-for="item in questions" :title="item.type" :key="item.type">
-        <div v-for="question in item.questions" class="questionContentDiv" :key="question.text">
-          <p class="questionText textFont" @click="gotoAction(question)">{{question.text}}</p>
-          <div class="qustionLine"></div>
-        </div>
-      </van-tab>
-    </van-tabs>
     <div class="bottomDiv">
       <div class="telImgDiv">
         <img src="../assets/tel.png" />
@@ -171,7 +173,7 @@ export default {
               link: "./static/frame/pages/newUser.html"
             }
           ]
-        },
+        }
       ]
     };
   },
@@ -179,8 +181,8 @@ export default {
     gotoAction: function(item) {
       window.location.href = item.link;
     },
-    customServiceAction: function(){
-      window.location.href = 'IMMOTOR://tel:0755-27787220';   
+    customServiceAction: function() {
+      window.location.href = "IMMOTOR://tel:0755-27787220";
     }
   }
 };
@@ -196,9 +198,15 @@ img {
 
 .pageContent {
   width: 100%;
+  height: 100%;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
+  z-index: 1;
+  position: relative;
+}
+
+.contentDiv{
   position: relative;
   z-index: 1;
 }
@@ -242,7 +250,7 @@ img {
 
 .bottomDiv {
   width: 100%;
-  height: 80px;
+  height: 55px;
   left: 0;
   bottom: 0;
   position: fixed;
