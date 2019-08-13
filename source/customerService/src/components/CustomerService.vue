@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pageContent">
     <div class="serviceHeader">
       <img src="../assets/serviceHeader.png" />
     </div>
@@ -12,13 +12,19 @@
       title-active-color="#333"
       title-inactive-color="#999"
     >
-      <van-tab v-for="item in questions" :title="item.type">
-        <div v-for="question in item.questions" class="questionContentDiv">
+      <van-tab v-for="item in questions" :title="item.type" :key="item.type">
+        <div v-for="question in item.questions" class="questionContentDiv" :key="question.text">
           <p class="questionText textFont" @click="gotoAction(question)">{{question.text}}</p>
           <div class="qustionLine"></div>
         </div>
       </van-tab>
     </van-tabs>
+    <div class="bottomDiv">
+      <div class="telImgDiv">
+        <img src="../assets/tel.png" />
+      </div>
+      <p class="telText" @click="customServiceAction">联系客服</p>
+    </div>
   </div>
 </template>
 
@@ -147,13 +153,34 @@ export default {
               link: "./static/frame/pages/returnDeposit.html"
             }
           ]
-        }
+        },
+        {
+          type: "套餐",
+          questions: [
+            {
+              text: "套餐相关问题",
+              link: "./static/frame/pages/package.html"
+            }
+          ]
+        },
+        {
+          type: "新用户",
+          questions: [
+            {
+              text: "刚注册e换电用户怎么加入？",
+              link: "./static/frame/pages/newUser.html"
+            }
+          ]
+        },
       ]
     };
   },
   methods: {
-    gotoAction: function(item){
+    gotoAction: function(item) {
       window.location.href = item.link;
+    },
+    customServiceAction: function(){
+      window.location.href = 'IMMOTOR://tel:0755-27787220';   
     }
   }
 };
@@ -166,6 +193,16 @@ img {
   height: 100%;
   display: block;
 }
+
+.pageContent {
+  width: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
 .serviceHeader {
   height: 100px;
 }
@@ -201,5 +238,38 @@ img {
   height: 1px;
   margin: 0 16px;
   background: rgba(240, 240, 240, 1);
+}
+
+.bottomDiv {
+  width: 100%;
+  height: 80px;
+  left: 0;
+  bottom: 0;
+  position: fixed;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.08);
+  z-index: 999;
+}
+
+.telImgDiv {
+  width: 16px;
+  height: 16px;
+  left: 148px;
+  top: 19px;
+  position: absolute;
+}
+
+.telText {
+  width: 100px;
+  height: 18px;
+  left: 174px;
+  top: 18px;
+  position: absolute;
+  font-size: 13px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(72, 72, 72, 1);
+  line-height: 18px;
+  text-align: left;
 }
 </style>
