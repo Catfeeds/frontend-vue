@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pageContent">
     <div class="serviceHeader">
       <img src="../assets/serviceHeader.png" />
     </div>
@@ -193,6 +193,16 @@ img {
   height: 100%;
   display: block;
 }
+
+.pageContent {
+  width: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
 .serviceHeader {
   height: 100px;
 }
