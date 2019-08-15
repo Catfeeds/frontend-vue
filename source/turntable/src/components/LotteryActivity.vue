@@ -14,13 +14,13 @@
           <div class="innerLayer"></div>
           <img class="rotaryRableBK" src="../assets/rotaryTable.png" />
           <div class="prize-list">
-            <div class="prize-item" v-for="item in prizeList">
+            <div class="prize-item" v-for="(item, idx) in prizeList" :key="idx">
               <p class="prize-content prizeContentFont">{{item.name}}</p>
               <img class="prize-pic" v-if="item.imgUrl" :src="item.imgUrl" />
             </div>
           </div>
         </div>
-        <img v-for="item in dots" v-bind:class="item.className" :src="item.imgSrc" />
+        <img v-for="(item, idx) in dots" v-bind:class="item.className" :src="item.imgSrc" :key="idx"/>
         <div class="selectPrize-item" v-if="selectBKShow">
           <div class="selectPrize-content">
             <img class="selectPrize-BK" src="../assets/selectBK.png" />
@@ -35,9 +35,11 @@
           <img src="../assets/addLuckyDrawTime.png" class="btnBkImg" />
           <div class="btnTitle prizeTitleFont">增加抽奖次数</div>
         </div>
-        <div class="leftTimesRemark timesRemarkFont">您今天还有</div>
-        <div class="times titleFont">{{luckyDrawTimes}}</div>
-        <div class="rightTimesRemark timesRemarkFont">次抽奖机会</div>
+        <p class="timesText">
+          <span class="timesRemarkFont">您今天还有</span>
+          <span class="timesFont">{{luckyDrawTimes}}</span>
+          <span class="timesRemarkFont">次抽奖机会</span>
+        </p>
         <div v-bind:class="winnerListClass" @click="winnerListAction">中奖名单</div>
         <div v-bind:class="myPrizeClass" @click="myPrizeAction">我的奖品</div>
       </div>
@@ -45,7 +47,7 @@
     <div class="prizeBK">
     <vue-seamless-scroll :data="dataList" class="seamless-warp" v-if="dataList.length>5">
       <ul class="prizeUL">
-        <li v-for="item in dataList">
+        <li v-for="(item, idx) in dataList" :key="idx">
           <div class="contentText">
             <span class="leftText remarkFont">{{item.leftText}}</span>
             <span class="rightText remarkFont">{{item.rightText}}</span>
@@ -55,7 +57,7 @@
       </ul>
     </vue-seamless-scroll>
     <ul class="prizeUL" v-if="dataList.length<=5&&dataList.length>0">
-        <li v-for="item in dataList">
+        <li v-for="(item, idx) in dataList" :key="idx">
           <div class="contentText">
             <span class="leftText remarkFont">{{item.leftText}}</span>
             <span class="rightText remarkFont">{{item.rightText}}</span>
@@ -834,8 +836,7 @@ export default {
 .headerImgClass {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top;
+  display: block;
 }
 
 .imgClass {
@@ -862,33 +863,13 @@ export default {
   line-height: 36px;
 }
 
-.leftTimesRemark {
-  width: 80px;
+.timesText {
   height: 21px;
-  left: 96px;
+  left: 68px;
+  right: 60px;
   top: 403px;
   position: absolute;
   line-height: 21px;
-  text-align: left;
-}
-
-.times {
-  width: 24px;
-  height: 23px;
-  left: 175px;
-  top: 403px;
-  position: absolute;
-  line-height: 23px;
-}
-
-.rightTimesRemark {
-  width: 80px;
-  height: 21px;
-  right: 96px;
-  top: 403px;
-  position: absolute;
-  line-height: 21px;
-  text-align: right;
 }
 
 .leftSectionTitle {
@@ -970,6 +951,13 @@ export default {
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(255, 249, 243, 1);
+}
+
+.timesFont {
+font-size:16px;
+font-family:PingFangSC-Medium;
+font-weight:500;
+color:rgba(252,242,72,1);;
 }
 
 .titleFont {
