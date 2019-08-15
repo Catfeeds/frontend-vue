@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-loading="loadQuestionnaireData">
     <div class="pageTitle">押金退还原因（可多选）</div>
-    <div v-for="item in data">
+    <div v-for="item in data" :key="item.id">
       <div class="rowDiv">
         <span class="rowTitle">{{item.cause}}</span>
         <img
@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       userToken: "",
+      loadQuestionnaireData: true,
       submitState: false,
       data: []
     };
@@ -56,6 +57,7 @@ export default {
           }
         })
         .then(function(resp) {
+          vueThis.loadQuestionnaireData = false;
           var result = resp.data;
           if (result.resultCode == 1) {
             vueThis.data = result.data.pageData;
@@ -80,6 +82,7 @@ export default {
           }
         })
         .catch(resp => {
+          vueThis.loadQuestionnaireData = false;
           window.location.href =
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });
@@ -108,6 +111,10 @@ export default {
       }
     },
     submitQuestionnaire: function() {
+      if(this.data.length === 0){
+        window.location.href = "IMMOTOR://submitQuestionnaireSuccess";
+        return;
+      }
       var selectIds = [];
       var isExtensionEmpty = false;
       var vueThis = this;
