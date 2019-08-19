@@ -36,27 +36,35 @@
     </div>
     <div v-if="ownerRidingData" class="ownerDiv">
       <div ref="owner" class="LeaderBoardDataDiv">
-      <p class="rankText leaderBoardTextFont leaderBoardTextColor">{{ownerRidingData.rank}}</p>
-      <p
-        class="leaderBoardContent leaderBoardTextFont leaderBoardTextColor"
-      >{{ownerRidingData.uname}}</p>
-      <p
-        class="leaderBoardShowText leaderBoardTextFont leaderBoarderOwnerTextColor"
-      >{{ownerRidingData.rankVal}}</p>
-    </div>
-    </div>
-    <div class="lineDiv"></div>
-    <div class="LeaderBoardDiv">
-      <div v-for="item in leaderBoardData" :key="item.rank" class="LeaderBoardDataDiv">
-        <div v-if="item.rank<=3" class="rankImgDiv">
-          <img :src="item.imgSrc" />
-        </div>
+        <p class="rankText leaderBoardTextFont leaderBoardTextColor">{{ownerRidingData.rank}}</p>
         <p
-          v-if="item.rank>3"
-          class="rankText leaderBoardTextFont leaderBoardTextColor"
-        >{{item.rank}}</p>
-        <p class="leaderBoardContent leaderBoardTextFont leaderBoardTextColor">{{item.uname}}</p>
-        <p class="leaderBoardShowText leaderBoardTextFont leaderBoardTextColor">{{item.rankVal}}</p>
+          class="leaderBoardContent leaderBoardTextFont leaderBoardTextColor"
+        >{{ownerRidingData.uname}}</p>
+        <p
+          class="leaderBoardShowText leaderBoardTextFont leaderBoarderOwnerTextColor"
+        >{{ownerRidingData.rankVal}}</p>
+      </div>
+    </div>
+    <div v-if="ownerRidingData" class="lineDiv"></div>
+    <div class="LeaderBoardDiv">
+      <div v-if="leaderBoardData.length>0">
+        <div v-for="item in leaderBoardData" :key="item.rank" class="LeaderBoardDataDiv">
+          <div v-if="item.rank<=3" class="rankImgDiv">
+            <img :src="item.imgSrc" />
+          </div>
+          <p
+            v-if="item.rank>3"
+            class="rankText leaderBoardTextFont leaderBoardTextColor"
+          >{{item.rank}}</p>
+          <p class="leaderBoardContent leaderBoardTextFont leaderBoardTextColor">{{item.uname}}</p>
+          <p class="leaderBoardShowText leaderBoardTextFont leaderBoardTextColor">{{item.rankVal}}</p>
+        </div>
+      </div>
+      <div v-if="leaderBoardData.length==0&&loadCompleted">
+        <div class="leaderBoardEmptyIconDiv">
+          <img src="../assets/data_empty.png" />
+        </div>
+        <p class="leaderBoardEmptyText">当前没有数据哦</p>
       </div>
     </div>
   </div>
@@ -84,7 +92,8 @@ export default {
         "section_header section_normal section_font section_normal_color",
       centerMarginClass: "center_margin",
       ownerRidingData: null,
-      leaderBoardData: []
+      leaderBoardData: [],
+      loadCompleted: false
     };
   },
   watch: {
@@ -117,7 +126,7 @@ export default {
         });
     },
     sectionChanged: function(idx) {
-      if(this.selectIndex != idx){
+      if (this.selectIndex != idx) {
         this.leaderBoardData = [];
         this.ownerRidingData = null;
       }
@@ -151,12 +160,12 @@ export default {
           "****" +
           item.uphone.substr(7, item.uphone.length);
       }
-      if(item.rank == 1){
-        item.imgSrc = require("../assets/first.png")
-      }else if(item.rank == 2){
-        item.imgSrc = require("../assets/second.png")
-      }else if(item.rank == 3){
-        item.imgSrc = require("../assets/third.png")
+      if (item.rank == 1) {
+        item.imgSrc = require("../assets/first.png");
+      } else if (item.rank == 2) {
+        item.imgSrc = require("../assets/second.png");
+      } else if (item.rank == 3) {
+        item.imgSrc = require("../assets/third.png");
       }
 
       if (this.selectIndex == 1) {
@@ -165,16 +174,14 @@ export default {
         } else {
           item.rankVal = item.rankVal.toFixed(2) + "g";
         }
-      }
-      else if(this.selectIndex == 2){
-        item.rankVal = (item.rankVal/1000).toFixed(2) + "km";
-      }
-      else if(this.selectIndex == 3){
-        var hours = parseInt(item.rankVal/3600);
-        var min = parseInt((item.rankVal%3600)/60);
+      } else if (this.selectIndex == 2) {
+        item.rankVal = (item.rankVal / 1000).toFixed(2) + "km";
+      } else if (this.selectIndex == 3) {
+        var hours = parseInt(item.rankVal / 3600);
+        var min = parseInt((item.rankVal % 3600) / 60);
         item.rankVal = hours + "h";
-        if(min > 0 ){
-          item.rankVal += min + "m"; 
+        if (min > 0) {
+          item.rankVal += min + "m";
         }
       }
       return item;
@@ -184,6 +191,7 @@ export default {
       if (vueThis.userToken.length == 0) {
         return;
       }
+      vueThis.loadCompleted = false;
       vueThis
         .axios({
           method: "post",
@@ -200,8 +208,10 @@ export default {
           var result = resp.data;
           if (result.code == 0) {
             var dataList = result.data;
-            vueThis.ownerRidingData = vueThis.updateUserRankVal(result.data[result.data.length - 1]);
-            var leaderBoardData = result.data.slice(0,result.data.length - 1);
+            vueThis.ownerRidingData = vueThis.updateUserRankVal(
+              result.data[result.data.length - 1]
+            );
+            var leaderBoardData = result.data.slice(0, result.data.length - 1);
             leaderBoardData.forEach(element => {
               element = vueThis.updateUserRankVal(element);
             });
@@ -210,8 +220,10 @@ export default {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.msg;
           }
+          vueThis.loadCompleted = true;
         })
         .catch(resp => {
+          vueThis.loadCompleted = true;
           window.location.href =
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });
@@ -370,7 +382,7 @@ img {
   background: #f8f8f8;
 }
 
-.ownerDiv{
+.ownerDiv {
   margin: 0 10px;
   background: white;
 }
@@ -378,6 +390,7 @@ img {
 .LeaderBoardDiv {
   margin: 0 10px;
   background: white;
+  padding: 1px;
   min-height: 500px;
   padding-bottom: 80px;
   box-shadow: 0px 1px 0px 0px rgba(234, 234, 234, 0.5);
@@ -427,5 +440,21 @@ img {
 
 .leaderBoarderOwnerTextColor {
   color: rgba(237, 113, 66, 1);
+}
+
+.leaderBoardEmptyIconDiv {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  margin-top: 104px;
+}
+
+.leaderBoardEmptyText {
+  height: 20px;
+  font-size: 14px;
+  font-family: PingFangSC;
+  font-weight: 400;
+  color: rgba(165, 165, 165, 1);
+  line-height: 20px;
 }
 </style>
