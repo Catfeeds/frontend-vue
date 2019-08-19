@@ -37,29 +37,40 @@ export default {
     return {
       questions: [
         {
-          type: "换电池",
+          type: "热点问题",
           questions: [
             {
-              text: "如何换电池",
-              link: "./static/frame/pages/swapBattery.html"
+              text: "电池被吞怎么办？",
+              link: "./static/frame/pages/swallowBattery.html"
             },
             {
-              text: "如何应对换电池失败的情况",
-              link: "./static/frame/pages/swapFail.html"
-            }
-          ]
-        },
-        {
-          type: "退电池",
-          questions: [
+              text: "咨询改号码",
+              link: "./static/frame/pages/changePhone.html"
+            },
             {
               text: "怎么退电池？",
               link: "./static/frame/pages/returnBattery.html"
+            },
+            {
+              text: "套餐相关问题",
+              link: "./static/frame/pages/package.html"
+            },
+            {
+              text: "定位/电量不更新",
+              link: "./static/frame/pages/scooterLocationIssues.html"
+            },
+            {
+              text: "拿错电池/电池不属于你，怎么办？",
+              link: "./static/frame/pages/swapWrongBattery.html"
+            },
+            {
+              text: "刚注册e换电用户怎么加入？",
+              link: "./static/frame/pages/newUser.html"
             }
           ]
         },
         {
-          type: "租电池",
+          type: "电池",
           questions: [
             {
               text: "押金充值",
@@ -68,15 +79,18 @@ export default {
             {
               text: "取电池",
               link: "./static/frame/pages/getBattery.html"
-            }
-          ]
-        },
-        {
-          type: "客服",
-          questions: [
+            },
             {
-              text: "人工客服",
-              link: "./static/frame/pages/service.html"
+              text: "怎么退电池？",
+              link: "./static/frame/pages/returnBattery.html"
+            },
+            {
+              text: "如何换电池",
+              link: "./static/frame/pages/swapBattery.html"
+            },
+            {
+              text: "如何应对换电池失败的情况",
+              link: "./static/frame/pages/swapFail.html"
             }
           ]
         },
@@ -98,7 +112,7 @@ export default {
           ]
         },
         {
-          type: "换电异常",
+          type: "换电",
           questions: [
             {
               text: "拿错电池/电池不属于你，怎么办？",
@@ -119,7 +133,7 @@ export default {
           ]
         },
         {
-          type: "中控",
+          type: "车辆",
           questions: [
             {
               text: "定位/电量不更新",
@@ -157,20 +171,11 @@ export default {
           ]
         },
         {
-          type: "套餐",
+          type: "客服",
           questions: [
             {
-              text: "套餐相关问题",
-              link: "./static/frame/pages/package.html"
-            }
-          ]
-        },
-        {
-          type: "新用户",
-          questions: [
-            {
-              text: "刚注册e换电用户怎么加入？",
-              link: "./static/frame/pages/newUser.html"
+              text: "人工客服",
+              link: "./static/frame/pages/service.html"
             }
           ]
         }
