@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!shareRidingData" class="mainBody">
-      <div v-if="!isEmptyPage">
+      <div v-if="hasUserRank">
         <van-tabs
           v-model="selectTab"
           :swipeable="true"
@@ -65,7 +65,7 @@ export default {
       userSpeedText: "",
       joinDuration: 0,
       shareRidingData: false,
-      isEmptyPage: false,
+      hasUserRank: true,
       tabs: [
         {
           title: "昨日",
@@ -93,6 +93,30 @@ export default {
   methods: {
     shareAction: function() {
       this.shareRidingData = true;
+    },
+    fetchHasUserRank: function(){
+      var vueThis = this;
+      vueThis
+        .axios({
+          method: "get",
+          url: vueThis.$yApi.isHaveUserRank,
+          headers: {
+            Authorization: vueThis.userToken
+          }
+        })
+        .then(function(resp) {
+          var result = resp.data;
+          if (result.code == 0) {
+            vueThis.hasUserRank = result.data==1 ? true: false;
+          } else {
+            window.location.href =
+              "IMMOTOR://showPrompt?code=0&message=" + result.msg;
+          }
+        })
+        .catch(resp => {
+          window.location.href =
+            "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
+        });
     },
     fetchLastAvgDriveSpeed: function() {
       var vueThis = this;
@@ -167,6 +191,7 @@ export default {
             var dataObj = JSON.parse(responseData);
             if (dataObj && dataObj.token) {
               vueThis.userToken = "bearer " + dataObj.token;
+              vueThis.fetchHasUserRank();
               vueThis.fetchUserData();
               vueThis.fetchLastAvgDriveSpeed();
             }
@@ -178,6 +203,7 @@ export default {
           vueThis.$bridge.callhandler("getEhdUserInfo", "", responseData => {
             // 处理返回数据
             vueThis.userToken = "bearer " + responseData.token;
+            vueThis.fetchHasUserRank();
             vueThis.fetchUserData();
             vueThis.fetchLastAvgDriveSpeed();
           });
@@ -206,8 +232,8 @@ export default {
         this.userToken = "bearer " + token;
       }
     }
-    this.userToken = 'bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwaG9uZSI6IjE4MTcxMDg4NjUwIiwidUlEIjoxMDYxMjksInRpbWUiOjE1MzY2NDUzOTk2OTF9.FLylrC5Db66xB5IjBYNeaELPhRSBwvJMWMfXKfv8x-E';
     if (this.userToken.length > 0) {
+      this.fetchHasUserRank();
       this.fetchUserData();
       this.fetchLastAvgDriveSpeed();
     } else {

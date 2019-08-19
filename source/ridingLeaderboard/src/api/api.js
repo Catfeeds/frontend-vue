@@ -11,6 +11,8 @@ var yApi = {
     getUserRankData: bigDataServerPath + 'user/rank/userRank',
     //获取用户个人分享数据
     getUserShareData: bigDataServerPath + 'user/rank/showoff',
+    //用户所在城市是否已开通
+    isHaveUserRank: bigDataServerPath + 'user/rank/isBusinessCity',
 };
 
 export default yApi;
