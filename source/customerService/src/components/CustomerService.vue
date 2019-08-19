@@ -21,6 +21,7 @@
             <div class="qustionLine"></div>
           </div>
         </van-tab>
+        <div class="bottomMargin"></div>
       </van-tabs>
     </div>
     <div class="bottomDiv">
@@ -262,6 +263,10 @@ img {
   height: 1px;
   margin: 0 16px;
   background: rgba(240, 240, 240, 1);
+}
+
+.bottomMargin{
+  margin-bottom: 110px;
 }
 
 .bottomDiv {
