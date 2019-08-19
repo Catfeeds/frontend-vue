@@ -9,6 +9,8 @@
         :swipeable="true"
         :border="false"
         :swipe-threshold="5"
+        v-model="selectIndex"
+        @change="tabsSelectChanged"
         color="#FF8D59"
         title-active-color="#333"
         title-inactive-color="#999"
@@ -35,16 +37,17 @@ export default {
   name: "CustomerService",
   data() {
     return {
+      selectIndex: 0,
       questions: [
         {
-          type: "热点问题",
+          type: "热点",
           questions: [
             {
               text: "电池被吞怎么办？",
               link: "./static/frame/pages/swallowBattery.html"
             },
             {
-              text: "咨询改号码",
+              text: "如何更改号码？",
               link: "./static/frame/pages/changePhone.html"
             },
             {
@@ -183,11 +186,19 @@ export default {
     };
   },
   methods: {
+    tabsSelectChanged: function(){
+      window.localStorage.setItem('selectIndex', this.selectIndex);
+    },
     gotoAction: function(item) {
       window.location.href = item.link;
     },
     customServiceAction: function() {
       window.location.href = "IMMOTOR://tel:0755-27787220";
+    }
+  },
+  mounted () {
+    if(window.localStorage.getItem('selectIndex')){
+      this.selectIndex = parseInt(window.localStorage.getItem('selectIndex'));
     }
   }
 };
