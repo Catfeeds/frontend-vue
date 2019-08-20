@@ -169,7 +169,7 @@ export default {
           type: "押金",
           questions: [
             {
-              text: "押金怎么退已经到账时间？",
+              text: "押金怎么退以及到账时间？",
               link: "./static/frame/pages/returnDeposit.html"
             }
           ]
