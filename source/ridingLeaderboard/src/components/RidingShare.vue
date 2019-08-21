@@ -219,9 +219,11 @@ export default {
             if (drivenHours > 0) {
               vueThis.drivenHoursText =
                 parseInt(drivenHours / 3600) +
-                "h" +
-                parseInt((drivenHours % 3600) / 60) +
-                "min";
+                "h";
+              var min =   parseInt((drivenHours%3600)/60);
+              if(min > 0){
+                vueThis.drivenHoursText += (min + "min");
+              }
             } else {
               vueThis.drivenHoursText =
                 "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
