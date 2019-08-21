@@ -66,6 +66,7 @@ export default {
       userAvatarImgSrc: "",
       headerTypeText: "",
       sectionTypeText: "",
+      cityName:"",
       drivenDistanceText: "",
       drivenDistanceRankText: "",
       drivenHoursText: "",
@@ -143,11 +144,11 @@ export default {
       if (!rankItem) {
         return "";
       }
-      if (rankItem.percent * 100 > 40) {
+      if (rankItem.percent * 100 > 20) {
         return "您的骑行为您带来方便且环保，继续加油哦！";
       } else {
         return (
-          "您在当前城市排名第" +
+          this.cityName + "排名第" +
           rankItem.rank +
           "位超过" +
           (100 - rankItem.percent * 100) +
@@ -189,6 +190,7 @@ export default {
         .then(function(resp) {
           var result = resp.data;
           if (result.code == 0) {
+            vueThis.cityName = result.data.cityName;
             var pollutionReduceAmount = result.data.pollutionReduceAmount;
             if (pollutionReduceAmount > 0) {
               vueThis.pollutionReduceAmountText =
@@ -253,7 +255,7 @@ export default {
             );
             setTimeout(() => {
               vueThis.shareAction();
-            }, 2000);
+            }, 3000);
           } else if (result.code == -2) {
             //无数据
           } else {
