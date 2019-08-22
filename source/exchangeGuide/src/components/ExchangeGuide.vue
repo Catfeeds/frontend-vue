@@ -4,13 +4,12 @@
       <p class="headerTitle">1分钟了解e换电</p>
       <p class="headerText">- 换电使用指南 -</p>
       <div class="headerVideoDiv">
-        <video
+        <!-- <video
           id="my-video"
           class="video-js vjs-big-play-centered"
           preload="auto"
           poster="../assets/video.png"
           data-setup="{}"
-          @click="videoAction"
         >
           <source src="https://imgcn.immotor.com/promotion/video/invitation.mp4" type="video/mp4" />
           <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm" />
@@ -23,7 +22,13 @@
               target="_blank"
             >supports HTML5 video</a>
           </p>
-        </video>
+        </video>-->
+        <videoPlayer
+          class="video-player vjs-custom-skin"
+          ref="videoPlayer"
+          :playsinline="true"
+          :options="playerOptions"
+        ></videoPlayer>
       </div>
     </div>
     <div class="mainContainer">
@@ -80,20 +85,43 @@
 </template>
 
 <script>
+
+import 'video.js/dist/video-js.css'
+
+import { videoPlayer } from 'vue-video-player'
+
 export default {
   name: "ExchangeGuide",
-  data() {
-    return {};
+    components: {
+    videoPlayer
   },
-  methods: {
-    videoAction: function() {
-      var video = document.getElementById("my-video");
-      if (video.paused) {
-        video.play();
-      } else {
-        video.pause();
+  data() {
+    return {
+      playerOptions: {
+        autoplay: false,
+        muted: false, 
+        loop: false, 
+        preload: "auto",
+        language: "zh-CN",
+        aspectRatio: "16:9",
+        fluid: true,
+        sources: [
+          {
+            type: "video/mp4",
+            src: "https://imgcn.immotor.com/promotion/video/invitation.mp4"
+          }
+        ],
+        poster:  require('../assets/video_bk.png'),
+        width: document.documentElement.clientWidth,
+        notSupportedMessage: "此视频暂无法播放，请稍后再试" ,
+        controlBar: {
+          timeDivider: true,
+          durationDisplay: true,
+          remainingTimeDisplay: false,
+          fullscreenToggle: false 
+         }
       }
-    }
+    };
   }
 };
 </script>
