@@ -108,8 +108,7 @@ export default {
     bottomAction: function() {
       //有群组直接去购买电池套餐页面
       if (this.hasGroup) {
-        window.location.href =
-          "../buyingBatteries/index.html";
+        window.location.href = "../buyingBatteries/index.html";
       }
       //无群组去预约
       else {
@@ -123,13 +122,11 @@ export default {
         } else {
           param = "?appointment=1";
         }
-        window.location.href =
-          "../providersList/index.html" +
-          param;
+        window.location.href = "../providersList/index.html" + param;
       }
     },
-    confirmAction: function(){
-        window.location.href = "IMMOTOR://backAction";
+    confirmAction: function() {
+      window.location.href = "IMMOTOR://backAction";
     },
     getUrlParam: function(name) {
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -214,6 +211,33 @@ img {
   left: 108px;
   top: 94px;
   position: absolute;
+}
+
+.priceText {
+  width: 212px;
+  height: 92px;
+  left: 302px;
+  top: 288px;
+  position: absolute;
+  text-align: center;
+  font-size: 66px;
+  font-family: PingFangSC-Semibold;
+  font-weight: 600;
+  color: rgba(249, 107, 14, 1);
+  line-height: 92px;
+  -webkit-text-stroke: 2px rgba(249, 107, 14, 1);
+}
+.priceRemark {
+  width: 57px;
+  height: 40px;
+  left: 225px;
+  top: 327px;
+  position: absolute;
+  font-size: 28px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(134, 61, 36, 1);
+  line-height: 40px;
 }
 
 .sectionCommon {
@@ -464,7 +488,6 @@ img {
   color: rgba(223, 40, 40, 1);
 }
 
-
 .toastMask {
   width: 100%;
   height: 100%;
@@ -483,7 +506,7 @@ img {
   position: relative;
 }
 
-.toastTitle{
+.toastTitle {
   margin: 50px 30px;
   height: 100px;
   font-size: 28px;
@@ -508,5 +531,4 @@ img {
   border-radius: 10px;
   line-height: 88px;
 }
-
 </style>
