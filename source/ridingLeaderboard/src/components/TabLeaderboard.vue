@@ -93,7 +93,11 @@ export default {
       centerMarginClass: "center_margin",
       ownerRidingData: null,
       leaderBoardData: [],
-      loadCompleted: false
+      loadCompleted: false,
+      //缓存请求的数据，让每种类型只请求一次
+      pollutionReduceData: [],
+      drivenDistanceData: [],
+      drivenHoursData: []
     };
   },
   watch: {
@@ -131,7 +135,19 @@ export default {
         this.ownerRidingData = null;
       }
       this.selectIndex = idx;
-      this.fetchUserRankData();
+      this.leaderBoardData = this.getCacheLeaderBoardData(idx);
+      if (this.leaderBoardData.length == 0) {
+        this.fetchUserRankData();
+      }
+    },
+    getCacheLeaderBoardData: function(idx) {
+      if (idx == 1) {
+        return this.pollutionReduceData;
+      } else if (idx == 2) {
+        return this.drivenDistanceData;
+      } else if (idx == 3) {
+        return this.drivenHoursData;
+      }
     },
     updateSpeedText: function(val) {
       if (val <= 0) {
@@ -191,6 +207,8 @@ export default {
       if (vueThis.userToken.length == 0) {
         return;
       }
+      //获取本地缓存中排行榜数据
+
       vueThis.loadCompleted = false;
       vueThis
         .axios({
@@ -216,6 +234,13 @@ export default {
               element = vueThis.updateUserRankVal(element);
             });
             vueThis.leaderBoardData = leaderBoardData;
+            if (vueThis.selectIndex == 1) {
+              vueThis.pollutionReduceData = leaderBoardData;
+            } else if (vueThis.selectIndex == 2) {
+               vueThis.drivenDistanceData = leaderBoardData;
+            } else if (vueThis.selectIndex == 3) {
+              vueThis.drivenHoursData = leaderBoardData;
+            }
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.msg;
@@ -412,20 +437,26 @@ img {
 }
 
 .leaderBoardContent {
-  width: 100px;
+  width: 160px;
   height: 55px;
   margin-left: 10px;
   line-height: 55px;
   text-align: left;
+  overflow: hidden; /*超出部分隐藏*/
+  white-space: nowrap; /*不换行*/
+  text-overflow: ellipsis; /*超出部分文字以...显示*/
 }
 
 .leaderBoardShowText {
-  width: 160px;
+  width: 100px;
   margin: auto;
   margin-right: 20px;
   height: 55px;
   line-height: 55px;
   text-align: right;
+  overflow: hidden; /*超出部分隐藏*/
+  white-space: nowrap; /*不换行*/
+  text-overflow: ellipsis; /*超出部分文字以...显示*/
 }
 
 .leaderBoardTextFont {
