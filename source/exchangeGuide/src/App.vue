@@ -17,6 +17,7 @@ export default {
 
 <style>
 @import "../static/general.css";
+@import "../static/video.css";
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

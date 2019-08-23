@@ -28,6 +28,7 @@
           ref="videoPlayer"
           :playsinline="true"
           :options="playerOptions"
+          @click="videoAction"
         ></videoPlayer>
       </div>
     </div>
@@ -111,17 +112,22 @@ export default {
             src: "https://imgcn.immotor.com/promotion/video/invitation.mp4"
           }
         ],
-        poster:  require('../assets/video_bk.png'),
+        poster:  require('../assets/video.png'),
         width: document.documentElement.clientWidth,
         notSupportedMessage: "此视频暂无法播放，请稍后再试" ,
         controlBar: {
           timeDivider: true,
           durationDisplay: true,
           remainingTimeDisplay: false,
-          fullscreenToggle: false 
+          fullscreenToggle: true 
          }
       }
     };
+  },
+  methods: {
+    videoAction: function(){
+
+    }
   }
 };
 </script>
@@ -200,8 +206,8 @@ img {
 }
 
 .video-js .vjs-big-play-button {
-  width: 115px;
-  height: 115px;
+  width: 60px;
+  height: 60px;
 }
 
 .inviterSubscribe_phone {
