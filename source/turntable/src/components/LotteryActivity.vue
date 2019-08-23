@@ -94,7 +94,7 @@
           <span class="prominentFont">请谨慎填写个人信息</span>
           <span class="remarkFont">，如有填错，奖品不予发放；</span>
         </li>
-        <li class="remarkFont">4、活动所中奖品，不退、不折现、不可转让。</li>
+        <li class="remarkFont">4、抽奖所中20元无门槛优惠券，不可叠加使用，有效期30天，所中现金红包即刻到账。</li>
       </ul>
     </div>
     <div class="bottom">
