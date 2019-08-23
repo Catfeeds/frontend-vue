@@ -14,7 +14,7 @@
     </div>
     <div class="section_header firstMarginTop">
       <p class="section_title">{{sectionTypeText}}总减少铅酸污染</p>
-      <p class="section_ridingData">{{pollutionReduceAmountText}}</p>
+      <p v-bind:class="ridingDataClass">{{pollutionReduceAmountText}}</p>
       <p class="section_remark">{{pollutionReduceAmountRankText}}</p>
     </div>
     <div class="barChartDiv" v-if="pollutionReduceAmountChartXData.length>0">
@@ -22,7 +22,7 @@
     </div>
     <div class="section_header">
       <p class="section_title">{{sectionTypeText}}总骑行公里</p>
-      <p class="section_ridingData">{{drivenDistanceText}}</p>
+      <p v-bind:class="ridingDataClass">{{drivenDistanceText}}</p>
       <p class="section_remark">{{drivenDistanceRankText}}</p>
     </div>
     <div class="barChartDiv" v-if="drivenDistanceChartXData.length>0">
@@ -30,7 +30,7 @@
     </div>
     <div class="section_header">
       <p class="section_title">{{sectionTypeText}}总骑行时长</p>
-      <p class="section_ridingData">{{drivenHoursText}}</p>
+      <p v-bind:class="ridingDataClass">{{drivenHoursText}}</p>
       <p class="section_remark">{{drivenHoursRankText}}</p>
     </div>
     <div class="barChartDiv" v-if="drivenHoursChartXData.length>0">
@@ -66,12 +66,13 @@ export default {
       userAvatarImgSrc: "",
       headerTypeText: "",
       sectionTypeText: "",
-      cityName:"",
+      cityName: "",
       shareTimeType: 0,
       drivenDistanceText: "",
       drivenDistanceRankText: "",
       drivenHoursText: "",
       drivenHoursRankText: "",
+      ridingDataClass: "section_ridingData",
       pollutionReduceAmountText: "",
       pollutionReduceAmountRankText: "",
       drivenDistanceChartXData: [],
@@ -84,7 +85,7 @@ export default {
   },
   watch: {
     type: function(val) {
-      if(!this.this.shareTimeType){
+      if (!this.this.shareTimeType) {
         this.updateTypeText(val);
       }
     },
@@ -131,9 +132,13 @@ export default {
       }
     },
     shareAction: function() {
-      var param = "&share=1&type=" + (this.shareTimeType ? this.shareTimeType : this.type);
-      if(window.location.href.indexOf("?") == -1){
-        param = "?share=1&type=" + (this.shareTimeType ? this.shareTimeType : this.type);
+      var param =
+        "&share=1&type=" +
+        (this.shareTimeType ? this.shareTimeType : this.type);
+      if (window.location.href.indexOf("?") == -1) {
+        param =
+          "?share=1&type=" +
+          (this.shareTimeType ? this.shareTimeType : this.type);
       }
       param = encodeURIComponent(param);
       var shareUrl = window.location.href + param;
@@ -147,8 +152,9 @@ export default {
         parseInt(this.$refs.page.getBoundingClientRect().width) +
         "&height=" +
         parseInt(this.$refs.page.getBoundingClientRect().height) +
-        "&title=我的排行" + 
-        "&shareurl=" + shareUrl;
+        "&title=我的排行" +
+        "&shareurl=" +
+        shareUrl;
     },
     getRankText: function(rankItem) {
       if (!rankItem) {
@@ -158,7 +164,8 @@ export default {
         return "您的骑行为您带来方便且环保，继续加油哦！";
       } else {
         return (
-          this.cityName + "排名第" +
+          this.cityName +
+          "排名第" +
           rankItem.rank +
           "位超过" +
           (100 - rankItem.percent * 100) +
@@ -191,7 +198,9 @@ export default {
           method: "post",
           url: vueThis.$yApi.getUserShareData,
           data: {
-            timeType: vueThis.shareTimeType ? vueThis.shareTimeType : vueThis.type
+            timeType: vueThis.shareTimeType
+              ? vueThis.shareTimeType
+              : vueThis.type
           },
           headers: {
             Authorization: vueThis.userToken
@@ -207,38 +216,18 @@ export default {
                 pollutionReduceAmount > 1000
                   ? (pollutionReduceAmount / 1000).toFixed(2) + "kg"
                   : pollutionReduceAmount.toFixed(2) + "g";
-            } else {
-              vueThis.pollutionReduceAmountText =
-                "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
-              if (vueThis.type == 5) {
-                vueThis.pollutionReduceAmountText = "您没有骑行记录哦，加油";
-              }
             }
             var drivenDistance = result.data.drivenDistance;
             if (drivenDistance > 0) {
               vueThis.drivenDistanceText =
                 (drivenDistance / 1000).toFixed(2) + "km";
-            } else {
-              vueThis.drivenDistanceText =
-                "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
-              if (vueThis.type == 5) {
-                vueThis.drivenDistanceText = "您没有骑行记录哦，加油";
-              }
-            }
+            } 
             var drivenHours = result.data.drivenHours;
             if (drivenHours > 0) {
-              vueThis.drivenHoursText =
-                parseInt(drivenHours / 3600) +
-                "h";
-              var min =   parseInt((drivenHours%3600)/60);
-              if(min > 0){
-                vueThis.drivenHoursText += (min + "min");
-              }
-            } else {
-              vueThis.drivenHoursText =
-                "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
-              if (vueThis.type == 5) {
-                vueThis.drivenHoursText = "您没有骑行记录哦，加油";
+              vueThis.drivenHoursText = parseInt(drivenHours / 3600) + "h";
+              var min = parseInt((drivenHours % 3600) / 60);
+              if (min > 0) {
+                vueThis.drivenHoursText += min + "min";
               }
             }
             vueThis.pollutionReduceAmountRankText = vueThis.getRankText(
@@ -270,6 +259,22 @@ export default {
             }, 3000);
           } else if (result.code == -2) {
             //无数据
+            vueThis.ridingDataClass = "section_emptyRidingData";
+            vueThis.pollutionReduceAmountText =
+              "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
+            if (vueThis.type == 5) {
+              vueThis.pollutionReduceAmountText = "您没有骑行记录哦，加油";
+            }
+            vueThis.drivenDistanceText =
+              "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
+            if (vueThis.type == 5) {
+              vueThis.drivenDistanceText = "您没有骑行记录哦，加油";
+            }
+            vueThis.drivenHoursText =
+              "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
+            if (vueThis.type == 5) {
+              vueThis.drivenHoursText = "您没有骑行记录哦，加油";
+            }
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.msg;
@@ -289,14 +294,13 @@ export default {
   },
   mounted() {
     var type = this.getUrlParam("type");
-    if(type){
+    if (type) {
       this.shareTimeType = parseInt(type);
       this.updateTypeText(this.shareTimeType);
-    }
-    else{
+    } else {
       this.updateTypeText(this.type);
     }
-    this.fetchData();  
+    this.fetchData();
     this.updateUserAvatarImgSrc(this.userAvatar);
   }
 };
@@ -411,6 +415,20 @@ img {
   font-weight: 600;
   color: rgba(51, 51, 51, 1);
   line-height: 37px;
+  text-align: left;
+}
+
+.section_emptyRidingData {
+  left: 16px;
+  right: 16px;
+  height: 37px;
+  top: 22px;
+  position: absolute;
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  line-height: 17px;
   text-align: left;
 }
 
