@@ -433,7 +433,7 @@ img {
 }
 
 .section_remark {
-  width: 160px;
+  width: 150px;
   height: 34px;
   right: 16px;
   top: 24px;
