@@ -175,11 +175,12 @@ export default {
     },
     setupChartData: function(array, xData, yData) {
       var vueThis = this;
+      var type = vueThis.shareTimeType ? vueThis.shareTimeType : vueThis.type;
       array.forEach(element => {
         var x = "";
-        if (vueThis.type < 4) {
+        if (type < 4) {
           x = element.x.substr(4, 2) + "/" + element.x.substr(6, 2);
-        } else if (vueThis.type < 5) {
+        } else if (type < 5) {
           x = parseInt(element.x.substr(4, 2)) + "月";
         } else {
           x = element.x.substr(0, 4) + "年";
@@ -262,17 +263,18 @@ export default {
             vueThis.ridingDataClass = "section_emptyRidingData";
             vueThis.pollutionReduceAmountText =
               "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
-            if (vueThis.type == 5) {
+            var type = vueThis.shareTimeType ? vueThis.shareTimeType : vueThis.type;
+            if (type == 5) {
               vueThis.pollutionReduceAmountText = "您没有骑行记录哦，加油";
             }
             vueThis.drivenDistanceText =
               "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
-            if (vueThis.type == 5) {
+            if (type== 5) {
               vueThis.drivenDistanceText = "您没有骑行记录哦，加油";
             }
             vueThis.drivenHoursText =
               "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
-            if (vueThis.type == 5) {
+            if (type== 5) {
               vueThis.drivenHoursText = "您没有骑行记录哦，加油";
             }
           } else {
