@@ -208,7 +208,6 @@ export default {
         return;
       }
       //获取本地缓存中排行榜数据
-
       vueThis.loadCompleted = false;
       vueThis
         .axios({
@@ -241,7 +240,11 @@ export default {
             } else if (vueThis.selectIndex == 3) {
               vueThis.drivenHoursData = leaderBoardData;
             }
-          } else {
+          }
+          else if(result.code == -2){
+            //无数据
+          } 
+          else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.msg;
           }
