@@ -70,6 +70,9 @@ export default {
             {
               text: "刚注册e换电用户怎么加入？",
               link: "./static/frame/pages/newUser.html"
+            },{
+              text: "车辆不能启动？",
+              link: "./static/frame/pages/scooterStartIssues.html"
             }
           ]
         },
@@ -162,6 +165,10 @@ export default {
             {
               text: "维修指引",
               link: "./static/frame/pages/maintainIssues.html"
+            },
+            {
+              text: "车辆不能启动？",
+              link: "./static/frame/pages/scooterStartIssues.html"
             }
           ]
         },
