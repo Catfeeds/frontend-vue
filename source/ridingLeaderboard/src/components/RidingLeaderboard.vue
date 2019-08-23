@@ -239,6 +239,11 @@ export default {
     } else {
       this.getEhdUserInfoFromBridge();
     }
+    //
+    var share = this.getUrlParam("share");
+    if(share){
+      this.shareRidingData = true;
+    }
   }
 };
 </script>

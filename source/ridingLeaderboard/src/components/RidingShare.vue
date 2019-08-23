@@ -67,6 +67,7 @@ export default {
       headerTypeText: "",
       sectionTypeText: "",
       cityName:"",
+      shareTimeType: 0,
       drivenDistanceText: "",
       drivenDistanceRankText: "",
       drivenHoursText: "",
@@ -83,7 +84,9 @@ export default {
   },
   watch: {
     type: function(val) {
-      this.updateTypeText(val);
+      if(!this.this.shareTimeType){
+        this.updateTypeText(val);
+      }
     },
     userAvatar: function(val) {
       this.updateUserAvatarImgSrc(val);
@@ -128,6 +131,12 @@ export default {
       }
     },
     shareAction: function() {
+      var param = "&share=1&type=" + (this.shareTimeType ? this.shareTimeType : this.type);
+      if(window.location.href.indexOf("?") == -1){
+        param = "?share=1&type=" + (this.shareTimeType ? this.shareTimeType : this.type);
+      }
+      param = encodeURIComponent(param);
+      var shareUrl = window.location.href + param;
       window.location.href =
         "IMMOTOR://sharePageScreenshots?" +
         "left=" +
@@ -138,7 +147,8 @@ export default {
         parseInt(this.$refs.page.getBoundingClientRect().width) +
         "&height=" +
         parseInt(this.$refs.page.getBoundingClientRect().height) +
-        "&title=我的排行";
+        "&title=我的排行" + 
+        "&shareurl=" + shareUrl;
     },
     getRankText: function(rankItem) {
       if (!rankItem) {
@@ -181,7 +191,7 @@ export default {
           method: "post",
           url: vueThis.$yApi.getUserShareData,
           data: {
-            timeType: vueThis.type
+            timeType: vueThis.shareTimeType ? vueThis.shareTimeType : vueThis.type
           },
           headers: {
             Authorization: vueThis.userToken
@@ -269,11 +279,24 @@ export default {
           window.location.href =
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });
+    },
+    getUrlParam: function(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(decodeURIComponent(r[2]));
+      return null;
     }
   },
   mounted() {
-    this.fetchData();
-    this.updateTypeText(this.type);
+    var type = this.getUrlParam("type");
+    if(type){
+      this.shareTimeType = parseInt(type);
+      this.updateTypeText(this.shareTimeType);
+    }
+    else{
+      this.updateTypeText(this.type);
+    }
+    this.fetchData();  
     this.updateUserAvatarImgSrc(this.userAvatar);
   }
 };
