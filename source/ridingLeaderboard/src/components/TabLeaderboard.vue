@@ -97,7 +97,10 @@ export default {
       //缓存请求的数据，让每种类型只请求一次
       pollutionReduceData: [],
       drivenDistanceData: [],
-      drivenHoursData: []
+      drivenHoursData: [],
+      ownerPollutionReduceData: [],
+      ownerDivenDistanceData:[],
+      ownerDivennHoursData:[]
     };
   },
   watch: {
@@ -136,6 +139,7 @@ export default {
       }
       this.selectIndex = idx;
       this.leaderBoardData = this.getCacheLeaderBoardData(idx);
+      this.ownerRidingData = this.getCaheOwnerRidingData(idx);
       if (this.leaderBoardData.length == 0) {
         this.fetchUserRankData();
       }
@@ -147,6 +151,15 @@ export default {
         return this.drivenDistanceData;
       } else if (idx == 3) {
         return this.drivenHoursData;
+      }
+    },
+    getCaheOwnerRidingData: function(idx){
+      if (idx == 1) {
+        return this.ownerPollutionReduceData;
+      } else if (idx == 2) {
+        return this.ownerDivenDistanceData;
+      } else if (idx == 3) {
+        return this.ownerDivennHoursData;
       }
     },
     updateSpeedText: function(val) {
@@ -235,10 +248,13 @@ export default {
             vueThis.leaderBoardData = leaderBoardData;
             if (vueThis.selectIndex == 1) {
               vueThis.pollutionReduceData = leaderBoardData;
+              vueThis.ownerPollutionReduceData = vueThis.ownerRidingData;
             } else if (vueThis.selectIndex == 2) {
                vueThis.drivenDistanceData = leaderBoardData;
+               vueThis.ownerDivenDistanceData = vueThis.ownerRidingData;
             } else if (vueThis.selectIndex == 3) {
               vueThis.drivenHoursData = leaderBoardData;
+              vueThis.ownerDivennHoursData = vueThis.ownerRidingData;
             }
           }
           else if(result.code == -2){
