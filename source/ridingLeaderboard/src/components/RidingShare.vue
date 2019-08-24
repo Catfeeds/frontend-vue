@@ -1,49 +1,52 @@
 <template>
-  <div class="share_pageConent" ref="page">
-    <div class="shareHeaderDiv">
-      <img src="../assets/shareHeader.png" />
-      <div class="header_titleBK">
-        <img src="../assets/share_titleBK.png" />
-        <p class="header_title">我的骑行{{headerTypeText}}</p>
+  <div>
+    <div class="share_pageConent" ref="page">
+      <div class="shareHeaderDiv">
+        <img src="../assets/shareHeader.png" />
+        <div class="header_titleBK">
+          <img src="../assets/share_titleBK.png" />
+          <p class="header_title">我的骑行{{headerTypeText}}</p>
+        </div>
+        <div class="header_userAvatar">
+          <img :src="userAvatarImgSrc" />
+        </div>
+        <p class="header_userName">{{userName}}</p>
+        <p class="header_remark">这是我使用e换电的 {{joinDuration}}天</p>
       </div>
-      <div class="header_userAvatar">
-        <img :src="userAvatarImgSrc" />
+      <div class="section_header firstMarginTop">
+        <p class="section_title">{{sectionTypeText}}总减少铅酸污染</p>
+        <p v-bind:class="ridingDataClass">{{pollutionReduceAmountText}}</p>
+        <p class="section_remark">{{pollutionReduceAmountRankText}}</p>
       </div>
-      <p class="header_userName">{{userName}}</p>
-      <p class="header_remark">这是我使用e换电的 {{joinDuration}}天</p>
+      <div class="barChartDiv" v-if="pollutionReduceAmountChartXData.length>0">
+        <barChart :xData="pollutionReduceAmountChartXData" :yData="pollutionReduceAmountChartYData"></barChart>
+      </div>
+      <div class="section_header">
+        <p class="section_title">{{sectionTypeText}}总骑行公里</p>
+        <p v-bind:class="ridingDataClass">{{drivenDistanceText}}</p>
+        <p class="section_remark">{{drivenDistanceRankText}}</p>
+      </div>
+      <div class="barChartDiv" v-if="drivenDistanceChartXData.length>0">
+        <barChart :xData="drivenDistanceChartXData" :yData="drivenDistanceChartYData"></barChart>
+      </div>
+      <div class="section_header">
+        <p class="section_title">{{sectionTypeText}}总骑行时长</p>
+        <p v-bind:class="ridingDataClass">{{drivenHoursText}}</p>
+        <p class="section_remark">{{drivenHoursRankText}}</p>
+      </div>
+      <div class="barChartDiv" v-if="drivenHoursChartXData.length>0">
+        <barChart :xData="drivenHoursChartXData" :yData="drivenHoursChartYData"></barChart>
+      </div>
+      <div class="qrCodeDiv">
+        <img src="../assets/QRCode.png" />
+      </div>
+      <div class="shareLogoDiv">
+        <img src="../assets/share_logo.png" />
+      </div>
+      <p class="bottomRemark1 bottomRemarkFont">加入e换电，一起来挑战</p>
+      <p class="bottomRemark2 bottomRemarkFont">长按识别二维码下载e换电APP</p>
     </div>
-    <div class="section_header firstMarginTop">
-      <p class="section_title">{{sectionTypeText}}总减少铅酸污染</p>
-      <p v-bind:class="ridingDataClass">{{pollutionReduceAmountText}}</p>
-      <p class="section_remark">{{pollutionReduceAmountRankText}}</p>
-    </div>
-    <div class="barChartDiv" v-if="pollutionReduceAmountChartXData.length>0">
-      <barChart :xData="pollutionReduceAmountChartXData" :yData="pollutionReduceAmountChartYData"></barChart>
-    </div>
-    <div class="section_header">
-      <p class="section_title">{{sectionTypeText}}总骑行公里</p>
-      <p v-bind:class="ridingDataClass">{{drivenDistanceText}}</p>
-      <p class="section_remark">{{drivenDistanceRankText}}</p>
-    </div>
-    <div class="barChartDiv" v-if="drivenDistanceChartXData.length>0">
-      <barChart :xData="drivenDistanceChartXData" :yData="drivenDistanceChartYData"></barChart>
-    </div>
-    <div class="section_header">
-      <p class="section_title">{{sectionTypeText}}总骑行时长</p>
-      <p v-bind:class="ridingDataClass">{{drivenHoursText}}</p>
-      <p class="section_remark">{{drivenHoursRankText}}</p>
-    </div>
-    <div class="barChartDiv" v-if="drivenHoursChartXData.length>0">
-      <barChart :xData="drivenHoursChartXData" :yData="drivenHoursChartYData"></barChart>
-    </div>
-    <div class="qrCodeDiv">
-      <img src="../assets/QRCode.png" />
-    </div>
-    <div class="shareLogoDiv">
-      <img src="../assets/share_logo.png" />
-    </div>
-    <p class="bottomRemark1 bottomRemarkFont">加入e换电，一起来挑战</p>
-    <p class="bottomRemark2 bottomRemarkFont">长按识别二维码下载e换电APP</p>
+    <div v-if="showShareBtn" @click="shareAction" class="shareBtn">分享</div>
   </div>
 </template>
 
@@ -80,7 +83,8 @@ export default {
       drivenHoursChartXData: [],
       drivenHoursChartYData: [],
       pollutionReduceAmountChartXData: [],
-      pollutionReduceAmountChartYData: []
+      pollutionReduceAmountChartYData: [],
+      showShareBtn: false
     };
   },
   watch: {
@@ -222,7 +226,7 @@ export default {
             if (drivenDistance > 0) {
               vueThis.drivenDistanceText =
                 (drivenDistance / 1000).toFixed(2) + "km";
-            } 
+            }
             var drivenHours = result.data.drivenHours;
             if (drivenHours > 0) {
               vueThis.drivenHoursText = parseInt(drivenHours / 3600) + "h";
@@ -255,26 +259,26 @@ export default {
               vueThis.pollutionReduceAmountChartXData,
               vueThis.pollutionReduceAmountChartYData
             );
-            setTimeout(() => {
-              vueThis.shareAction();
-            }, 3000);
+            vueThis.showShareBtn = true;
           } else if (result.code == -2) {
             //无数据
             vueThis.ridingDataClass = "section_emptyRidingData";
             vueThis.pollutionReduceAmountText =
               "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
-            var type = vueThis.shareTimeType ? vueThis.shareTimeType : vueThis.type;
+            var type = vueThis.shareTimeType
+              ? vueThis.shareTimeType
+              : vueThis.type;
             if (type == 5) {
               vueThis.pollutionReduceAmountText = "您没有骑行记录哦，加油";
             }
             vueThis.drivenDistanceText =
               "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
-            if (type== 5) {
+            if (type == 5) {
               vueThis.drivenDistanceText = "您没有骑行记录哦，加油";
             }
             vueThis.drivenHoursText =
               "您" + vueThis.sectionTypeText + "没有骑行记录哦，加油";
-            if (type== 5) {
+            if (type == 5) {
               vueThis.drivenHoursText = "您没有骑行记录哦，加油";
             }
           } else {
@@ -518,5 +522,17 @@ img {
   margin-bottom: 40px;
   height: 17px;
   line-height: 17px;
+}
+
+.shareBtn {
+  margin: 20px;
+  height: 44px;
+  background: rgba(51, 51, 51, 1);
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  line-height: 44px;
 }
 </style>
