@@ -281,6 +281,7 @@ export default {
             if (type == 5) {
               vueThis.drivenHoursText = "您没有骑行记录哦，加油";
             }
+            vueThis.showShareBtn = true;
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.msg;
