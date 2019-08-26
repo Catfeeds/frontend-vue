@@ -4,25 +4,6 @@
       <p class="headerTitle">1分钟了解e换电</p>
       <p class="headerText">- 换电使用指南 -</p>
       <div class="headerVideoDiv">
-        <!-- <video
-          id="my-video"
-          class="video-js vjs-big-play-centered"
-          preload="auto"
-          poster="../assets/video.png"
-          data-setup="{}"
-        >
-          <source src="https://imgcn.immotor.com/promotion/video/invitation.mp4" type="video/mp4" />
-          <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm" />
-          <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg" />
-          <p class="vjs-no-js">
-            To view this video please enable JavaScript, and consider upgrading to a web browser
-            that
-            <a
-              href="http://videojs.com/html5-video-support/"
-              target="_blank"
-            >supports HTML5 video</a>
-          </p>
-        </video>-->
         <videoPlayer
           class="video-player vjs-custom-skin"
           ref="videoPlayer"
@@ -203,11 +184,6 @@ img {
 #my-video {
   widows: 100%;
   height: 100%;
-}
-
-.video-js .vjs-big-play-button {
-  width: 60px;
-  height: 60px;
 }
 
 .inviterSubscribe_phone {
