@@ -527,6 +527,7 @@ img {
 
 .shareBtn {
   margin: 20px;
+  margin-bottom: 30px;
   height: 44px;
   background: rgba(51, 51, 51, 1);
   border-radius: 4px;
