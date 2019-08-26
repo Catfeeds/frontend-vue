@@ -100,7 +100,7 @@ export default {
           timeDivider: true,
           durationDisplay: true,
           remainingTimeDisplay: false,
-          fullscreenToggle: true 
+          fullscreenToggle: false 
          }
       }
     };
