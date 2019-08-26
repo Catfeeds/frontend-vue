@@ -10,6 +10,10 @@ Es6Promise.polyfill()
 
 import 'lib-flexible/flexible.js'
 
+import "../static/general.css"
+import "../static/video.css"
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
