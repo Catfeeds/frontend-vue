@@ -364,6 +364,7 @@ img {
   top: 30px;
   position: absolute;
   border-radius: 50%;
+  overflow: hidden;
 }
 
 .header_userName {
