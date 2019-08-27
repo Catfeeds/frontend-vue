@@ -261,8 +261,8 @@ export default {
             //无数据
           } 
           else {
-            window.location.href =
-              "IMMOTOR://showPrompt?code=0&message=" + result.msg;
+            // window.location.href =
+            //   "IMMOTOR://showPrompt?code=0&message=" + result.msg;
           }
           vueThis.loadCompleted = true;
         })
