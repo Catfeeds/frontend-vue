@@ -344,7 +344,8 @@ export default {
       this.luckyDraw();
     },
     addLuckDrawTime: function() {
-      window.location.href = "IMMOTOR://app-links/buyPackage";
+      // window.location.href = "IMMOTOR://app-links/buyPackage";
+      window.location.href = "IMMOTOR://app-links/wallet";
     },
     winnerListAction: function() {
       this.winnerListClass = "leftSectionTitle selectedBK selectedFont";
