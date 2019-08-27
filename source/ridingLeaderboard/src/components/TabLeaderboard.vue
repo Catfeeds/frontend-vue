@@ -79,7 +79,8 @@ export default {
     userAvatar: String,
     speed: Number,
     joinDuration: Number,
-    userToken: String
+    userToken: String,
+    uid: String
   },
   data() {
     return {
@@ -99,8 +100,8 @@ export default {
       drivenDistanceData: [],
       drivenHoursData: [],
       ownerPollutionReduceData: [],
-      ownerDivenDistanceData:[],
-      ownerDivennHoursData:[]
+      ownerDivenDistanceData: [],
+      ownerDivennHoursData: []
     };
   },
   watch: {
@@ -153,7 +154,7 @@ export default {
         return this.drivenHoursData;
       }
     },
-    getCaheOwnerRidingData: function(idx){
+    getCaheOwnerRidingData: function(idx) {
       if (idx == 1) {
         return this.ownerPollutionReduceData;
       } else if (idx == 2) {
@@ -238,10 +239,18 @@ export default {
           var result = resp.data;
           if (result.code == 0) {
             var dataList = result.data;
-            vueThis.ownerRidingData = vueThis.updateUserRankVal(
-              result.data[result.data.length - 1]
-            );
-            var leaderBoardData = result.data.slice(0, result.data.length - 1);
+            var leaderBoardData = result.data.slice(0, result.data.length); 
+            //判断最后一条是不是自己的数据
+            var lastRidingData = result.data[result.data.length - 1];
+            if (lastRidingData.uid == vueThis.uid) {
+              vueThis.ownerRidingData = vueThis.updateUserRankVal(
+                result.data[result.data.length - 1]
+              );
+              leaderBoardData = result.data.slice(0, result.data.length - 1); 
+            }
+            else{
+              vueThis.ownerRidingData = null;
+            }
             leaderBoardData.forEach(element => {
               element = vueThis.updateUserRankVal(element);
             });
@@ -250,17 +259,15 @@ export default {
               vueThis.pollutionReduceData = leaderBoardData;
               vueThis.ownerPollutionReduceData = vueThis.ownerRidingData;
             } else if (vueThis.selectIndex == 2) {
-               vueThis.drivenDistanceData = leaderBoardData;
-               vueThis.ownerDivenDistanceData = vueThis.ownerRidingData;
+              vueThis.drivenDistanceData = leaderBoardData;
+              vueThis.ownerDivenDistanceData = vueThis.ownerRidingData;
             } else if (vueThis.selectIndex == 3) {
               vueThis.drivenHoursData = leaderBoardData;
               vueThis.ownerDivennHoursData = vueThis.ownerRidingData;
             }
-          }
-          else if(result.code == -2){
+          } else if (result.code == -2) {
             //无数据
-          } 
-          else {
+          } else {
             // window.location.href =
             //   "IMMOTOR://showPrompt?code=0&message=" + result.msg;
           }

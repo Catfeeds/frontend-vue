@@ -20,6 +20,7 @@
               :speed="recentlySpeed"
               :joinDuration="joinDuration"
               :userToken="userToken"
+              :uid="uid"
             />
           </van-tab>
         </van-tabs>
@@ -61,6 +62,7 @@ export default {
       userName: "",
       userAvatar: "",
       userToken: "",
+      uid:'',
       recentlySpeed: 0,
       userSpeedText: "",
       joinDuration: 0,
@@ -168,6 +170,7 @@ export default {
                 "****" +
                 userData.phone.substr(7, userData.phone.length);
             }
+            vueThis.uid = userData.uid + '';
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.msg;
