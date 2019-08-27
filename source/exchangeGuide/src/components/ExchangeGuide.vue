@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="mainContainer">
-      <p class="mainContainerTitle">- 四部助你使用e换电 -</p>
+      <p class="mainContainerTitle">- 四步助你使用e换电 -</p>
       <div class="stepBeginImgDiv">
         <img src="../assets/step_0.png" />
       </div>

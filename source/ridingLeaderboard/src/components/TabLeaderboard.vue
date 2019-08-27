@@ -34,7 +34,7 @@
         v-bind:class="[selectIndex==3?sectionSelectClass:sectionNormalClass]"
       >骑行时长</div>
     </div>
-    <div v-if="ownerRidingData" class="ownerDiv">
+    <div v-if="ownerRidingData&&ownerRidingData.length>0" class="ownerDiv">
       <div ref="owner" class="LeaderBoardDataDiv">
         <p class="rankText leaderBoardTextFont leaderBoardTextColor">{{ownerRidingData.rank}}</p>
         <p
@@ -45,7 +45,7 @@
         >{{ownerRidingData.rankVal}}</p>
       </div>
     </div>
-    <div v-if="ownerRidingData" class="lineDiv"></div>
+    <div v-if="ownerRidingData&&ownerRidingData.length>0" class="lineDiv"></div>
     <div class="LeaderBoardDiv">
       <div v-if="leaderBoardData.length>0">
         <div v-for="item in leaderBoardData" :key="item.rank" class="LeaderBoardDataDiv">
@@ -306,7 +306,8 @@ img {
   width: 54px;
   height: 54px;
   position: absolute;
-  border-radius: 50%;
+  border-radius: 27px;
+  overflow: hidden;
 }
 
 .headerPromptImgDiv {
