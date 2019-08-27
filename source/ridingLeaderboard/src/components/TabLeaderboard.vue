@@ -245,7 +245,6 @@ export default {
             var leaderBoardData = result.data.slice(0, result.data.length); 
             //判断最后一条是不是自己的数据
             var lastRidingData = result.data[result.data.length - 1];
-            debugger;
             if (lastRidingData.uid == vueThis.uid) {
               vueThis.ownerRidingData = vueThis.updateUserRankVal(
                 result.data[result.data.length - 1]

@@ -159,8 +159,12 @@ export default {
           if (result.code == 0) {
             var userData = result.data;
             vueThis.joinDuration = userData.useDays;
-            if (userData.avatar) {
-              vueThis.userAvatar = userData.avatar;
+            if (userData.avatar && userData.avatar.length>0) {
+              if(userData.avatar.indexOf("http:") == 0){
+                vueThis.userAvatar = 'https' + userData.avatar.substr(4, userData.avatar.length);
+              }else{
+                vueThis.userAvatar = userData.avatar;
+              }
             }
             if (userData.name) {
               vueThis.userName = userData.name;
