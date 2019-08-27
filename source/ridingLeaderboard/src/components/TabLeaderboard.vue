@@ -34,7 +34,7 @@
         v-bind:class="[selectIndex==3?sectionSelectClass:sectionNormalClass]"
       >骑行时长</div>
     </div>
-    <div v-if="ownerRidingData&&ownerRidingData.length>0" class="ownerDiv">
+    <div v-if="ownerRidingData" class="ownerDiv">
       <div ref="owner" class="LeaderBoardDataDiv">
         <p class="rankText leaderBoardTextFont leaderBoardTextColor">{{ownerRidingData.rank}}</p>
         <p
@@ -45,7 +45,7 @@
         >{{ownerRidingData.rankVal}}</p>
       </div>
     </div>
-    <div v-if="ownerRidingData&&ownerRidingData.length>0" class="lineDiv"></div>
+    <div v-if="ownerRidingData" class="lineDiv"></div>
     <div class="LeaderBoardDiv">
       <div v-if="leaderBoardData.length>0">
         <div v-for="item in leaderBoardData" :key="item.rank" class="LeaderBoardDataDiv">
@@ -99,9 +99,9 @@ export default {
       pollutionReduceData: [],
       drivenDistanceData: [],
       drivenHoursData: [],
-      ownerPollutionReduceData: [],
-      ownerDivenDistanceData: [],
-      ownerDivennHoursData: []
+      ownerPollutionReduceData: null,
+      ownerDivenDistanceData: null,
+      ownerDivennHoursData: null
     };
   },
   watch: {
@@ -111,6 +111,9 @@ export default {
     userAvatar: function(val) {
       this.updateUserAvatarImgSrc(val);
     },
+    // uid: function(val){
+    //   this.fetchUserRankData();
+    // },
     userToken: function() {
       var vueThis = this;
       vueThis.$nextTick(vueThis.fetchUserRankData());
@@ -242,6 +245,7 @@ export default {
             var leaderBoardData = result.data.slice(0, result.data.length); 
             //判断最后一条是不是自己的数据
             var lastRidingData = result.data[result.data.length - 1];
+            debugger;
             if (lastRidingData.uid == vueThis.uid) {
               vueThis.ownerRidingData = vueThis.updateUserRankVal(
                 result.data[result.data.length - 1]

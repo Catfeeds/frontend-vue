@@ -32,7 +32,7 @@
         <div class="emptyIconDiv">
           <img src="../assets/data_empty.png" />
         </div>
-        <p class="emptyText">抱歉，您暂未开通换电业务</p>
+        <p class="emptyText">抱歉，当前城市暂未开通换电业务</p>
       </div>
     </div>
     <RidingShare
