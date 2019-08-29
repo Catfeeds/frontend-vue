@@ -184,7 +184,7 @@ export default {
         this.userAvatarImgSrc = val;
       }
     },
-    updateUserRankVal: function(item) {
+    updateUserRankVal: function(item, rankType) {
       if (!item.uphone && !item.uname) {
         item.uname = "-";
       } else if (!item.uname) {
@@ -201,15 +201,15 @@ export default {
         item.imgSrc = require("../assets/third.png");
       }
 
-      if (this.selectIndex == 1) {
+      if (rankType == 1) {
         if (item.rankVal > 1000) {
           item.rankVal = (item.rankVal / 1000).toFixed(2) + "kg";
         } else {
           item.rankVal = item.rankVal.toFixed(2) + "g";
         }
-      } else if (this.selectIndex == 2) {
+      } else if (rankType == 2) {
         item.rankVal = (item.rankVal / 1000).toFixed(2) + "km";
-      } else if (this.selectIndex == 3) {
+      } else if (rankType == 3) {
         var hours = parseInt(item.rankVal / 3600);
         var min = parseInt((item.rankVal % 3600) / 60);
         item.rankVal = hours + "h";
@@ -225,13 +225,14 @@ export default {
         return;
       }
       //获取本地缓存中排行榜数据
+      var rankType = vueThis.selectIndex;
       vueThis.loadCompleted = false;
       vueThis
         .axios({
           method: "post",
           url: vueThis.$yApi.getUserRankData,
           data: {
-            rankType: vueThis.selectIndex,
+            rankType: rankType,
             timeType: vueThis.type
           },
           headers: {
@@ -245,28 +246,29 @@ export default {
             var leaderBoardData = result.data.slice(0, result.data.length); 
             //判断最后一条是不是自己的数据
             var lastRidingData = result.data[result.data.length - 1];
+            var ownerRidingData = null;
             if (lastRidingData.uid == vueThis.uid) {
-              vueThis.ownerRidingData = vueThis.updateUserRankVal(
-                result.data[result.data.length - 1]
+              ownerRidingData = vueThis.updateUserRankVal(
+                result.data[result.data.length - 1], rankType
               );
               leaderBoardData = result.data.slice(0, result.data.length - 1); 
             }
-            else{
-              vueThis.ownerRidingData = null;
-            }
             leaderBoardData.forEach(element => {
-              element = vueThis.updateUserRankVal(element);
+              element = vueThis.updateUserRankVal(element, rankType);
             });
-            vueThis.leaderBoardData = leaderBoardData;
-            if (vueThis.selectIndex == 1) {
+            if(rankType == vueThis.selectIndex){
+              vueThis.leaderBoardData = leaderBoardData;
+              vueThis.ownerRidingData = ownerRidingData;
+            }
+            if (rankType == 1) {
               vueThis.pollutionReduceData = leaderBoardData;
-              vueThis.ownerPollutionReduceData = vueThis.ownerRidingData;
-            } else if (vueThis.selectIndex == 2) {
+              vueThis.ownerPollutionReduceData = ownerRidingData;
+            } else if (rankType == 2) {
               vueThis.drivenDistanceData = leaderBoardData;
-              vueThis.ownerDivenDistanceData = vueThis.ownerRidingData;
-            } else if (vueThis.selectIndex == 3) {
+              vueThis.ownerDivenDistanceData = ownerRidingData;
+            } else if (rankType == 3) {
               vueThis.drivenHoursData = leaderBoardData;
-              vueThis.ownerDivennHoursData = vueThis.ownerRidingData;
+              vueThis.ownerDivennHoursData = ownerRidingData;
             }
           } else if (result.code == -2) {
             //无数据
