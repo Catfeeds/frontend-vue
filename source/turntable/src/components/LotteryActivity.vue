@@ -78,23 +78,20 @@
     </div>
     <div class="rulesBK">
       <ul>
-        <li class="remarkFont" style="margin-top: 0px">活动期间，凡参与中秋充值活动，即默认您已阅读并同意本次活动规则，为保障您的合法权益，请仔细阅读以下活动规则：</li>
+        <li class="remarkFont" style="margin-top: 0px">活动期间，凡参与幸运大转盘活动，即默认您已阅读并同意本次活动规则，为保障您的合法权益，请仔细阅读以下活动规则：</li>
         <li>
-          <span class="remarkFont">1、活动期间，</span>
-          <span class="prominentFont">凡参与中秋充值活动，</span>
-          <span class="remarkFont">即可</span>
-          <span class="prominentFont">免费获得一次抽奖机会，抽奖机会可叠加获取；</span>
+          <span class="remarkFont">1、抽奖所获实物奖励将于活动结束后</span>
+          <span class="prominentFont">10个工作日内发放； </span>
         </li>
         <li>
-          <span class="remarkFont">2、抽奖所获实物奖励将于活动结束后</span>
-          <span class="prominentFont">10个工作日内发放；</span>
-        </li>
-        <li >
-          <span class="remarkFont">3、如抽中实物奖励，</span>
+          <span class="remarkFont">2、如抽中实物奖励，</span>
           <span class="prominentFont">请谨慎填写个人信息</span>
           <span class="remarkFont">，如有填错，奖品不予发放；</span>
         </li>
-        <li class="remarkFont">4、抽奖所中20元无门槛优惠券，不可叠加使用，有效期30天，所中现金红包即刻到账。</li>
+        <li >
+          <span class="remarkFont">3、抽奖所中20元无门槛优惠券，不可叠加使用，有效期30天，所中现金红包即刻到账;</span>
+        </li>
+        <li class="remarkFont">4、抽奖所中现金红包，将存入您的账户余额，可用来购买e换电任意产品。</li>
       </ul>
     </div>
     <div class="bottom">
