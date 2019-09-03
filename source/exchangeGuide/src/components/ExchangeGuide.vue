@@ -1,20 +1,19 @@
 <template>
   <div class="pageContent">
     <div class="header">
-      <p class="headerTitle">1分钟了解e换电</p>
-      <p class="headerText">- 换电使用指南 -</p>
+      <p class="headerTitle">新手指引</p>
+      <p class="headerText">- 1分钟了解e换电 -</p>
       <div class="headerVideoDiv">
         <videoPlayer
           class="video-player vjs-custom-skin"
           ref="videoPlayer"
           :playsinline="true"
           :options="playerOptions"
-          @click="videoAction"
         ></videoPlayer>
       </div>
     </div>
     <div class="mainContainer">
-      <p class="mainContainerTitle">- 四步助你使用e换电 -</p>
+      <p class="mainContainerTitle">- 五步助你使用e换电 -</p>
       <div class="stepBeginImgDiv">
         <img src="../assets/step_0.png" />
       </div>
@@ -22,9 +21,16 @@
         <div class="stepTextIconDiv stepContentLeft">
           <img src="../assets/StepText_1.png" />
         </div>
-        <p class="stepTitle stepTextLeft">获取升级电动车</p>
-        <p class="stepText stepText1 stepTextLeft">支持新车购买</p>
-        <p class="stepText stepText2 stepTextLeft">/ 旧车改装</p>
+        <div class="stepTextContent stepContentLeft">
+          <p class="stepTitle">到线下服务网点改装车辆</p>
+          <p class="stepText">支持新车购买/旧车改装</p>
+        </div>
+        <div class="stepGotoBtn leftBtnPos" @click="sitesAction">
+          <div class="gotoImg">
+            <img src="../assets/goto.png" />
+          </div>
+          <p class="gotoText">查看服务网点</p>
+        </div>
         <div class="stepIconDiv stepContentRight">
           <img src="../assets/step_1.png" />
         </div>
@@ -33,9 +39,16 @@
         <div class="stepTextIconDiv stepTextIconRight">
           <img src="../assets/StepText_2.png" />
         </div>
-        <p class="stepTitle stepTextRight">租赁超级电池</p>
-        <p class="stepText stepText1 stepTextRight">app线上缴纳押金</p>
-        <p class="stepText stepText2 stepTextRight">/ 线下代理商代收押金</p>
+        <div class="stepTextContent stepContentRight">
+          <p class="stepTitle">租赁超级电池</p>
+          <p class="stepText">app线上缴纳押金/线下服 务网点代收押金</p>
+        </div>
+        <div class="stepGotoBtn rightBtnPos" @click="rentBatteryAction">
+          <div class="gotoImg">
+            <img src="../assets/goto.png" />
+          </div>
+          <p class="gotoText">去缴纳</p>
+        </div>
         <div class="stepIconDiv stepContentLeft">
           <img src="../assets/step_2.png" />
         </div>
@@ -44,9 +57,16 @@
         <div class="stepTextIconDiv stepContentLeft">
           <img src="../assets/StepText_3.png" />
         </div>
-        <p class="stepTitle stepTextLeft">购买换电套餐</p>
-        <p class="stepText stepText1 stepTextLeft">App线上购买套餐</p>
-        <p class="stepText stepText2 stepTextLeft">/ 线下代理商代收费用</p>
+        <div class="stepTextContent stepContentLeft">
+          <p class="stepTitle">绑定超级电池</p>
+          <p class="stepText">线下服务网点获取电池后 app绑定电池</p>
+        </div>
+        <div class="stepGotoBtn leftBtnPos" @click="bindBatteryAction">
+          <div class="gotoImg">
+            <img src="../assets/goto.png" />
+          </div>
+          <p class="gotoText">去绑定</p>
+        </div>
         <div class="stepIconDiv stepContentRight">
           <img src="../assets/step_3.png" />
         </div>
@@ -55,11 +75,36 @@
         <div class="stepTextIconDiv stepTextIconRight">
           <img src="../assets/StepText_4.png" />
         </div>
-        <p class="stepTitle stepTextRight">开始换电</p>
-        <p class="stepText stepText1 stepTextRight">服务网点绑定电池</p>
-        <p class="stepText stepText2 stepTextRight">/ 换电柜进行换电</p>
+        <div class="stepTextContent stepContentRight">
+          <p class="stepTitle">购买换电套餐</p>
+          <p class="stepText">APP线上购买套餐/线下服务网点收取费用</p>
+        </div>
+        <div class="stepGotoBtn rightBtnPos" @click="buyPackageAction">
+          <div class="gotoImg">
+            <img src="../assets/goto.png" />
+          </div>
+          <p class="gotoText">去购买</p>
+        </div>
         <div class="stepIconDiv stepContentLeft">
           <img src="../assets/step_4.png" />
+        </div>
+      </div>
+      <div class="stepDiv stepMargin">
+        <div class="stepTextIconDiv stepContentLeft">
+          <img src="../assets/StepText_5.png" />
+        </div>
+        <div class="stepTextContent stepContentLeft">
+          <p class="stepTitle">开始换电</p>
+          <p class="stepText">换电柜进行换电</p>
+        </div>
+        <div class="stepGotoBtn leftBtnPos" @click="swapBatteryAction">
+          <div class="gotoImg">
+            <img src="../assets/goto.png" />
+          </div>
+          <p class="gotoText">开始换电</p>
+        </div>
+        <div class="stepIconDiv stepContentRight">
+          <img src="../assets/step_5.png" />
         </div>
       </div>
     </div>
@@ -67,22 +112,21 @@
 </template>
 
 <script>
+import "video.js/dist/video-js.css";
 
-import 'video.js/dist/video-js.css'
-
-import { videoPlayer } from 'vue-video-player'
+import { videoPlayer } from "vue-video-player";
 
 export default {
   name: "ExchangeGuide",
-    components: {
+  components: {
     videoPlayer
   },
   data() {
     return {
       playerOptions: {
         autoplay: false,
-        muted: false, 
-        loop: false, 
+        muted: false,
+        loop: false,
         preload: "auto",
         language: "zh-CN",
         aspectRatio: "16:9",
@@ -93,21 +137,37 @@ export default {
             src: "https://imgcn.immotor.com/promotion/video/invitation.mp4"
           }
         ],
-        poster:  require('../assets/video.png'),
+        poster: require("../assets/video.png"),
         width: document.documentElement.clientWidth,
-        notSupportedMessage: "此视频暂无法播放，请稍后再试" ,
+        notSupportedMessage: "此视频暂无法播放，请稍后再试",
         controlBar: {
           timeDivider: true,
           durationDisplay: true,
           remainingTimeDisplay: false,
-          fullscreenToggle: false 
-         }
+          fullscreenToggle: false
+        }
       }
     };
   },
   methods: {
-    videoAction: function(){
-
+    sitesAction: function(){
+      var param = "";
+      if( window.location.href.indexOf("?") != -1){
+        param = window.location.href.substr(window.location.href.indexOf("?"), window.location.href.length);
+      }
+      window.location.href = "https://imgcn.immotor.com/app/GO5/index.html" + param;
+    },
+    rentBatteryAction: function(){
+       window.location.href = "immotor://app-links/battery";
+    },
+    bindBatteryAction: function(){
+      window.location.href = "immotor://app-links/battery";
+    },
+    buyPackageAction: function(){
+      window.location.href = "immotor://app-links/buyPackage";
+    },
+    swapBatteryAction: function(){
+      window.location.href = "immotor://app-links/homepage";
     }
   }
 };
@@ -138,11 +198,11 @@ img {
 }
 
 .mainContainer {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   margin-top: -48px;
-  margin-bottom: 48px;
-  height: 1134px;
+  margin-bottom: 20px;
+  height: 1648px;
   padding: 1px;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05);
@@ -172,7 +232,6 @@ img {
   line-height: 25px;
   letter-spacing: 5px;
 }
-
 .headerVideoDiv {
   width: 306px;
   height: 170px;
@@ -180,12 +239,10 @@ img {
   margin-top: 38px;
   position: relative;
 }
-
 #my-video {
   widows: 100%;
   height: 100%;
 }
-
 .inviterSubscribe_phone {
   top: -695px;
   width: 100%;
@@ -196,7 +253,6 @@ img {
   color: rgba(255, 253, 254, 1);
   opacity: 0.8;
 }
-
 .mainContainerTitle {
   height: 25px;
   margin: auto;
@@ -208,58 +264,52 @@ img {
   line-height: 25px;
   letter-spacing: 2px;
 }
-
 .stepBeginImgDiv {
   width: 250px;
   height: 250px;
   margin: auto;
   margin-top: 20px;
 }
-
 .stepDiv {
-  height: 136px;
+  height: 187px;
   position: relative;
 }
-
 .step1Margin {
-  margin-top: 40px;
+  margin-top: 35px;
 }
-
 .stepMargin {
-  margin-top: 60px;
+  margin-top: 70px;
 }
-
 .stepIconDiv {
   width: 136px;
   height: 136px;
+  bottom: 0;
+  position: absolute;
+}
+.stepTextIconDiv {
+  width: 90px;
+  height: 35px;
   top: 0;
   position: absolute;
 }
-
-.stepTextIconDiv {
-  width: 85px;
-  height: 37px;
-  top: 12px;
-  position: absolute;
-}
-
 .stepTextIconRight {
-  right: 64px;
+  right: 85px;
 }
-
 .stepContentLeft {
   left: 20px;
 }
-
 .stepContentRight {
-  right: 20px;
+  right: 16px;
 }
-
-.stepTitle {
-  width: 150px;
-  height: 25px;
-  top: 55px;
+.stepTextContent {
+  width: 160px;
+  height: 106px;
+  top: 41px;
   position: absolute;
+}
+.stepTitle {
+  width: 160px;
+  position: relative;
   font-size: 18px;
   font-family: PingFangSC;
   font-weight: 500;
@@ -267,11 +317,10 @@ img {
   line-height: 25px;
   text-align: left;
 }
-
 .stepText {
-  width: 150px;
-  height: 20px;
-  position: absolute;
+  width: 160px;
+  margin-top: 6px;
+  position: relative;
   font-size: 14px;
   font-family: PingFangSC;
   font-weight: 400;
@@ -279,17 +328,37 @@ img {
   line-height: 20px;
   text-align: left;
 }
-.stepText1 {
-  top: 86px;
+.stepGotoBtn {
+  width: 140px;
+  height: 40px;
+  bottom: 0;
+  position: absolute;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 141, 89, 1);
+  display: flex;
 }
-.stepText2 {
-  top: 106px;
+.gotoText {
+  margin-top: 10px;
+  margin-left: 10px;
+  height: 20px;
+  font-size: 14px;
+  font-family: PingFangSC;
+  font-weight: 400;
+  color: rgba(255, 141, 89, 1);
+  line-height: 20px;
+  text-align: left;
 }
-.stepTextLeft {
-  left: 20px;
+.gotoImg {
+  margin-top: 15px;
+  margin-left: 18px;
+  width: 10px;
+  height: 10px;
 }
 
-.stepTextRight {
-  right: 0;
+.leftBtnPos {
+  left: 20px;
+}
+.rightBtnPos {
+  right: 35px;
 }
 </style>
