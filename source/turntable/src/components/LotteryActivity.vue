@@ -341,8 +341,15 @@ export default {
       this.luckyDraw();
     },
     addLuckDrawTime: function() {
+      var param = this.getUrlParam('addqty');
+      if(param){
+        window.location.href = param;
+      }
+      else{
+        window.location.href = "IMMOTOR://app-links/buyPackage"
+      }
       // window.location.href = "IMMOTOR://app-links/buyPackage";
-      window.location.href = "IMMOTOR://app-links/wallet";
+      // window.location.href = "IMMOTOR://app-links/wallet";
     },
     winnerListAction: function() {
       this.winnerListClass = "leftSectionTitle selectedBK selectedFont";
