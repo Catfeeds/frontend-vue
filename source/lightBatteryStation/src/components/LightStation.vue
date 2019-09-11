@@ -153,12 +153,12 @@ export default {
       vueThis.map.clearMap();
       var ligthedIcon = new AMap.Icon({
         size: new AMap.Size(28.5, 34),
-        image: "/static/lighted.png",
+        image: "./static/lighted.png",
         imageSize: new AMap.Size(28.5, 34)
       });
       var disableIcon = new AMap.Icon({
         size: new AMap.Size(28.5, 34),
-        image: "/static/disable.png",
+        image: "./static/disable.png",
         imageSize: new AMap.Size(28.5, 34)
       });
       var userLocation = new AMap.LngLat(vueThis.lon, vueThis.lat);
@@ -190,7 +190,7 @@ export default {
             vueThis.map.add(marker);
           } else {
             var marker = new AMap.Marker({
-              icon: "/static/light.gif",
+              icon: "./static/light.gif",
               position: [element.longitude, element.latitude],
               offset: new AMap.Pixel(-55, -66)
             });
