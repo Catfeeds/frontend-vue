@@ -40,7 +40,7 @@
           <img src="../assets/StepText_2.png" />
         </div>
         <div class="stepTextContent stepContentRight">
-          <p class="stepTitle">租赁超级电池</p>
+          <p class="stepTitle">租赁电池和中控</p>
           <p class="stepText">app线上缴纳押金/线下服 务网点代收押金</p>
         </div>
         <div class="stepGotoBtn rightBtnPos" @click="rentBatteryAction">
