@@ -44,7 +44,7 @@
       <div class="mapParent">
         <div id="mapContainer" class="mapDiv"></div>
         <div class="locationBtn" @click="locationAction">
-          <img src="../assets/location.png">
+          <img src="../assets/location.png" />
         </div>
       </div>
       <div class="sectionDiv">
@@ -133,19 +133,19 @@ export default {
       that.getEhdUserInfoFromBridge();
     }, 5000);
   },
-  beforeDestroy () {
-    if(this.stationTimer){
+  beforeDestroy() {
+    if (this.stationTimer) {
       clearInterval(this.stationTimer);
       this.stationTimer = null;
     }
   },
   methods: {
-    rulesAction: function(){
-      if(this.myRankData && this.myRankData.ruleUrl){
+    rulesAction: function() {
+      if (this.myRankData && this.myRankData.ruleUrl) {
         window.location.href = this.myRankData.ruleUrl;
       }
     },
-    locationAction: function(){
+    locationAction: function() {
       this.map.setCenter([this.lon, this.lat]);
     },
     setupMapMarkers: function() {
@@ -329,6 +329,14 @@ export default {
                 vueThis.couponSrcList.push(src);
               });
             }
+            vueThis.activeIndex = 0;
+            if (vueThis.myRankData.rewardIntervalList) {
+              vueThis.myRankData.rewardIntervalList.forEach(element => {
+                if(vueThis.myRankData.lightCount >= element){
+                  vueThis.activeIndex++;
+                }
+              });
+            }
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + data.resultMsg;
@@ -369,7 +377,7 @@ export default {
     mapInit: function() {
       let that = this;
       if (!that.isMapInit) {
-                MapLoader().then(
+        MapLoader().then(
           AMap => {
             that.map = new AMap.Map("mapContainer", {
               resizeEnable: true,
@@ -390,7 +398,7 @@ export default {
             console.log("地图加载失败", e);
           }
         );
-      } 
+      }
     },
     getEhdUserInfoFromBridge: function() {
       var vueThis = this;
@@ -789,7 +797,7 @@ img {
 .contentTextColor {
   color: rgba(51, 51, 51, 1);
 }
-.locationBtn{
+.locationBtn {
   width: 40px;
   height: 40px;
   bottom: 55px;
