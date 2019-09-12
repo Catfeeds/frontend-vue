@@ -4,7 +4,7 @@
       <div class="headBK">
         <img src="../assets/headerBK.png" />
       </div>
-      <div class="headerMyLight" v-if="myRankData">
+      <div class="headerMyLight" v-if="isEhdWebview&&myRankData">
         <p class="myLightedTitle">
           <span class="lightTitleFont">已点亮</span>
           <span class="lightNumFont">{{myRankData.lightCount}}台</span>
@@ -36,11 +36,13 @@
         </div>
         <p class="couponPrompt">优惠券于活动结束后，统一发放</p>
       </div>
-      <p class="rules" @click="rulesAction">规则</p>
+      <div class="downAppBtn" v-if="!isEhdWebview" @click="downAppAction">下载APP，参与点亮活动</div>
+      <div class="openAppBtn" v-if="!isEhdWebview" @click="openAppAction">我已下载，打开APP</div>
+      <p class="rules" @click="rulesAction" v-if="isEhdWebview">规则</p>
       <p class="headerTitle">点亮换电柜，赢优惠券&10天免费换电</p>
       <p class="headerTime">活动时间：2019.10.01-2019.10.07</p>
     </div>
-    <div class="content">
+    <div class="content" v-if="isEhdWebview">
       <div class="mapParent">
         <div id="mapContainer" class="mapDiv"></div>
         <div class="locationBtn" @click="locationAction">
@@ -87,6 +89,7 @@
         </p>
       </div>
     </div>
+    <div class="emptyBottom" v-else></div>
   </div>
 </template>
 
@@ -110,12 +113,19 @@ export default {
       lightStationList: [],
       activeIndex: 0,
       couponSrcList: [],
-      stationTimer: null
+      stationTimer: null,
+      isEhdWebview: true
     };
   },
   mounted() {
     this.activityId = this.getUrlParam("lotteryID");
     var u = navigator.userAgent;
+    var fromParam = this.getParam(u, "from");
+    if (fromParam == "ehdApp") {
+      this.isEhdWebview = true;
+    } else {
+      this.isEhdWebview = false;
+    }
     //userAgent中没有token字段使用jsbridge获取
     if (u.indexOf("token=") > 0) {
       var token = u.substr(u.indexOf("token=") + 6, u.length);
@@ -147,6 +157,13 @@ export default {
     },
     locationAction: function() {
       this.map.setCenter([this.lon, this.lat]);
+    },
+    downAppAction: function() {
+      window.location.href =
+        "http://download.immotor.com/app/downloads/ehuandian";
+    },
+    openAppAction: function() {
+      window.location.href = "immotor://app-links/homepage";
     },
     setupMapMarkers: function() {
       var vueThis = this;
@@ -332,7 +349,7 @@ export default {
             vueThis.activeIndex = 0;
             if (vueThis.myRankData.rewardIntervalList) {
               vueThis.myRankData.rewardIntervalList.forEach(element => {
-                if(vueThis.myRankData.lightCount >= element){
+                if (vueThis.myRankData.lightCount >= element) {
                   vueThis.activeIndex++;
                 }
               });
@@ -410,6 +427,7 @@ export default {
           "",
           responseData => {
             // 处理返回数据
+            vueThis.isEhdWebview = true;
             var dataObj = JSON.parse(responseData);
             if (dataObj && dataObj.token) {
               if (vueThis.userToken.length == 0) {
@@ -430,6 +448,7 @@ export default {
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         if (isiOS) {
           vueThis.$bridge.callhandler("getEhdUserInfo", "", responseData => {
+            vueThis.isEhdWebview = true;
             // 处理返回数据
             if (vueThis.userToken.length == 0) {
               vueThis.userToken = "bearer " + responseData.token;
@@ -451,6 +470,12 @@ export default {
       var r = window.location.search.substr(1).match(reg);
       if (r != null) return unescape(decodeURIComponent(r[2]));
       return null;
+    },
+    getParam: function(search, name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = search.substr(1).match(reg);
+      if (r != null) return unescape(decodeURIComponent(r[2]));
+      return null;
     }
   }
 };
@@ -464,7 +489,8 @@ img {
   display: block;
 }
 .pageContent {
-  width: 100%;
+  height: 100%;
+  background: rgba(47, 4, 137, 1);
 }
 .header {
   height: 632px;
@@ -803,5 +829,49 @@ img {
   bottom: 55px;
   right: 26px;
   position: absolute;
+}
+.downAppBtn {
+  left: 60px;
+  right: 60px;
+  top: 522px;
+  height: 38px;
+  position: absolute;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 176, 49, 1) 0%,
+    rgba(255, 111, 31, 1) 100%
+  );
+  font-size: 15px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  border-radius: 100px;
+  line-height: 38px;
+}
+.openAppBtn {
+  left: 60px;
+  right: 60px;
+  top: 584px;
+  height: 38px;
+  position: absolute;
+  border-radius: 100px;
+  border: 1px solid;
+  border-color: rgba(255, 113, 31, 1);
+  font-size: 15px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 176, 49, 1) 0%,
+    rgba(255, 133, 65, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 38px;
+}
+.emptyBottom {
+  height: 90px;
+  background: rgba(47, 4, 137, 1);
 }
 </style>
