@@ -150,23 +150,78 @@ export default {
     };
   },
   methods: {
-    sitesAction: function(){
-      var param = "";
-      if( window.location.href.indexOf("?") != -1){
-        param = window.location.href.substr(window.location.href.indexOf("?"), window.location.href.length);
+    getParam: function(search, name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = search.substr(1).match(reg);
+      if (r != null) return unescape(decodeURIComponent(r[2]));
+      return null;
+    },
+    toNum: function(a) {
+      var a = a.toString();
+      var c = a.split(".");
+      var num_place = ["", "0", "00", "000", "0000"],
+        r = num_place.reverse();
+      for (var i = 0; i < c.length; i++) {
+        var len = c[i].length;
+        c[i] = r[len] + c[i];
       }
-      window.location.href = "https://imgcn.immotor.com/app/GO5/index.html" + param;
+      var res = c.join("");
+      return res;
     },
-    rentBatteryAction: function(){
-       window.location.href = "immotor://app-links/battery";
+
+    sitesAction: function() {
+      var param = "";
+      if (window.location.href.indexOf("?") != -1) {
+        param = window.location.href.substr(
+          window.location.href.indexOf("?"),
+          window.location.href.length
+        );
+      }
+      window.location.href =
+        "https://imgcn.immotor.com/app/GO5/index.html" + param;
     },
-    bindBatteryAction: function(){
-      window.location.href = "immotor://app-links/battery";
+    isSupportLogin: function(){
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1;
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if (isAndroid) {
+        var version = this.getParam(u, "appversion");
+        if (this.toNum(version) > this.toNum("1.4.5")) {
+          return true;
+        }
+      } else if (isiOS) {
+        var version = this.getParam(u, "appversion");
+        if (this.toNum(version) > this.toNum("1.5.1")) {
+          return true;
+        }
+      }
+      return false;
     },
-    buyPackageAction: function(){
-      window.location.href = "immotor://app-links/buyPackage";
+    rentBatteryAction: function() {
+      if(this.isSupportLogin()){
+        window.location.href = "immotor://app-links/battery";
+      }
+      else{
+        window.location.href = "IMMOTOR://showPrompt?code=0&message=版本过低，请升级app。";
+      }
     },
-    swapBatteryAction: function(){
+    bindBatteryAction: function() {
+      if(this.isSupportLogin()){
+        window.location.href = "immotor://app-links/battery";
+      }
+      else{
+        window.location.href = "IMMOTOR://showPrompt?code=0&message=版本过低，请升级app。";
+      }
+    },
+    buyPackageAction: function() {
+      if(this.isSupportLogin()){
+        window.location.href = "immotor://app-links/buyPackage";
+      }
+      else{
+        window.location.href = "IMMOTOR://showPrompt?code=0&message=版本过低，请升级app。";
+      }
+    },
+    swapBatteryAction: function() {
       window.location.href = "immotor://app-links/homepage";
     }
   }
