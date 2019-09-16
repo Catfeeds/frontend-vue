@@ -45,8 +45,29 @@
     <div class="content" v-if="isEhdWebview">
       <div class="mapParent">
         <div id="mapContainer" class="mapDiv"></div>
-        <div class="locationBtn" @click="locationAction">
+        <div
+          v-bind:class="[showNavgation?'locationNavBottom' :'locationBottom', 'locationBtn']"
+          @click="locationAction"
+        >
           <img src="../assets/location.png" />
+        </div>
+        <div
+          class
+          v-bind:class="[selectNavStation.name.length>19?'navHeight':'navShortHeight', 'navDiv']"
+          v-if="showNavgation&&selectNavStation"
+        >
+          <div class="navContent">
+            <p class="lightPrompt">请到换电柜附近点亮</p>
+            <p
+              class="navAddr"
+              v-bind:class="[selectNavStation.name.length>19?'navAddrHeight':'navAddrShortHeight', 'navAddr']"
+            >{{selectNavStation.name}}</p>
+            <div class="navSepLine"></div>
+            <div class="navIcon" @click="navgationAction">
+              <img src="../assets/navgation.png" />
+            </div>
+            <p class="navText" @click="navgationAction">导航</p>
+          </div>
         </div>
       </div>
       <div class="sectionDiv">
@@ -114,7 +135,12 @@ export default {
       activeIndex: 0,
       couponSrcList: [],
       stationTimer: null,
-      isEhdWebview: true
+      isEhdWebview: true,
+      userMarker: null,
+      stationMarkerList: [],
+      showNavgation: false,
+      selectNavStation: null,
+      routeLine: null
     };
   },
   mounted() {
@@ -158,6 +184,17 @@ export default {
     locationAction: function() {
       this.map.setCenter([this.lon, this.lat]);
     },
+    navgationAction: function() {
+      if (self.selectNavStation) {
+        window.location.href =
+          "IMMOTOR://userNavigation?lat=" +
+          this.selectNavStation.latitude +
+          "&lon=" +
+          this.selectNavStation.longitude +
+          "&addr=" +
+          this.selectNavStation.name;
+      }
+    },
     downAppAction: function() {
       window.location.href =
         "http://download.immotor.com/app/downloads/ehuandian";
@@ -165,9 +202,59 @@ export default {
     openAppAction: function() {
       window.location.href = "immotor://app-links/homepage";
     },
+    setupUserMarker: function() {
+      if (this.userMarker) {
+        this.userMarker.setPosition([this.lon, this.lat]);
+      } else {
+        var userIcon = new AMap.Icon({
+          size: new AMap.Size(22, 23),
+          image: "./static/user.png",
+          imageSize: new AMap.Size(22, 23)
+        });
+        this.userMarker = new AMap.Marker({
+          icon: userIcon,
+          position: [this.lon, this.lat],
+          offset: new AMap.Pixel(-11, -11.5)
+        });
+        this.map.add(this.userMarker);
+      }
+    },
     setupMapMarkers: function() {
       var vueThis = this;
-      vueThis.map.clearMap();
+      vueThis.stationList.forEach(element => {
+        var stationMarker = vueThis.getStationMarker(element.pID);
+        var stateState = vueThis.getStationMarkerState(element);
+        if (stationMarker) {
+          var state = stationMarker.getExtData().state;
+          if (state != stateState) {
+            vueThis.removeArrayItem(vueThis.stationMarkerList, stationMarker)
+            vueThis.map.remove(stationMarker);
+            stationMarker = vueThis.setupSingleMarker(stateState, element);
+            if (stationMarker) {
+              stationMarker.setExtData({
+                pid: element.pID,
+                state: stateState
+              });
+              vueThis.stationMarkerList.push(stationMarker);
+              vueThis.map.add(stationMarker);
+            }
+          }
+        } else {
+          stationMarker = vueThis.setupSingleMarker(stateState, element);
+          if (stationMarker) {
+            stationMarker.setExtData({
+              pid: element.pID,
+              state: stateState
+            });
+            vueThis.stationMarkerList.push(stationMarker);
+            vueThis.map.add(stationMarker);
+          }
+        }
+      });
+    },
+    setupSingleMarker: function(state, element) {
+      var vueThis = this;
+      var stationMarker = null;
       var ligthedIcon = new AMap.Icon({
         size: new AMap.Size(28.5, 34),
         image: "./static/lighted.png",
@@ -178,46 +265,106 @@ export default {
         image: "./static/disable.png",
         imageSize: new AMap.Size(28.5, 34)
       });
-      var userLocation = new AMap.LngLat(vueThis.lon, vueThis.lat);
-
-      vueThis.stationList.forEach(element => {
-        if (vueThis.isLightedBatteryStation(element)) {
-          var marker = new AMap.Marker({
-            icon: ligthedIcon,
-            position: [element.longitude, element.latitude],
-            offset: new AMap.Pixel(-14.25, -34)
-          });
-          vueThis.map.add(marker);
-        } else {
-          var stationLocation = new AMap.LngLat(
-            element.longitude,
-            element.latitude
-          );
-          var distance = userLocation.distance(stationLocation);
-          if (distance > 100) {
-            var marker = new AMap.Marker({
-              icon: disableIcon,
-              position: [element.longitude, element.latitude],
-              offset: new AMap.Pixel(-14.25, -34)
-            });
-            AMap.event.addListener(marker, "click", function(e) {
-              window.location.href =
-                "IMMOTOR://showPrompt?code=0&message=请到换电柜旁点亮哦";
-            });
-            vueThis.map.add(marker);
+      if (state == 1) {
+        stationMarker = new AMap.Marker({
+          icon: ligthedIcon,
+          position: [element.longitude, element.latitude],
+          offset: new AMap.Pixel(-14.25, -34)
+        });
+      } else if (state == 2) {
+        stationMarker = new AMap.Marker({
+          icon: "./static/light.gif",
+          position: [element.longitude, element.latitude],
+          offset: new AMap.Pixel(-55, -66)
+        });
+        AMap.event.addListener(stationMarker, "click", function(e) {
+          vueThis.lightBatteryStation(element);
+        });
+      } else if (state == 0) {
+        stationMarker = new AMap.Marker({
+          icon: disableIcon,
+          position: [element.longitude, element.latitude],
+          offset: new AMap.Pixel(-14.25, -34)
+        });
+        AMap.event.addListener(stationMarker, "click", function(e) {
+          vueThis.unLightUpMarkerClick(element);
+        });
+      }
+      return stationMarker;
+    },
+    //返回： 1、已经点亮 2、可点亮 0、不可点亮
+    getStationMarkerState: function(element) {
+      var userLocation = new AMap.LngLat(this.lon, this.lat);
+      if (this.isLightedBatteryStation(element)) {
+        return 1;
+      } else {
+        var stationLocation = new AMap.LngLat(
+          element.longitude,
+          element.latitude
+        );
+        var distance = userLocation.distance(stationLocation);
+        if (distance > 5000) {
+          return 0;
+        }
+      }
+      return 2;
+    },
+    getStationMarker: function(pid) {
+      for (let index = 0; index < this.stationMarkerList.length; index++) {
+        const element = this.stationMarkerList[index];
+        if (element.getExtData().pid == pid) {
+          return element;
+        }
+      }
+      return null;
+    },
+    unLightUpMarkerClick: function(element) {
+      var vueThis = this;
+      vueThis.showNavgation = true;
+      vueThis.selectNavStation = element;
+      //绘制导航线路
+      //骑行导航
+      var riding = new AMap.Riding({
+        policy: 1
+      });
+      //根据起终点坐标规划骑行路线
+      riding.search(
+        [vueThis.lon, vueThis.lat],
+        [element.longitude, element.latitude],
+        function(status, result) {
+          if (status === "complete") {
+            if (result.routes && result.routes.length) {
+              vueThis.drawRoute(result.routes[0]);
+              console.log("绘制骑行路线完成");
+            }
           } else {
-            var marker = new AMap.Marker({
-              icon: "./static/light.gif",
-              position: [element.longitude, element.latitude],
-              offset: new AMap.Pixel(-55, -66)
-            });
-            AMap.event.addListener(marker, "click", function(e) {
-              vueThis.lightBatteryStation(element);
-            });
-            vueThis.map.add(marker);
+            console.log("骑行路线数据查询失败" + result);
           }
         }
+      );
+    },
+    drawRoute: function(route) {
+      var path = this.parseRouteToPath(route);
+      this.routeLine = new AMap.Polyline({
+        path: path,
+        strokeWeight: 3,
+        strokeColor: "#31354A",
+        lineJoin: "round"
       });
+      this.routeLine.setMap(this.map);
+      // 调整视野达到最佳显示区域
+      this.map.setFitView([this.routeLine]);
+    },
+    parseRouteToPath: function(route) {
+      var path = [];
+      for (var i = 0, l = route.rides.length; i < l; i++) {
+        var step = route.rides[i];
+
+        for (var j = 0, n = step.path.length; j < n; j++) {
+          path.push(step.path[j]);
+        }
+      }
+      return path;
     },
     isLightedBatteryStation: function(item) {
       if (this.lightStationList && this.lightStationList.length > 0) {
@@ -407,9 +554,18 @@ export default {
               dragEnable: true //是否启动拖拽
             });
             that.isMapInit = true;
+            that.setupUserMarker();
             if (that.stationList.length > 0) {
               that.setupMapMarkers();
             }
+            that.map.on("click", function() {
+              if (that.routeLine) {
+                that.map.remove(that.routeLine);
+                that.routeLine = null;
+              }
+              that.showNavgation = false;
+              that.selectNavStation = null;
+            });
           },
           e => {
             console.log("地图加载失败", e);
@@ -463,6 +619,12 @@ export default {
             vueThis.getAroundBatteryStation();
           });
         }
+      }
+    },
+    removeArrayItem: function(array, item) {
+      var index = array.indexOf(item);
+      if (index > -1) {
+        array.splice(index, 1);
       }
     },
     getUrlParam: function(name) {
@@ -688,7 +850,6 @@ img {
   margin: 16px;
   height: 434px;
   position: relative;
-  overflow: hidden;
 }
 .sectionDiv {
   height: 68px;
@@ -826,9 +987,92 @@ img {
 .locationBtn {
   width: 40px;
   height: 40px;
-  bottom: 55px;
   right: 26px;
   position: absolute;
+}
+.locationBottom {
+  bottom: 30px;
+}
+.locationNavBottom {
+  bottom: 110px;
+}
+.navDiv {
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
+  position: absolute;
+}
+.navHeight {
+  height: 81px;
+}
+.navShortHeight {
+  height: 65px;
+}
+.navContent {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.lightPrompt {
+  width: 140px;
+  height: 18px;
+  left: 12px;
+  top: 12px;
+  position: absolute;
+  font-size: 13px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(255, 128, 49, 1);
+  line-height: 18px;
+  text-align: left;
+}
+.navAddr {
+  width: 232px;
+  left: 12px;
+  bottom: 12px;
+  position: absolute;
+  font-size: 12px;
+  font-family: PingFangSC;
+  font-weight: 400;
+  color: rgba(102, 102, 102, 1);
+  line-height: 16px;
+  text-align: left;
+}
+.navAddrHeight {
+  height: 32px;
+}
+.navAddrShortHeight {
+  height: 16px;
+}
+.navSepLine {
+  width: 1px;
+  height: 28px;
+  right: 50px;
+  bottom: 17px;
+  position: absolute;
+  background: #e9e9e9;
+}
+.navIcon {
+  width: 14px;
+  height: 15px;
+  right: 16px;
+  bottom: 32px;
+  position: absolute;
+}
+.navText {
+  width: 30px;
+  right: 16px;
+  height: 16px;
+  bottom: 12px;
+  position: absolute;
+  font-size: 12px;
+  font-family: PingFangSC;
+  font-weight: 400;
+  color: rgba(102, 102, 102, 1);
+  line-height: 16px;
+  text-align: right;
 }
 .downAppBtn {
   left: 60px;
