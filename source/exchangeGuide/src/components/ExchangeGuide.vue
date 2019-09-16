@@ -222,7 +222,12 @@ export default {
       }
     },
     swapBatteryAction: function() {
-      window.location.href = "immotor://app-links/homepage";
+      if(this.isSupportLogin()){
+        window.location.href = "immotor://app-links/homepage";
+      }
+      else{
+        window.location.href = "IMMOTOR://showPrompt?code=0&message=版本过低，请升级app。";
+      }
     }
   }
 };
