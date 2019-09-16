@@ -303,7 +303,7 @@ export default {
           element.latitude
         );
         var distance = userLocation.distance(stationLocation);
-        if (distance > 5000) {
+        if (distance > 100) {
           return 0;
         }
       }
