@@ -1,5 +1,5 @@
 <template>
-  <div class="pageContent">
+  <div class="pageContent" v-if="isGetInsuranceOrder">
     <div class="header">
       <div class="headerIcon">
         <img src="../assets/guarantee.png" />
@@ -32,7 +32,7 @@
       </div>
       <div class="contentItem">
         <span class="leftText remarkFont">被保人</span>
-        <span class="rightText textFont">{{name}}</span>
+        <span class="rightText textFont" v-if="name">{{name}}</span>
       </div>
     </div>
     <div class="protocolItem" @click="clarimAction">
@@ -67,13 +67,14 @@ export default {
   name: "MyPolicyOrder",
   data() {
     return {
-      orderNO: this.$store.state.insuranceOrder.policyNo,
-      coverage: this.$store.state.insuranceOrder.sumamount,
+      orderNO: '',
+      coverage: '',
       startDateText: "",
       endDateText: "",
-      money: this.$store.state.insuranceOrder.sumpremium,
-      batteryNum: this.$store.state.insuranceOrder.num == 2 ? "二" : "一",
-      name: this.$store.state.userName
+      money: '',
+      batteryNum: '',
+      name: this.$store.state.userName,
+      isGetInsuranceOrder: false
     };
   },
   computed: {
@@ -86,28 +87,34 @@ export default {
   },
   watch: {
     listenUsername: function(val) {
-      this.userName = val;
+      this.name = val;
     },
     listenInsuranceOrder: function(val) {
-      this.orderNO = val.policyNo;
-      this.coverage = val.sumamount;
-      this.startDateText = this.formatDateToYYYYMMDD(
-        new Date(val.startDate)
-      );
-      this.endDateText = this.formatDateToYYYYMMDD(
-        new Date(val.endDate)
-      );
-      this.money = val.sumpremium;
-      this.batteryNum = val.num == 2 ? "二" : "一";
+      if (val) {
+        this.isGetInsuranceOrder = true;
+        this.orderNO = val.policyNo;
+        this.coverage = val.sumamount;
+        this.startDateText = this.formatDateToYYYYMMDD(new Date(val.startDate));
+        this.endDateText = this.formatDateToYYYYMMDD(new Date(val.endDate));
+        this.money = val.sumpremium;
+        this.batteryNum = val.num == 2 ? "两" : "一";
+      }
     }
   },
   mounted() {
-    this.startDateText = this.formatDateToYYYYMMDD(
-      new Date(this.$store.state.insuranceOrder.startDate)
-    );
-    this.endDateText = this.formatDateToYYYYMMDD(
-      new Date(this.$store.state.insuranceOrder.endDate)
-    );
+    if (this.$store.state.insuranceOrder) {
+      this.isGetInsuranceOrder = true;
+      this.startDateText = this.formatDateToYYYYMMDD(
+        new Date(this.$store.state.insuranceOrder.startDate)
+      );
+      this.endDateText = this.formatDateToYYYYMMDD(
+        new Date(this.$store.state.insuranceOrder.endDate)
+      );
+      this.orderNO = this.$store.state.insuranceOrder.policyNo;
+      this.coverage = this.$store.state.insuranceOrder.sumamount;
+      this.money = this.$store.state.insuranceOrder.sumpremium;
+      this.batteryNum = this.$store.state.insuranceOrder.num == 2 ? "二" : "一";
+    }
   },
   methods: {
     clarimAction: function() {
@@ -127,12 +134,14 @@ export default {
         "https://imgcn.immotor.com/app/protocol/usufructtransfer.html";
     },
     formatDateToYYYYMMDD: function(oDate) {
+      var month =  (oDate.getMonth() + 1) < 10 ? ('0' + (oDate.getMonth() + 1)) : (oDate.getMonth() + 1);
+      var day = oDate.getDate() < 10 ? ('0' + oDate.getDate()) : oDate.getDate();
       return (
         oDate.getFullYear() +
         "年" +
-        (oDate.getMonth() + 1) +
+        month +
         "月" +
-        oDate.getDate() +
+        day +
         "日"
       );
     }
