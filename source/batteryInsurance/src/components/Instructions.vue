@@ -78,6 +78,9 @@ export default {
   mounted() {},
   methods: {
     refuseAction: function() {
+      this.$dialog.setDefaultOptions({
+        messageAlign: "center",
+      });
       this.$dialog
         .confirm({
           message: "非常抱歉你暂时无法投保"

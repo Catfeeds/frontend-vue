@@ -344,11 +344,13 @@ img {
   height: 20px;
   margin-left: 14px;
   text-align: left;
+  line-height: 20px;
 }
 
 .headerItemContent {
   height: 20px;
   text-align: left;
+  line-height: 20px;
 }
 
 .amount {

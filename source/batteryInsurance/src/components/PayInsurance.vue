@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pageContent"> 
     <div class="header">
       <p class="amountRemark remarkFont">应付金额</p>
       <p class="amount">
@@ -111,11 +111,16 @@ export default {
       if (this.aiPay) {
         type += "d";
       }
-      var url = "immotor://insurancePay?type=" + type;
-      if (this.$store.state.selectCoupon) {
-        url += "&rid=" + this.$store.state.selectCoupon.id;
+      if (type.length == 0) {
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=请选择支付方式";
+      } else {
+        var url = "immotor://insurancePay?type=" + type;
+        if (this.$store.state.selectCoupon) {
+          url += "&rid=" + this.$store.state.selectCoupon.id;
+        }
+        window.location.href = url;
       }
-      window.location.href = url;
     },
     updateSelectStatus: function() {
       this.balancePay = this.balance > 0 ? true : false;
@@ -212,6 +217,11 @@ img {
   width: 100%;
   height: 100%;
   display: block;
+}
+.pageContent{
+  height: 100%;
+  padding: 0.1px;
+  z-index: 1;
 }
 .remarkFont {
   font-size: 13px;
@@ -336,7 +346,8 @@ img {
   bottom: 40px;
   background: rgba(255, 141, 89, 1);
   border-radius: 4px;
-  position: absolute;
+  position: fixed;
+  z-index: 99px;
   font-size: 13px;
   font-family: PingFangSC-Medium;
   font-weight: 500;

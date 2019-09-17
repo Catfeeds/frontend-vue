@@ -219,8 +219,9 @@ export default {
             vueThis.sendDisable = false;
             clearInterval(vueThis.disableTimer);
             vueThis.disableTimer = null;
+          } else {
+            vueThis.sendText = offset + "后重新获取";
           }
-          vueThis.sendText = offset + "后重新获取";
         }, 1000);
       }
     },
@@ -364,13 +365,12 @@ img {
 .input {
   width: 375px;
 }
+
 .confirmBtn {
-  margin: 30px 20px;
-  height: 50px;
-  /* left: 20px;
+  left: 20px;
   right: 20px;
-  bottom: 30px; */
-  position: relative;
+  bottom: 30px;
+  position: absolute;
   background: rgba(255, 127, 69, 1);
   border-radius: 5px;
   font-size: 14px;
