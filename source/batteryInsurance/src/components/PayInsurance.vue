@@ -67,10 +67,10 @@ export default {
   },
   mounted() {
     if (this.$store.state.selectCoupon) {
-        this.hasCoupon = true;
-        this.updateCouponText();
+      this.hasCoupon = true;
+      this.updateCouponText();
     } else {
-        this.getUsableCouponList();
+      this.getUsableCouponList();
     }
     this.getUserBalance();
   },
@@ -80,34 +80,40 @@ export default {
     },
     selectAlipayAction: function() {
       this.aiPay = !this.aiPay;
-      this.wechatPay = !this.aiPay;
+      if (this.aiPay) {
+        this.wechatPay = false;
+      }
     },
     selectWechatAction: function() {
       this.wechatPay = !this.wechatPay;
-      this.aiPay = !this.wechatPay;
+      if (this.wechatPay) {
+        this.aiPay = false;
+      }
     },
     couponAction: function() {
-      this.$router.push({
-        path: "/coupon"
-      });
+      if (this.hasCoupon) {
+        this.$router.push({
+          path: "/coupon"
+        });
+      }
     },
     payAction: function() {
       var type = "";
-      if(this.$store.state.selectCoupon){
+      if (this.$store.state.selectCoupon) {
         type += "a";
       }
-      if(this.balancePay){
+      if (this.balancePay) {
         type += "b";
       }
-      if(this.wechatPay){
+      if (this.wechatPay) {
         type += "c";
       }
-      if(this.aiPay){
+      if (this.aiPay) {
         type += "d";
       }
-      var url = 'immotor://insurancePay?type=' + type; 
-      if(this.$store.state.selectCoupon){
-        url += ('&rid=' + this.$store.state.selectCoupon.id);
+      var url = "immotor://insurancePay?type=" + type;
+      if (this.$store.state.selectCoupon) {
+        url += "&rid=" + this.$store.state.selectCoupon.id;
       }
       window.location.href = url;
     },
@@ -119,14 +125,22 @@ export default {
       if (this.hasCoupon) {
         if (this.$store.state.selectCoupon) {
           if (this.$store.state.selectCoupon.discountType == 1) {
-            this.payAmount = this.insuranceCosts - this.$store.state.selectCoupon.amount;
-            this.payAmount = this.payAmount < 0 ? 0 : this.payAmount; 
-            this.couponPrompt = "已抵扣" + (this.insuranceCosts - this.payAmount).toFixed(2) + "元";
+            this.payAmount =
+              this.insuranceCosts - this.$store.state.selectCoupon.amount;
+            this.payAmount = this.payAmount < 0 ? 0 : this.payAmount;
+            this.couponPrompt =
+              "已抵扣" +
+              (this.insuranceCosts - this.payAmount).toFixed(2) +
+              "元";
           } else if (this.$store.state.selectCoupon.discountType == 2) {
-            this.payAmount = (this.insuranceCosts * this.$store.state.selectCoupon.discount) / 10;
+            this.payAmount =
+              (this.insuranceCosts * this.$store.state.selectCoupon.discount) /
+              10;
             this.payAmount = this.payAmount < 0 ? 0 : this.payAmount.toFixed(2);
             this.couponPrompt =
-              "已抵扣" + (this.insuranceCosts - this.payAmount).toFixed(2) + "元";
+              "已抵扣" +
+              (this.insuranceCosts - this.payAmount).toFixed(2) +
+              "元";
           }
         } else {
           this.couponPrompt = "有待使用的优惠劵";
@@ -177,7 +191,6 @@ export default {
               vueThis.hasCoupon = true;
               vueThis.updateCouponText();
             }
-
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + data.msg;

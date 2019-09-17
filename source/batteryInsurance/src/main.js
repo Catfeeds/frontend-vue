@@ -29,6 +29,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 
 import "../static/general.css"
+import "../static/field.css"
 
 Vue.config.productionTip = false
 
@@ -36,6 +37,13 @@ Vue.prototype.$dialog = Dialog
 Vue.prototype.$bridge = Bridge
 Vue.prototype.$yApi=yApi
 Vue.use(VueAxios, axios)
+
+router.beforeEach((to, from, next) => {
+  if(to.meta.title) {
+    document.title = to.meta.title
+  }
+  next();
+})
 
 /* eslint-disable no-new */
 new Vue({

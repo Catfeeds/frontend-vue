@@ -78,9 +78,19 @@ export default {
   mounted() {},
   methods: {
     refuseAction: function() {
-      this.$router.push({
-        path: "/"
-      });
+      this.$dialog
+        .confirm({
+          message: "非常抱歉你暂时无法投保"
+        })
+        .then(() => {
+          // on confirm
+          this.$router.push({
+            path: "/"
+          });
+        })
+        .catch(() => {
+          // on cancel
+        });
     },
     confirmAction: function() {
       this.$router.push({

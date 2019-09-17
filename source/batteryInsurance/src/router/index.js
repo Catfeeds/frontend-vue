@@ -16,37 +16,58 @@ export default new Router({
     {
       path: '/',
       name: 'MyInsurance',
-      component: MyInsurance
+      component: MyInsurance,
+      meta:{
+        title:'我的保险'
+      }
     },
     {
       path: '/batteryinsurance',
       name: 'BatteryInsurance',
-      component: BatteryInsurance
+      component: BatteryInsurance,
+      meta:{
+        title:'电池保险'
+      }
     },
     {
       path: '/insuranceinput',
       name: 'InsuranceInput',
-      component: InsuranceInput
+      component: InsuranceInput,
+      meta:{
+        title:'填写投保信息'
+      }
     },
     {
       path: '/instructions',
       name: 'Instructions',
-      component: Instructions
+      component: Instructions,
+      meta:{
+        title:'投保告知'
+      }
     },
     {
       path: '/policyorder',
       name: 'MyPolicyOrder',
-      component: MyPolicyOrder
+      component: MyPolicyOrder,
+      meta:{
+        title:'我的保单'
+      }
     },
     {
       path: '/pay',
       name: 'PayInsurance',
-      component: PayInsurance
+      component: PayInsurance,
+      meta:{
+        title:'订单支付'
+      }
     },
     {
       path: '/coupon',
       name: 'Coupon',
-      component: Coupon
+      component: Coupon,
+      meta:{
+        title:'优惠券'
+      }
     }
   ]
 })

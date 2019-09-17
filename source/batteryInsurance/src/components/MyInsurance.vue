@@ -73,7 +73,7 @@ export default {
   name: "MyInsurance",
   data() {
     return {
-      status: 0, //0未购买 1待生效 2已生效
+      status: -1, //0未购买 1待生效 2已生效
       insuranceCost: 0,
       statusImgSrc: require("../assets/unEffect.png"),
       statusText: "保单待生效",
@@ -153,6 +153,7 @@ export default {
           }
         })
         .catch(resp => {
+          
           window.location.href =
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });

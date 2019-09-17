@@ -3,6 +3,7 @@
     <van-cell-group class="headerTop">
       <van-field v-model="name" placeholder="请输入用户名" maxlength="20" @input="textChanged" disabled>
         <div slot="label" class="leftText">用户名</div>
+        <div slot="button" class="authClass">已认证</div>
       </van-field>
       <van-field
         v-model="idCard"
@@ -13,6 +14,7 @@
         disabled
       >
         <div slot="label" class="leftText">身份证</div>
+        <div slot="button" class="authClass">已认证</div>
       </van-field>
       <van-field
         v-model="phone"
@@ -45,10 +47,22 @@
       <van-field v-model="sn" placeholder="请输入中控SN码" maxlength="40" @input="textChanged" clearable>
         <div slot="label" class="leftText">中控SN</div>
       </van-field>
-      <van-field v-model="makeFactory" placeholder="请输入电机号" maxlength="50" @input="textChanged" clearable>
+      <van-field
+        v-model="makeFactory"
+        placeholder="请输入电机号"
+        maxlength="50"
+        @input="textChanged"
+        clearable
+      >
         <div slot="label" class="leftText">电机号</div>
       </van-field>
-      <van-field v-model="fuelName" placeholder="请输入车架号" maxlength="20" @input="textChanged" clearable>
+      <van-field
+        v-model="fuelName"
+        placeholder="请输入车架号"
+        maxlength="20"
+        @input="textChanged"
+        clearable
+      >
         <div slot="label" class="leftText">车架号</div>
       </van-field>
       <van-field v-model="addr" placeholder="请输入地址" maxlength="50" @input="textChanged" clearable>
@@ -90,59 +104,59 @@ export default {
   methods: {
     confirmAction: function() {
       var vueThis = this;
+      if (vueThis.isEmptyStr(vueThis.name)) {
+        window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入姓名";
+        return;
+      }
+      if (!vueThis.isIDCardNumber(vueThis.idCard)) {
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=请输入正确的身份证号";
+        return;
+      }
+      if (!vueThis.isPhoneNumber(vueThis.phone)) {
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=请输入正确的手机号";
+        return;
+      }
+      if (vueThis.isEmptyStr(vueThis.sn)) {
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=请输入你绑定的车辆SN码";
+        return;
+      }
+      if (vueThis.isEmptyStr(vueThis.makeFactory)) {
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=请输入电机号";
+        return;
+      }
+      if (
+        vueThis.isEmptyStr(vueThis.fuelName) ||
+        vueThis.fuelName.length > 20
+      ) {
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=请输入正确的车架号";
+        return;
+      }
+      if (vueThis.isEmptyStr(vueThis.addr)) {
+        window.location.href = "IMMOTOR://showPrompt?code=0&message=请输入地址";
+        return;
+      }
+      if (!vueThis.isEmail(vueThis.email)) {
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=请输入正确的邮箱";
+        return;
+      }
+      if (vueThis.showVCode && vueThis.vcode.length != 6) {
+        window.location.href =
+          "IMMOTOR://showPrompt?code=0&message=请输入正确的验证码";
+        return;
+      }
       if (vueThis.isChange) {
-        if (vueThis.isEmptyStr(vueThis.name)) {
-          window.location.href =
-            "IMMOTOR://showPrompt?code=0&message=请输入姓名";
-          return;
-        }
-        if (!vueThis.isIDCardNumber(vueThis.idCard)) {
-          window.location.href =
-            "IMMOTOR://showPrompt?code=0&message=请输入正确的身份证号";
-          return;
-        }
-        if (!vueThis.isPhoneNumber(vueThis.phone)) {
-          window.location.href =
-            "IMMOTOR://showPrompt?code=0&message=请输入正确的手机号";
-          return;
-        }
-        if (vueThis.isEmptyStr(vueThis.sn)) {
-          window.location.href =
-            "IMMOTOR://showPrompt?code=0&message=请输入你绑定的车辆SN码";
-          return;
-        }
-        if (vueThis.isEmptyStr(vueThis.makeFactory)) {
-          window.location.href =
-            "IMMOTOR://showPrompt?code=0&message=请输入电机号";
-          return;
-        }
-        if (
-          vueThis.isEmptyStr(vueThis.fuelName) ||
-          vueThis.fuelName.length > 20
-        ) {
-          window.location.href =
-            "IMMOTOR://showPrompt?code=0&message=请输入正确的车架号";
-          return;
-        }
-        if (vueThis.isEmptyStr(vueThis.addr)) {
-          window.location.href =
-            "IMMOTOR://showPrompt?code=0&message=请输入地址";
-          return;
-        }
-        if (!vueThis.isEmail(vueThis.email)) {
-          window.location.href =
-            "IMMOTOR://showPrompt?code=0&message=请输入正确的邮箱";
-          return;
-        }
-        if (vueThis.showVCode && vueThis.vcode.length != 6) {
-          window.location.href =
-            "IMMOTOR://showPrompt?code=0&message=请输入正确的验证码";
-          return;
-        }
         vueThis
           .axios({
             method: "post",
-            url: vueThis.showVCode ? vueThis.$yApi.addInsurancePolicyInfo + '?' + vueThis.vcode : vueThis.$yApi.addInsurancePolicyInfo,
+            url: vueThis.showVCode
+              ? vueThis.$yApi.addInsurancePolicyInfo + "?" + vueThis.vcode
+              : vueThis.$yApi.addInsurancePolicyInfo,
             data: {
               name: vueThis.name,
               idcard: vueThis.idCard,
@@ -389,5 +403,17 @@ img {
 }
 .vcodeDisableTextColor {
   color: rgba(149, 149, 149, 1);
+}
+.authClass {
+  width: 44px;
+  height: 18px;
+  background: rgba(212, 215, 218, 1);
+  border-radius: 2px;
+  font-size: 10px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 18px;
+  text-align: center;
 }
 </style>
