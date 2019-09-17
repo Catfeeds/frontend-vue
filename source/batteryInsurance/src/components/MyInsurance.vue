@@ -143,7 +143,7 @@ export default {
             vueThis.idcard = data.result.idcard;
             vueThis.insuranceCost = data.result.insurance;
             var num = data.result.num;
-            vueThis.batteryNumText = num == 2 ? "二" : "一";
+            vueThis.batteryNumText = num == 2 ? "两" : "一";
             vueThis.$store.commit("setUserName", vueThis.name);
             vueThis.$store.commit("setInsuranceCosts", vueThis.insuranceCost);
             vueThis.$store.commit("setBatteryNum", num);

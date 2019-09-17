@@ -155,7 +155,7 @@ export default {
           .axios({
             method: "post",
             url: vueThis.showVCode
-              ? vueThis.$yApi.addInsurancePolicyInfo + "?" + vueThis.vcode
+              ? vueThis.$yApi.addInsurancePolicyInfo + "?cCode=" + vueThis.vcode
               : vueThis.$yApi.addInsurancePolicyInfo,
             data: {
               name: vueThis.name,
