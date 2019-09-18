@@ -65,7 +65,7 @@ export default {
             vueThis.couponList = data.data;
             vueThis.couponList.forEach(element => {
               element.endTimeStr = vueThis.formatDateToYYYYMMDD(
-                new Date(element.actEndTime)
+                new Date(element.endTime)
               );
             });
           } else {
