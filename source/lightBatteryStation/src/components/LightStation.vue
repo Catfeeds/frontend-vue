@@ -200,11 +200,12 @@ export default {
         "http://download.immotor.com/app/downloads/ehuandian";
     },
     openAppAction: function() {
-      if(this.isQQWechatBrowser()){
+      if (this.isQQWechatBrowser()) {
         //提示在浏览器中打开
-      }
-      else{
-        window.location.href = "immotor://app-links/homepage";    
+        window.location.href =
+          "immotor://showPrompt?code=0&message=请点击右上角打开浏览器操作";
+      } else {
+        window.location.href = "immotor://app-links/homepage";
       }
     },
     setupUserMarker: function() {
@@ -325,6 +326,10 @@ export default {
     },
     unLightUpMarkerClick: function(element) {
       var vueThis = this;
+      if (vueThis.routeLine) {
+        vueThis.map.remove(that.routeLine);
+        vueThis.routeLine = null;
+      }
       vueThis.showNavgation = true;
       vueThis.selectNavStation = element;
       //绘制导航线路
@@ -649,7 +654,7 @@ export default {
       if (ua.match(/MicroMessenger/i) == "micromessenger") {
         return true;
       }
-      if (ua.match(/QQ/i) == "qq") {
+      if (ua.indexOf("MQQBrowser") > -1) {
         return true;
       }
       return false;
