@@ -53,9 +53,3 @@ li {
 em {
     font-style: normal;
 }
-
-.van-field__control:disabled {
-    color: #369;
-    background-color: transparent;
-    opacity: 1;
-}

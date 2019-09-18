@@ -3,7 +3,7 @@
     <div class="header">
       <p class="amountRemark remarkFont">应付金额</p>
       <p class="amount">
-        <span class="amountFont">{{payAmount}}</span>
+        <span class="amountFont">{{payAmount.toFixed(2)}}</span>
         <span class="unitFont">元</span>
       </p>
       <div class="couponItem" @click="couponAction">
