@@ -111,6 +111,15 @@
       </div>
     </div>
     <div class="emptyBottom" v-else></div>
+    <div @touchmove.prevent v-if="showToast" class="browserToast" @click="toastClick">
+      <div class="browserDiv">
+        <p class="linkTitle">链接打不开？</p>
+        <p class="linkText">请点击右上角，选择在“浏览器”打开</p>
+        <div class="linkIcon">
+          <img src="../assets/link.png" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -140,7 +149,8 @@ export default {
       stationMarkerList: [],
       showNavgation: false,
       selectNavStation: null,
-      routeLine: null
+      routeLine: null,
+      showToast: false
     };
   },
   mounted() {
@@ -202,11 +212,13 @@ export default {
     openAppAction: function() {
       if (this.isQQWechatBrowser()) {
         //提示在浏览器中打开
-        window.location.href =
-          "immotor://showPrompt?code=0&message=请点击右上角打开浏览器操作";
+        this.showToast = true;
       } else {
         window.location.href = "immotor://app-links/homepage";
       }
+    },
+    toastClick: function(){
+      this.showToast = false;
     },
     setupUserMarker: function() {
       if (this.userMarker) {
@@ -327,7 +339,7 @@ export default {
     unLightUpMarkerClick: function(element) {
       var vueThis = this;
       if (vueThis.routeLine) {
-        vueThis.map.remove(that.routeLine);
+        vueThis.map.remove(vueThis.routeLine);
         vueThis.routeLine = null;
       }
       vueThis.showNavgation = true;
@@ -1137,5 +1149,53 @@ img {
 .emptyBottom {
   height: 90px;
   background: rgba(47, 4, 137, 1);
+}
+.browserToast {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.6);
+}
+.browserDiv {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 98px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 5px;
+  position: relative;
+  padding: 0.1px;
+}
+.linkIcon {
+  width: 190px;
+  height: 30px;
+  right: 15px;
+  top: 10px;
+  position: absolute;
+}
+.linkTitle {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 27px;
+  height: 25px;
+  font-size: 18px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  line-height: 25px;
+  text-align: left;
+}
+.linkText {
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 20px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 20px;
+  text-align: left;
 }
 </style>
