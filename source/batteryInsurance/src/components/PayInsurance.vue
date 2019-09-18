@@ -124,7 +124,7 @@ export default {
     },
     updateSelectStatus: function() {
       this.balancePay = this.balance > 0 ? true : false;
-      this.aiPay = this.balance < this.amount ? true : false;
+      this.aiPay = this.balance < this.payAmount ? true : false;
     },
     updateCouponText: function() {
       if (this.hasCoupon) {

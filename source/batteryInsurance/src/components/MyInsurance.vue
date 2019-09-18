@@ -56,11 +56,17 @@
         <div class="contentItemDot"></div>
         <p class="contentItemText contentTextFont">购买后保单受中华人民共和国司法管辖</p>
       </div>
+      <div class="contentItem">
+        <div class="contentItemDot"></div>
+        <p
+          class="contentItemText contentTextFont"
+        >换电功能承租人或骑行人应为完全民事行为能力人，无民事行为能力人谢绝使用本服务、限制民事行为能力人应在法定监护人监护下使用本服务</p>
+      </div>
       <div class="contentItem contentBottom">
         <div class="contentItemDot"></div>
         <p
           class="contentItemText contentTextFont"
-        >换电功能承租人或骑行人应为年龄18—60周岁，身体健康，能正常生活或正常生活的非机动车辆合法使用者 每颗电池限投一份，多份无效。</p>
+        >每人只限购买一份保险，多份保险无效，每份保险有效期为30天，到期后方可继续购买。</p>
       </div>
       <div class="contentLine contentLeftLine"></div>
       <div class="contentLine contentRightLine"></div>
@@ -153,7 +159,6 @@ export default {
           }
         })
         .catch(resp => {
-          
           window.location.href =
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });

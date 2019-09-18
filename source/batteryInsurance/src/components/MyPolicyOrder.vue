@@ -67,12 +67,12 @@ export default {
   name: "MyPolicyOrder",
   data() {
     return {
-      orderNO: '',
-      coverage: '',
+      orderNO: "",
+      coverage: "",
       startDateText: "",
       endDateText: "",
-      money: '',
-      batteryNum: '',
+      money: "",
+      batteryNum: "",
       name: this.$store.state.userName,
       isGetInsuranceOrder: false
     };
@@ -92,28 +92,16 @@ export default {
     listenInsuranceOrder: function(val) {
       if (val) {
         this.isGetInsuranceOrder = true;
-        this.orderNO = val.policyNo;
-        this.coverage = val.sumamount;
-        this.startDateText = this.formatDateToYYYYMMDD(new Date(val.startDate));
-        this.endDateText = this.formatDateToYYYYMMDD(new Date(val.endDate));
-        this.money = val.sumpremium;
-        this.batteryNum = val.num == 2 ? "两" : "一";
+        this.updateData(val);
+      } else {
+        this.isGetInsuranceOrder = false;
       }
     }
   },
   mounted() {
     if (this.$store.state.insuranceOrder) {
       this.isGetInsuranceOrder = true;
-      this.startDateText = this.formatDateToYYYYMMDD(
-        new Date(this.$store.state.insuranceOrder.startDate)
-      );
-      this.endDateText = this.formatDateToYYYYMMDD(
-        new Date(this.$store.state.insuranceOrder.endDate)
-      );
-      this.orderNO = this.$store.state.insuranceOrder.policyNo;
-      this.coverage = this.$store.state.insuranceOrder.sumamount;
-      this.money = this.$store.state.insuranceOrder.sumpremium;
-      this.batteryNum = this.$store.state.insuranceOrder.num == 2 ? "二" : "一";
+      this.updateData(this.$store.state.insuranceOrder);
     }
   },
   methods: {
@@ -133,17 +121,21 @@ export default {
       window.location.href =
         "https://imgcn.immotor.com/app/protocol/usufructtransfer.html";
     },
+    updateData: function(val) {
+      this.orderNO = val.policyNo;
+      this.coverage = val.sumamount;
+      this.startDateText = this.formatDateToYYYYMMDD(new Date(val.startDate));
+      this.endDateText = this.formatDateToYYYYMMDD(new Date(val.endDate));
+      this.money = val.sumpremium;
+      this.batteryNum = val.num == 2 ? "两" : "一";
+    },
     formatDateToYYYYMMDD: function(oDate) {
-      var month =  (oDate.getMonth() + 1) < 10 ? ('0' + (oDate.getMonth() + 1)) : (oDate.getMonth() + 1);
-      var day = oDate.getDate() < 10 ? ('0' + oDate.getDate()) : oDate.getDate();
-      return (
-        oDate.getFullYear() +
-        "年" +
-        month +
-        "月" +
-        day +
-        "日"
-      );
+      var month =
+        oDate.getMonth() + 1 < 10
+          ? "0" + (oDate.getMonth() + 1)
+          : oDate.getMonth() + 1;
+      var day = oDate.getDate() < 10 ? "0" + oDate.getDate() : oDate.getDate();
+      return oDate.getFullYear() + "年" + month + "月" + day + "日";
     }
   }
 };
