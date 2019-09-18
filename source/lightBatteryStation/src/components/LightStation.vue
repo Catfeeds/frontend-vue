@@ -185,7 +185,7 @@ export default {
       this.map.setCenter([this.lon, this.lat]);
     },
     navgationAction: function() {
-      if (self.selectNavStation) {
+      if (this.selectNavStation) {
         window.location.href =
           "IMMOTOR://userNavigation?lat=" +
           this.selectNavStation.latitude +
@@ -200,7 +200,12 @@ export default {
         "http://download.immotor.com/app/downloads/ehuandian";
     },
     openAppAction: function() {
-      window.location.href = "immotor://app-links/homepage";
+      if(this.isQQWechatBrowser()){
+        //提示在浏览器中打开
+      }
+      else{
+        window.location.href = "immotor://app-links/homepage";    
+      }
     },
     setupUserMarker: function() {
       if (this.userMarker) {
@@ -227,7 +232,7 @@ export default {
         if (stationMarker) {
           var state = stationMarker.getExtData().state;
           if (state != stateState) {
-            vueThis.removeArrayItem(vueThis.stationMarkerList, stationMarker)
+            vueThis.removeArrayItem(vueThis.stationMarkerList, stationMarker);
             vueThis.map.remove(stationMarker);
             stationMarker = vueThis.setupSingleMarker(stateState, element);
             if (stationMarker) {
@@ -638,6 +643,16 @@ export default {
       var r = search.substr(1).match(reg);
       if (r != null) return unescape(decodeURIComponent(r[2]));
       return null;
+    },
+    isQQWechatBrowser: function() {
+      var ua = navigator.userAgent.toLowerCase(); //获取判断用的对象
+      if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        return true;
+      }
+      if (ua.match(/QQ/i) == "qq") {
+        return true;
+      }
+      return false;
     }
   }
 };
@@ -933,8 +948,8 @@ img {
   background: rgba(248, 248, 248, 1);
 }
 .contentItemRank {
-  left: 28px;
-  width: 32px;
+  left: 24px;
+  width: 40px;
   top: 11px;
   height: 18px;
   position: absolute;
