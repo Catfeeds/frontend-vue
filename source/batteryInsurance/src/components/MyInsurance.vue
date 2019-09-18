@@ -64,9 +64,7 @@
       </div>
       <div class="contentItem contentBottom">
         <div class="contentItemDot"></div>
-        <p
-          class="contentItemText contentTextFont"
-        >每人只限购买一份保险，多份保险无效，每份保险有效期为30天，到期后方可继续购买。</p>
+        <p class="contentItemText contentTextFont">每人只限购买一份保险，多份保险无效，每份保险有效期为30天，到期后方可继续购买。</p>
       </div>
       <div class="contentLine contentLeftLine"></div>
       <div class="contentLine contentRightLine"></div>
@@ -92,7 +90,6 @@ export default {
     };
   },
   mounted() {
-    this.getUserInsuranceInfo();
     this.getUserInsuranceOrder();
   },
   methods: {
@@ -148,11 +145,13 @@ export default {
             vueThis.name = data.result.name;
             vueThis.idcard = data.result.idcard;
             vueThis.insuranceCost = data.result.insurance;
-            var num = data.result.num;
-            vueThis.batteryNumText = num == 2 ? "两" : "一";
+            if (vueThis.status == 0) {
+              var num = data.result.num;
+              vueThis.batteryNumText = num == 2 ? "两" : "一";
+              vueThis.$store.commit("setBatteryNum", num);
+            }
             vueThis.$store.commit("setUserName", vueThis.name);
             vueThis.$store.commit("setInsuranceCosts", vueThis.insuranceCost);
-            vueThis.$store.commit("setBatteryNum", num);
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + data.msg;
@@ -189,6 +188,8 @@ export default {
             } else {
               vueThis.status = 1;
             }
+            vueThis.batteryNumText = insuranceOrder.num == 2 ? "两" : "一";
+            vueThis.$store.commit("setBatteryNum", insuranceOrder.num);
             vueThis.updateUI();
           } else if (data.code == 640) {
             vueThis.status = 0;
@@ -196,6 +197,7 @@ export default {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + data.msg;
           }
+          vueThis.getUserInsuranceInfo();
         })
         .catch(resp => {
           window.location.href =

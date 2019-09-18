@@ -72,7 +72,7 @@
         <div slot="label" class="leftText">邮箱</div>
       </van-field>
     </van-cell-group>
-    <div class="confirmBtn" @click="confirmAction">确定</div>
+    <div class="confirmBtn" ref="confirm" @click="confirmAction">确定</div>
   </div>
 </template>
 
@@ -100,6 +100,20 @@ export default {
   },
   mounted() {
     this.getInsuranceInfo();
+    var u = navigator.userAgent;
+    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
+    if (isAndroid) {
+      var vueThis = this;
+      var screenHeight = document.body.offsetHeight;
+      window.onresize = function() {
+        var nowHeight = document.body.offsetHeight;
+        if (nowHeight < screenHeight) {
+          vueThis.$refs.confirm.style.display = "none";
+        } else {
+          vueThis.$refs.confirm.style.display = "block";
+        }
+      };
+    }
   },
   methods: {
     confirmAction: function() {
