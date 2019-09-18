@@ -217,7 +217,7 @@ export default {
         window.location.href = "immotor://app-links/homepage";
       }
     },
-    toastClick: function(){
+    toastClick: function() {
       this.showToast = false;
     },
     setupUserMarker: function() {
@@ -664,10 +664,16 @@ export default {
     isQQWechatBrowser: function() {
       var ua = navigator.userAgent.toLowerCase(); //获取判断用的对象
       if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        //微信
         return true;
-      }
-      if (ua.indexOf("MQQBrowser") > -1) {
+      } else if (ua.indexOf("mobile mqqbrowser") > -1) {
+        //安卓QQ
         return true;
+      } else if (ua.indexOf("iphone") > -1 || ua.indexOf("mac") > -1) {
+        //iOS QQ
+        if (ua.indexOf("qq") > -1) {
+          return true;
+        }
       }
       return false;
     }
@@ -1155,8 +1161,9 @@ img {
   right: 0;
   top: 0;
   bottom: 0;
-  position: absolute;
+  position: fixed;
   background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
 }
 .browserDiv {
   margin-top: 20px;
