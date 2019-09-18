@@ -126,7 +126,7 @@ export default {
       this.coverage = val.sumamount;
       this.startDateText = this.formatDateToYYYYMMDD(new Date(val.startDate));
       this.endDateText = this.formatDateToYYYYMMDD(new Date(val.endDate));
-      this.money = val.sumpremium;
+      this.money = val.pmoney;
       this.batteryNum = val.num == 2 ? "两" : "一";
     },
     formatDateToYYYYMMDD: function(oDate) {
