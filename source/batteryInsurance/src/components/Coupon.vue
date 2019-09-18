@@ -12,10 +12,11 @@
         <p class="couponItemName">{{item.name}}</p>
         <p class="couponItemEffectivePeriod">有效期至{{item.endTimeStr}}</p>
         <div class="couponItemUseBtn" @click="couponUseAction(item)">使用</div>
+        <p class="couponRemark">{{item.desc}}</p>
       </div>
     </div>
     <div class="bottomDiv" @click="clearCouponAction">
-      <p class="couponNoneText">不使用优惠</p>
+      <p class="couponNoneText">不使用优惠劵</p>
     </div>
   </div>
 </template>
@@ -34,15 +35,19 @@ export default {
   methods: {
     couponUseAction: function(item) {
       this.$store.commit("selectCoupon", item); //总数
-      this.$router.push({
-        path: "/pay"
-      });
+      // this.$router.push({
+      //   path: "/pay"
+      // });
+      //调用返回 回到支付页面
+      this.$router.back(-1);
     },
     clearCouponAction: function() {
       this.$store.commit("clearCoupon");
-      this.$router.push({
-        path: "/pay"
-      });
+      // this.$router.push({
+      //   path: "/pay"
+      // });
+      //调用返回 回到支付页面
+      this.$router.back(-1);
     },
     getUsableCouponList: function() {
       var vueThis = this;
@@ -58,6 +63,11 @@ export default {
           var data = resp.data;
           if (data.resultCode == 1) {
             vueThis.couponList = data.data;
+            vueThis.couponList.forEach(element => {
+              element.endTimeStr = vueThis.formatDateToYYYYMMDD(
+                new Date(element.actEndTime)
+              );
+            });
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + data.resultMsg;
@@ -67,6 +77,14 @@ export default {
           window.location.href =
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });
+    },
+    formatDateToYYYYMMDD: function(oDate) {
+      var month =
+        oDate.getMonth() + 1 < 10
+          ? "0" + (oDate.getMonth() + 1)
+          : oDate.getMonth() + 1;
+      var day = oDate.getDate() < 10 ? "0" + oDate.getDate() : oDate.getDate();
+      return oDate.getFullYear() + "-" + month + "-" + day;
     }
   }
 };
@@ -150,6 +168,19 @@ img {
   color: rgba(255, 255, 255, 1);
   line-height: 30px;
   text-align: center;
+}
+.couponRemark {
+  height: 20px;
+  left: 22px;
+  right: 22px;
+  bottom: 14px;
+  position: absolute;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(165, 165, 165, 1);
+  line-height: 20px;
+  text-align: left;
 }
 .bottomDiv {
   height: 84px;
