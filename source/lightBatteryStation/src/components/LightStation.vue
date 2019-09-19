@@ -338,6 +338,9 @@ export default {
     },
     unLightUpMarkerClick: function(element) {
       var vueThis = this;
+      if(vueThis.selectNavStation==element){
+        return;
+      }
       if (vueThis.routeLine) {
         vueThis.map.remove(vueThis.routeLine);
         vueThis.routeLine = null;
