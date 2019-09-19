@@ -141,7 +141,7 @@ export default {
             this.payAmount =
               (this.insuranceCosts * this.$store.state.selectCoupon.discount) /
               10;
-            this.payAmount = this.payAmount < 0 ? 0 : this.payAmount.toFixed(2);
+            this.payAmount = this.payAmount < 0 ? 0 : this.payAmount;
             this.couponPrompt =
               "已抵扣" +
               (this.insuranceCosts - this.payAmount).toFixed(2) +
