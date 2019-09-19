@@ -40,7 +40,7 @@
       <div class="openAppBtn" v-if="!isEhdWebview" @click="openAppAction">我已下载，打开APP</div>
       <p class="rules" @click="rulesAction" v-if="isEhdWebview">规则</p>
       <p class="headerTitle">点亮换电柜，赢优惠券&10天免费换电</p>
-      <p class="headerTime">活动时间：2019.10.01-2019.10.07</p>
+      <p class="headerTime">活动时间：2019.10.01-2019.10.10</p>
     </div>
     <div class="content" v-if="isEhdWebview">
       <div class="mapParent">
@@ -964,7 +964,7 @@ img {
   position: relative;
 }
 .ownerBKColor {
-  background: #f3eeff;
+  background: rgba(233, 227, 253, 1);
 }
 .contentLine {
   height: 1px;
