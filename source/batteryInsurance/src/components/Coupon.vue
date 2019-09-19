@@ -100,6 +100,7 @@ img {
 }
 .couponList {
   padding: 16px 12px;
+  margin-bottom: 80px;
 }
 
 .couponItem {

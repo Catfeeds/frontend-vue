@@ -881,7 +881,7 @@ export default {
   width: 122px;
   height: 44px;
   left: 66px;
-  top: 502px;
+  top: 504px;
   position: absolute;
   border-radius: 10px 0px 0px 10px;
   line-height: 44px;
@@ -891,7 +891,7 @@ export default {
   width: 122px;
   height: 44px;
   right: 62px;
-  top: 502px;
+  top: 504px;
   position: absolute;
   border-radius: 0px 10px 10px 0px;
   line-height: 44px;
@@ -1303,16 +1303,16 @@ color:rgba(252,242,72,1);;
 }
 
 .toastEntityBK {
-  width: 295px;
-  height: 482px;
+  width: 296px;
+  height: 479px;
   margin: auto;
   margin-top: 30px;
   position: relative;
 }
 
 .toastOtherBK {
-  width: 295px;
-  height: 354px;
+  width: 296px;
+  height: 317px;
   margin: auto;
   margin-top: 100px;
   position: relative;
@@ -1334,10 +1334,9 @@ color:rgba(252,242,72,1);;
 }
 
 .toastTitle {
-  width: 100%;
   height: 30px;
+  margin: auto;
   margin-top: 16px;
-  text-align: center;
   line-height: 30px;
   font-size: 25px;
   font-family: PingFangSC-Medium;
