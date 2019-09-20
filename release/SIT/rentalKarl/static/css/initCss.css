@@ -155,6 +155,7 @@ em {
   background: #fff;
   height: initial;
   min-height: 100%;
+  overflow: hidden;
 }
 /*统计数据*/
 .statiStical{
