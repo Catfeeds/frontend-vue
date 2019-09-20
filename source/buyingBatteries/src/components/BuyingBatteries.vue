@@ -135,7 +135,8 @@ export default {
       protocolSelectImgSrc: require("../assets/checkbox_normal.png"),
       payAmount: 0,
       couponToastShow: false,
-      userToken: ""
+      userToken: "",
+      canPay: true
     };
   },
   methods: {
@@ -219,6 +220,10 @@ export default {
           "IMMOTOR://showPrompt?code=0&message=请阅读并同意“超级电池包环保回收服务协议”";
         return;
       }
+      if(!this.canPay){
+        return;
+      }
+      this.canPay = false;
       var param = "type=";
       if (this.selectCouponId.length > 0) {
         param += "a";
@@ -234,6 +239,10 @@ export default {
         param += this.selectCouponId;
       }
       window.location.href = "IMMOTOR://consumerBuyBattery?" + param;
+      var vueThis = this;
+      setTimeout(() => {
+        vueThis.canPay = true;
+      }, 5000);
     },
     getUrlParam: function(name) {
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");

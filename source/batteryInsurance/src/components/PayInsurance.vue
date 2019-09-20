@@ -62,7 +62,8 @@ export default {
       aiPay: false,
       wechatPay: false,
       normalSrc: require("../assets/pay_normal.png"),
-      selectSrc: require("../assets/pay_select.png")
+      selectSrc: require("../assets/pay_select.png"),
+      canPay: true
     };
   },
   mounted() {
@@ -98,6 +99,10 @@ export default {
       }
     },
     payAction: function() {
+      if(!this.canPay){
+        return;
+      }
+      this.canPay = false;
       var type = "";
       if (this.$store.state.selectCoupon) {
         type += "a";
@@ -121,6 +126,10 @@ export default {
         }
         window.location.href = url;
       }
+      var vueThis = this;
+      setTimeout(() => {
+        vueThis.canPay = true;
+      }, 5000);
     },
     updateSelectStatus: function() {
       this.balancePay = this.balance > 0 ? true : false;
