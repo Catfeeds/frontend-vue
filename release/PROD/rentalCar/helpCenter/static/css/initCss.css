@@ -275,15 +275,6 @@ em {
 .conters2 p:nth-child(3) i{
   background-color:#00BEC6;
 }
-.van-tabs__nav.van-tabs__nav--line{
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: initial;
-  z-index: 100;
-}
-
 .van-hairline--top-bottom::after{
   opacity: 1;
 }
@@ -359,5 +350,29 @@ html body{
   -ms-overflow-style:none;
   /*火狐下隐藏滚动条*/
   overflow:-moz-scrollbars-none;
+}
+
+.shopDiv .van-tabs__nav.van-tabs__nav--line{
+  border-bottom: 1px solid rgba(241,241,241,1)!important;
+}
+.van-tabbar.van-tabbar--fixed{
+  z-index: 99999999999999!important;
+}
+.van-picker__columns{
+  z-index: 999999!important;
+}
+.van-tabs__wrap.van-hairline--top-bottom{
+  /*z-index: 9999999999999!important;*/
+}
+.van-sticky{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999999999;
+  height: 44px;
+  width: 100%;
+}
+.van-tabs__nav.van-tabs__nav--line{
+  width: 100%;
 }
 
