@@ -1,0 +1,11 @@
+.van-field__control:disabled {
+    color: #333;
+    background-color: transparent;
+    opacity: 1;
+}
+
+.van-field__control::-webkit-input-placeholder {
+    color: #C1C1C1;
+    opacity: 1;
+    -webkit-opacity: 1;
+}
