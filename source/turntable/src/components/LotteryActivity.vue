@@ -879,22 +879,22 @@ export default {
 
 .leftSectionTitle {
   width: 122px;
-  height: 44px;
+  height: 43px;
   left: 66px;
   top: 504px;
   position: absolute;
   border-radius: 10px 0px 0px 10px;
-  line-height: 44px;
+  line-height: 42px;
 }
 
 .rightSectionTitle {
   width: 122px;
-  height: 44px;
+  height: 42px;
   right: 62px;
   top: 504px;
   position: absolute;
   border-radius: 0px 10px 10px 0px;
-  line-height: 44px;
+  line-height: 42px;
 }
 
 .selectedBK {
