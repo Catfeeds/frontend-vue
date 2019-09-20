@@ -62,11 +62,14 @@ export default {
         .then(function(resp) {
           var data = resp.data;
           if (data.resultCode == 1) {
-            vueThis.couponList = data.data;
-            vueThis.couponList.forEach(element => {
+            vueThis.couponList =[];
+            data.data.forEach(element => {
               element.endTimeStr = vueThis.formatDateToYYYYMMDD(
                 new Date(element.endTime)
               );
+              if(!(element.moneyOff && element.moneyOff > vueThis.$store.state.insuranceCost )){
+                vueThis.couponList.push(element);
+              }
             });
           } else {
             window.location.href =
