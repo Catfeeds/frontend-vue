@@ -1,2 +1,0 @@
-webpackJsonp([37],{Oay3:function(e,n){},Thai:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var a={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n    用户\n")])},staticRenderFns:[]};var r=t("VU/8")({name:"user"},a,!1,function(e){t("Oay3")},"data-v-749e999d",null);n.default=r.exports}});
-//# sourceMappingURL=37.6b6e8a032e036e9152a8.js.map
