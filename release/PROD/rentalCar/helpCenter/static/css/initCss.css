@@ -280,7 +280,11 @@ em {
 }
 .van-tabbar--fixed{
   box-shadow:0px 0px 8px 0px rgba(0,0,0,0.08);
+
+
 }
+
+
 .van-popup,.van-popup--top{
   text-align: left;
 }
@@ -375,4 +379,16 @@ html body{
 .van-tabs__nav.van-tabs__nav--line{
   width: 100%;
 }
+@supports (bottom: env(safe-area-inset-bottom)) {
+  .van-tabbar{
+    padding-bottom: env(safe-area-inset-bottom);
+    height:initial!important;
+  }
+  .van-tabbar .van-tabbar-item{
+      height: 50px;
+  }
+}
 
+#Feedback .contens h1{
+  margin-top: 60px;
+}
