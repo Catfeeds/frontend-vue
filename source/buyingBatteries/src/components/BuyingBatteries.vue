@@ -2,7 +2,7 @@
   <div>
     <div class="page-content">
       <div class="batteriesDiv">
-        <div class="batteryDiv" v-for="(item, index) in batteryList" @click="selectPackage(index)">
+        <div class="batteryDiv" v-for="(item, index) in batteryList" :key="index" @click="selectPackage(index)">
           <div class="imgDiv">
             <img src="../assets/battery.png" />
           </div>
@@ -95,7 +95,7 @@
           </div>
           <div class="line"></div>
           <div class="couponList">
-            <div v-for="item in couponList" class="couponItem">
+            <div v-for="(item, idx) in couponList" class="couponItem" :key="idx">
               <img src="../assets/couponBK.png" />
               <p class="couponItemAmount">
                 <span class="couponUnitFont" v-if="item.discountType==1">¥</span>
