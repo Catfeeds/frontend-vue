@@ -392,3 +392,12 @@ html body{
 #Feedback .contens h1{
   margin-top: 60px;
 }
+
+#__vconsole{
+  z-index: 999999999;
+}
+#__vconsole .vc-switch{
+  z-index: 999999999999999!important;
+  bottom: 50px!important;
+  right: -50px!important;
+}
