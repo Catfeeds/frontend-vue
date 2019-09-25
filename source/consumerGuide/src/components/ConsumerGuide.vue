@@ -1,74 +1,139 @@
 <template>
-  <div>
-    <div class="mainBody">
-      <div class="headerImgDiv">
-        <img src="../assets/header.png" />
-        <div class="headerLogoIconDiv">
-          <img src="../assets/headerLogo.png" />
-        </div>
-        <div class="textBK"></div>
-        <p class="priceRemark">仅售</p>
-        <p class="priceText">1680元</p>
+  <div class="pageContent">
+    <div class="header">
+      <div class="header_leftIcon">
+        <img src="../assets/header_left.png" />
       </div>
-      <div class="firstSectionDiv sectionCommon">
-        <div class="sectionTitleBKDiv">
-          <img src="../assets/sectionTitle.png" />
-          <p class="sectionTitle sectionTitleFont">1680元包含以下产品和服务</p>
+      <div class="headerAmountBK"></div>
+      <div class="header_title">
+        <img src="../assets/header_title.png" />
+      </div>
+      <div class="header_remarkDiv">
+        <img src="../assets/header_remarkBK.png" />
+        <div class="header_remarkIcon remarkicon1_left">
+          <img src="../assets/header_check.png" />
         </div>
-        <div class="firstSectionIcon firstSectionIcon1">
-          <img src="../assets/times.png" />
+        <p class="header_remark header_remarkFont remark1_left">更智能</p>
+        <div class="header_remarkIcon remarkicon2_left">
+          <img src="../assets/header_check.png" />
         </div>
-        <div class="firstSectionLinkIconLeft firstSectionLinkIcon">
-          <img src="../assets/link.png" />
+        <p class="header_remark header_remarkFont remark2_left">更安全</p>
+      </div>
+      <div class="header_logoIcon">
+        <img src="../assets/header_logo.png" />
+      </div>
+      <p class="amount_text amount_leftText amount_remarkFont">仅售</p>
+      <p class="header_amount">1000</p>
+      <p class="amount_text amount_rightText amount_remarkFont">元起</p>
+    </div>
+    <div class="content">
+      <div class="section section1Height">
+        <div class="section_titleBK">
+          <img src="../assets/section_titleBK.png" />
+          <p class="section_title section_titleFont">1000元包含以下产品和服务</p>
         </div>
-        <div class="firstSectionIcon firstSectionIcon2">
+        <div class="section_icon section1_iconTop section1_icon1Left">
           <img src="../assets/scooter.png" />
         </div>
-        <div class="firstSectionLinkIconRight firstSectionLinkIcon">
-          <img src="../assets/link.png" />
+        <div class="section_plusIcon section1_plusIconTop section1_plusIcon1Left">
+          <img src="../assets/plus.png" />
         </div>
-        <div class="firstSectionIcon firstSectionIcon3">
+        <div class="section_icon section1_iconTop section1_icon2Left">
           <img src="../assets/battery.png" />
         </div>
-        <p class="firstSectionText1 firSectionTextFont">3年600次</p>
-        <p class="firstSectionText2 firSectionTextFont">智慧中控</p>
-        <p class="firstSectionText3 firSectionTextFont">一颗超级电池</p>
-        <p class="firstSectionRemark1 firstSectionRemarkFont">免费充电</p>
-        <p class="firstSectionRemark2 firstSectionRemarkFont">智慧大脑</p>
-        <p class="firstSectionRemark3 firstSectionRemarkFont">绿色环保</p>
+        <div class="section_plusIcon section1_plusIconTop section1_plusIcon2Left">
+          <img src="../assets/plus.png" />
+        </div>
+        <div class="section_icon section1_iconTop section1_icon3Left">
+          <img src="../assets/insuarance.png" />
+        </div>
+        <div class="section_plusIcon section1_plusIconTop section1_plusIcon3Left">
+          <img src="../assets/plus.png" />
+        </div>
+        <div class="section_icon section1_iconTop section1_icon4Left">
+          <img src="../assets/500.png" />
+        </div>
+        <p class="section_text section1_textTop section1_text1Left">智慧中控</p>
+        <p class="section_text section1_textTop section1_text2Left">超级锂电</p>
+        <p class="section_text section1_textTop section1_text3Left">终身质保</p>
+        <p class="section_text section1_textTop section1_text4Left">永久保值</p>
+        <p class="section1_amountText">500元</p>
       </div>
-      <div class="secondSectionDiv sectionCommon">
-        <div class="sectionTitleBKDiv">
-          <img src="../assets/sectionTitle.png" />
-          <p class="sectionTitle sectionTitleFont">环保回收奖励</p>
-          <p class="secondSectionText">
-            <span class="recyclingRemarkFont">超级电池+中控回收奖励高达</span>
-            <span class="recyclingMoneyFont">1300</span>
-            <span class="recyclingUnitFont">元</span>
-          </p>
+      <div class="section section2Height">
+        <div class="section_titleBK">
+          <img src="../assets/section_titleBK.png" />
+          <p class="section_title section_titleFont">1680元包含以下产品和服务</p>
         </div>
+        <div class="section_icon section2_iconTop1 section2_icon1Left">
+          <img src="../assets/scooter.png" />
+        </div>
+        <div class="section_icon section2_iconTop1 section2_icon2Left">
+          <img src="../assets/battery.png" />
+        </div>
+        <div class="section_icon section2_iconTop1 section2_icon3Left">
+          <img src="../assets/insuarance.png" />
+        </div>
+        <div class="section_icon section2_iconTop2 section2_icon4Left">
+          <img src="../assets/1250.png" />
+        </div>
+        <div class="section_icon section2_iconTop2 section2_icon5Left">
+          <img src="../assets/swap_times.png" />
+        </div>
+        <div class="section_plusIcon section2_plusIconTop1 section2_plusIcon1Left">
+          <img src="../assets/plus.png" />
+        </div>
+        <div class="section_plusIcon section2_plusIconTop1 section2_plusIcon2Left">
+          <img src="../assets/plus.png" />
+        </div>
+        <div class="section_plusIcon section2_plusIconTop2 section2_plusIcon3Left">
+          <img src="../assets/plus.png" />
+        </div>
+        <p class="section_text section2_textTop section2_text1Left">智慧中控</p>
+        <p class="section_text section2_textTop section2_text2Left">超级锂电</p>
+        <p class="section_text section2_textTop section2_text3Left">终身质保</p>
+        <p class="section2_bottomText section2_bottomText1Left">
+          <span class="section2_textColor">最高保值</span>
+          <br />
+          <span class="section2_amountColor">1250元</span>
+        </p>
+        <p class="section2_bottomText section2_bottomText2Left">
+          <span class="section2_amountColor">2年600次</span>
+          <br />
+          <span class="section2_textColor">换电次数</span>
+        </p>
       </div>
-      <div class="thirdSectionDiv sectionCommon">
-        <div class="sectionTitleBKDiv">
-          <img src="../assets/sectionTitle.png" />
-          <p class="sectionTitle sectionTitleFont">两步即可完成预约 开启换电新时代</p>
+      <div class="section section3Height">
+        <div class="section_titleBK">
+          <img src="../assets/section_titleBK.png" />
+          <p class="section_title section_titleFont">四步完成预约 开启换电新时代</p>
         </div>
-        <div class="thirdSectionIcon1">
-          <img src="../assets/provider.png" />
+        <div class="section3_linkIcon section3_linkIcon1Top">
+          <img src="../assets/link.png" />
         </div>
-        <div class="thirdSectionArrowIcon">
-          <img src="../assets/arrow.png" />
+        <div class="section3_icon section3_iconTop1 section3_iconLeft1">
+          <img src="../assets/select_store.png" />
         </div>
-        <div class="thirdSectionIcon2">
-          <img src="../assets/arrivalDate.png" />
+        <div class="section3_icon section3_iconTop1 section3_iconLeft2">
+          <img src="../assets/buy_scooter.png" />
         </div>
-        <p class="thirdSectionText1 firSectionTextFont">1. 选择服务商</p>
-        <p class="thirdSectionText2 firSectionTextFont">2. 选择到店日期 并提交信息</p>
+        <div class="section3_icon section3_iconTop2 section3_iconLeft1">
+          <img src="../assets/buy_battery.png" />
+        </div>
+        <div class="section3_linkIcon section3_linkIcon2Top">
+          <img src="../assets/link.png" />
+        </div>
+        <div class="section3_icon section3_iconTop2 section3_iconLeft2">
+          <img src="../assets/active_scooter.png" />
+        </div>
+        <p class="section3_text section3_textTop1 section3_textLeft1">1. 选择购车门店</p>
+        <p class="section3_text section3_textTop1 section3_textLeft2">2. 到店购车</p>
+        <p class="section3_text section3_textTop2 section3_textLeft1">3. APP线上购买电池</p>
+        <p class="section3_text section3_textTop2 section3_textLeft2">4. 激活使用</p>
       </div>
-      <div class="fourthSectionDiv sectionCommon">
-        <div class="sectionTitleBKDiv">
-          <img src="../assets/sectionTitle.png" />
-          <p class="sectionTitle sectionTitleFont">为什么选择e换电超级电池包</p>
+      <div class="section section4Height">
+        <div class="section_titleBK">
+          <img src="../assets/section_titleBK.png" />
+          <p class="section_title section_titleFont">为什么选择e换电超级电池包</p>
         </div>
         <p class="fourthSectionText fourSectionTextTop1">1.更安全</p>
         <p class="fourthSectionRemark">革新性的新一代动力电池，多重安全保护；智能换电系统全自助换电，告别充电难与充电安全隐患。</p>
@@ -81,8 +146,7 @@
       </div>
       <p class="bottomPrompt">* 最终解释权归深圳易马达科技有限公司所有</p>
       <div class="bottomOprBtn" @click="bottomAction">
-        <span v-if="hasGroup" class="bottomTitleFont">购买超级电池+智慧中控</span>
-        <span v-if="hasGroup" class="bottomAmountFont">&nbsp;&nbsp;¥1680</span>
+        <span v-if="hasGroup" class="bottomTitleFont">立即购买智能锂电池</span>
         <span v-else class="bottomTitleFont">马上预约服务商 ></span>
       </div>
     </div>
@@ -155,44 +219,11 @@ img {
   height: 100%;
   display: block;
 }
+span {
+  margin: 0px;
+}
 
-.sectionTitleFont {
-  font-size: 28px;
-  font-family: PingFangSC-Medium;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 1);
-}
-.firSectionTextFont {
-  font-size: 28px;
-  font-family: PingFangSC-Medium;
-  font-weight: 500;
-  color: rgba(59, 59, 59, 1);
-}
-.firstSectionRemarkFont {
-  font-size: 24px;
-  font-family: PingFangSC-Regular;
-  font-weight: 400;
-  color: rgba(118, 118, 118, 1);
-}
-.recyclingRemarkFont {
-  font-size: 28px;
-  font-family: PingFangSC-Medium;
-  font-weight: 500;
-  color: rgba(59, 59, 59, 1);
-}
-.recyclingMoneyFont {
-  font-size: 40px;
-  font-family: PingFangSC-Medium;
-  font-weight: 500;
-  color: #863d24;
-}
-.recyclingUnitFont {
-  font-size: 28px;
-  font-family: PingFangSC-Medium;
-  font-weight: 500;
-  color: #863d24;
-}
-.mainBody {
+.pageContent {
   background: linear-gradient(
     181deg,
     rgba(255, 234, 202, 1) 0%,
@@ -200,267 +231,439 @@ img {
     rgba(255, 198, 150, 1) 100%
   );
 }
-.headerImgDiv {
-  width: 100%;
-  height: 800px;
+
+.header {
+  height: 448px;
   position: relative;
+  padding: 0.1px;
 }
-.headerLogoIconDiv {
-  width: 534px;
-  height: 157px;
-  left: 108px;
-  top: 94px;
+
+.header_leftIcon {
+  width: 120px;
+  height: 197px;
+  left: 0;
+  top: 0;
   position: absolute;
 }
 
-.priceText {
-  width: 212px;
-  height: 92px;
-  left: 302px;
-  top: 288px;
+.headerAmountBK {
+  left: 151px;
+  top: 219px;
+  width: 74px;
+  height: 9px;
   position: absolute;
-  text-align: center;
-  font-size: 66px;
+  background: rgba(253, 204, 156, 1);
+}
+
+.header_title {
+  width: 255px;
+  height: 87px;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.header_remarkDiv {
+  width: 186px;
+  height: 26px;
+  margin: auto;
+  margin-top: 10px;
+  position: relative;
+}
+
+.header_logoIcon {
+  height: 240px;
+  margin-top: 46px;
+}
+
+.header_remarkIcon {
+  height: 13px;
+  width: 13px;
+  top: 6px;
+  position: absolute;
+}
+.remarkicon1_left {
+  left: 28px;
+}
+.remarkicon2_left {
+  left: 98px;
+}
+
+.header_remarkFont {
+  font-size: 13px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(69, 69, 69, 1);
+}
+
+.header_remark {
+  width: 50px;
+  height: 19px;
+  top: 4px;
+  position: absolute;
+  line-height: 19px;
+  text-align: left;
+}
+
+.remark1_left {
+  left: 46px;
+}
+
+.remark2_left {
+  left: 116px;
+}
+
+.amount_remarkFont {
+  font-size: 14px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(181, 88, 51, 1);
+}
+
+.amount_text {
+  top: 205px;
+  width: 40px;
+  height: 20px;
+  position: absolute;
+  line-height: 20px;
+}
+
+.amount_leftText {
+  left: 113px;
+  text-align: left;
+}
+
+.amount_rightText {
+  right: 112px;
+  text-align: right;
+}
+
+.header_amount {
+  width: 93px;
+  height: 46px;
+  left: 142px;
+  top: 185px;
+  position: absolute;
+  font-size: 33px;
   font-family: PingFangSC-Semibold;
   font-weight: 600;
   color: rgba(249, 107, 14, 1);
-  line-height: 92px;
-  -webkit-text-stroke: 2px rgba(249, 107, 14, 1);
-}
-.priceRemark {
-  width: 57px;
-  height: 40px;
-  left: 225px;
-  top: 327px;
-  position: absolute;
-  font-size: 28px;
-  font-family: PingFangSC-Medium;
-  font-weight: 500;
-  color: rgba(134, 61, 36, 1);
-  line-height: 40px;
+  line-height: 46px;
+  -webkit-text-stroke: 1px rgba(249, 107, 14, 1);
+  text-stroke: 1px rgba(249, 107, 14, 1);
 }
 
-.sectionCommon {
-  margin-left: 20px;
-  margin-right: 20px;
+.content {
+  margin-top: -12px;
+}
+
+.section {
+  margin: 0px 10px;
   background: linear-gradient(
     360deg,
     rgba(253, 231, 197, 1) 0%,
     rgba(255, 255, 255, 1) 100%
   );
-  box-shadow: 0px 10px 10px 0px rgba(222, 89, 0, 0.3);
-  border-radius: 10px;
+  box-shadow: 0px 5px 5px 0px rgba(222, 89, 0, 0.3);
+  border-radius: 5px;
   position: relative;
 }
 
-.firstSectionDiv {
-  margin-top: -18px;
-  height: 400px;
-}
-.sectionTitleBKDiv {
-  height: 68px;
-  margin-left: 55px;
-  margin-right: 55px;
-}
-.sectionTitle {
-  height: 40px;
-  left: 100px;
-  right: 100px;
-  top: 10px;
-  position: absolute;
-  text-align: center;
-  line-height: 40px;
-}
-.firstSectionIcon {
-  width: 113px;
-  height: 113px;
-  top: 125px;
-  position: absolute;
-}
-.firstSectionIcon1 {
-  left: 95px;
-}
-.firstSectionIcon2 {
-  left: 299px;
-}
-.firstSectionIcon3 {
-  right: 95px;
-}
-.firstSectionLinkIcon {
-  width: 17px;
-  height: 17px;
-  top: 173px;
-  position: absolute;
-}
-.firstSectionLinkIconLeft {
-  left: 243px;
-}
-.firstSectionLinkIconRight {
-  right: 243px;
+.section1Height {
+  height: 200px;
 }
 
-.firstSectionText1 {
-  width: 129px;
+.section2Height {
+  height: 316px;
+  margin-top: 10px;
+}
+
+.section3Height {
+  height: 344px;
+  margin-top: 10px;
+}
+
+.section4Height {
+  height: 350px;
+  margin-top: 10px;
+}
+
+.section_titleFont {
+  font-size: 14px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.section_titleBK {
+  margin: 0px 28px;
+  height: 34px;
+  position: relative;
+}
+
+.section_title {
+  height: 20px;
+  top: 5px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  line-height: 20px;
+}
+
+.section_icon {
+  width: 57px;
+  height: 57px;
+  position: absolute;
+}
+
+.section1_iconTop {
+  top: 62px;
+}
+.section1_icon1Left {
+  left: 22px;
+}
+.section1_icon2Left {
+  left: 107px;
+}
+.section1_icon3Left {
+  right: 106px;
+}
+.section1_icon4Left {
+  right: 22px;
+}
+.section2_iconTop1 {
+  top: 62px;
+}
+.section2_iconTop2 {
+  top: 179px;
+}
+.section2_icon1Left {
+  left: 54px;
+}
+.section2_icon2Left {
+  left: 149px;
+}
+.section2_icon3Left {
+  right: 54px;
+}
+.section2_icon4Left {
+  left: 102px;
+}
+.section2_icon5Left {
+  right: 102px;
+}
+
+.section_plusIcon {
+  width: 9px;
+  height: 9px;
+  position: absolute;
+}
+.section1_plusIconTop {
+  top: 87px;
+}
+.section1_plusIcon1Left {
+  left: 89px;
+}
+.section1_plusIcon2Left {
+  left: 174px;
+}
+.section1_plusIcon3Left {
+  right: 89px;
+}
+
+.section2_plusIconTop1 {
+  top: 90px;
+}
+.section2_plusIconTop2 {
+  top: 202px;
+}
+.section2_plusIcon1Left {
+  left: 126px;
+}
+.section2_plusIcon2Left {
+  right: 126px;
+}
+.section2_plusIcon3Left {
+  left: 174px;
+}
+
+.section_text {
+  width: 61px;
+  height: 20px;
+  position: absolute;
+  font-size: 14px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(59, 59, 59, 1);
+  line-height: 20px;
+}
+
+.section1_textTop {
+  top: 128px;
+}
+.section1_text1Left {
+  left: 20px;
+}
+.section1_text2Left {
+  left: 105px;
+}
+.section1_text3Left {
+  right: 104px;
+}
+.section1_text4Left {
+  right: 20px;
+}
+.section2_textTop {
+  top: 128px;
+}
+.section2_text1Left {
+  left: 52px;
+}
+.section2_text2Left {
+  left: 147px;
+}
+.section2_text3Left {
+  right: 52px;
+}
+
+.section2_textColor {
+  color: rgba(59, 59, 59, 1);
+}
+
+.section2_amountColor {
+  color: #f86413;
+}
+
+.section2_bottomText {
+  width: 85px;
   height: 40px;
+  bottom: 32px;
+  position: absolute;
+  font-size: 14px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.section2_bottomText1Left {
   left: 87px;
-  top: 258px;
-  position: absolute;
-  line-height: 40px;
 }
-.firstSectionText2 {
-  width: 114px;
-  height: 40px;
-  left: 296px;
-  top: 258px;
-  position: absolute;
-  line-height: 40px;
-}
-.firstSectionText3 {
-  width: 174px;
-  height: 40px;
-  right: 63px;
-  top: 258px;
-  position: absolute;
-  line-height: 40px;
-}
-.firstSectionRemark1 {
-  width: 102px;
-  height: 33px;
-  top: 303px;
-  left: 101px;
-  position: absolute;
-  line-height: 33px;
-}
-.firstSectionRemark2 {
-  width: 102px;
-  height: 33px;
-  top: 303px;
-  left: 304px;
-  position: absolute;
-  line-height: 33px;
-}
-.firstSectionRemark3 {
-  width: 102px;
-  height: 33px;
-  top: 303px;
-  right: 99px;
-  position: absolute;
-  line-height: 33px;
+.section2_bottomText2Left {
+  right: 87px;
 }
 
-.secondSectionDiv {
-  margin-top: 20px;
-  height: 240px;
+.section1_amountText {
+  width: 61px;
+  height: 20px;
+  right: 20px;
+  bottom: 30px;
+  position: absolute;
+  font-size: 14px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #f86413;
+  line-height: 20px;
 }
 
-.secondSectionText {
-  margin-top: 63px;
-  height: 56px;
-  line-height: 56px;
+.section3_icon {
+  width: 90px;
+  height: 90px;
+  position: absolute;
+}
+.section3_iconTop1 {
+  top: 54px;
+}
+.section3_iconTop2 {
+  top: 194px;
+}
+.section3_iconLeft1 {
+  left: 46px;
+}
+.section3_iconLeft2 {
+  right: 46px;
 }
 
-.thirdSectionDiv {
-  margin-top: 20px;
-  height: 448px;
+.section3_linkIcon {
+  width: 11px;
+  height: 18px;
+  left: 173px;
+  position: absolute;
 }
 
-.thirdSectionIcon1 {
-  width: 161px;
-  height: 157px;
-  left: 101px;
-  top: 113px;
+.section3_linkIcon1Top {
+  top: 90px;
+}
+.section3_linkIcon2Top {
+  bottom: 92px;
+}
+
+.section3_text {
+  width: 141px;
+  height: 20px;
   position: absolute;
+  line-height: 20px;
+  font-size: 14px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(59, 59, 59, 1);
 }
-.thirdSectionIcon2 {
-  width: 178px;
-  height: 150px;
-  right: 107px;
-  top: 127px;
-  position: absolute;
+
+.section3_textTop1 {
+  top: 150px;
 }
-.thirdSectionArrowIcon {
-  width: 20px;
-  height: 33px;
-  left: 346px;
-  top: 182px;
-  position: absolute;
+.section3_textTop2 {
+  bottom: 32px;
 }
-.thirdSectionText1 {
-  width: 175px;
-  height: 40px;
-  left: 95px;
-  top: 300px;
-  position: absolute;
-  line-height: 40px;
+
+.section3_textLeft1 {
+  left: 20px;
 }
-.thirdSectionText2 {
-  width: 205px;
-  height: 80px;
-  right: 86px;
-  top: 300px;
-  position: absolute;
-  line-height: 40px;
+.section3_textLeft2 {
+  right: 20px;
 }
-.fourthSectionDiv {
-  margin-top: 20px;
-  height: 710px;
-}
+
 .fourthSectionText {
-  margin-left: 30px;
-  margin-right: 24px;
-  height: 40px;
-  line-height: 40px;
-  font-size: 28px;
+  margin-left: 15px;
+  margin-right: 12px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 14px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(134, 61, 36, 1);
   text-align: left;
 }
 .fourthSectionRemark {
-  margin-left: 30px;
-  margin-right: 24px;
+  margin-left: 15px;
+  margin-right: 12px;
   margin-top: 1px;
-  height: 80px;
-  line-height: 40px;
-  font-size: 24px;
+  height: 40px;
+  line-height: 20px;
+  font-size: 12px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(59, 59, 59, 1);
   text-align: left;
 }
 .fourSectionTextTop1 {
-  margin-top: 52px;
+  margin-top: 26px;
 }
 .fourSectionTextTopCommon {
-  margin-top: 30px;
+  margin-top: 15px;
 }
 .bottomPrompt {
-  margin-top: 30px;
-  padding-bottom: 147px;
-  height: 33px;
-  font-size: 24px;
+  margin-top: 15px;
+  padding-bottom: 74px;
+  height: 17px;
+  font-size: 12px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(134, 61, 36, 1);
-  line-height: 33px;
-}
-
-.interpretationText {
-  width: 100%;
-  height: 33px;
-  left: 0;
-  top: 658px;
-  position: absolute;
-  font-size: 24px;
-  font-family: PingFangSC-Regular;
-  font-weight: 400;
-  color: rgba(134, 61, 36, 1);
-  line-height: 33px;
+  line-height: 17px;
 }
 
 .bottomOprBtn {
   width: 100%;
-  height: 100px;
+  height: 50px;
   left: 0;
   bottom: 0;
   position: fixed;
@@ -469,23 +672,17 @@ img {
     rgba(254, 214, 76, 1) 0%,
     rgba(245, 171, 29, 1) 100%
   );
-  box-shadow: 0px -10px 10px 0px rgba(255, 164, 120, 0.41);
+  box-shadow: 0px -5px 5px 0px rgba(255, 164, 120, 0.41);
   text-align: center;
-  line-height: 100px;
+  line-height: 50px;
+  z-index: 99;
 }
 
 .bottomTitleFont {
-  font-size: 32px;
+  font-size: 16px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(134, 61, 36, 1);
-}
-
-.bottomAmountFont {
-  font-size: 36px;
-  font-family: PingFangSC-Medium;
-  font-weight: 500;
-  color: rgba(223, 40, 40, 1);
 }
 
 .toastMask {
@@ -496,39 +693,40 @@ img {
   position: fixed;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
+  z-index: 999;
 }
 
 .toastBK {
-  width: 598px;
+  width: 299px;
   background: rgba(255, 255, 255, 1);
-  border-radius: 10px;
+  border-radius: 5px;
   margin: auto;
   position: relative;
 }
 
 .toastTitle {
-  margin: 50px 30px;
-  height: 100px;
-  font-size: 28px;
+  margin: 25px 15px;
+  height: 50px;
+  font-size: 14px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
 
 .toastBtnTextFont {
-  font-size: 28px;
+  font-size: 14px;
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
 .toastBtn {
-  width: 508px;
-  height: 88px;
+  width: 254px;
+  height: 44px;
   margin: auto;
-  margin-bottom: 46px;
+  margin-bottom: 23px;
   background: rgba(248, 127, 58, 1);
-  border-radius: 10px;
-  line-height: 88px;
+  border-radius: 5px;
+  line-height: 44px;
 }
 </style>

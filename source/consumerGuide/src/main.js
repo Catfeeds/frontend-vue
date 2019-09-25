@@ -11,6 +11,8 @@ import 'lib-flexible/flexible.js'
 require('es6-promise').polyfill()
 Es6Promise.polyfill()
 
+import "../static/general.css";
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
