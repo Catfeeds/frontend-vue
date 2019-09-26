@@ -18,7 +18,7 @@ export default new Router({
       name: 'MyInsurance',
       component: MyInsurance,
       meta:{
-        title:'我的保险'
+        title:'我的保障'
       }
     },
     {
@@ -26,7 +26,7 @@ export default new Router({
       name: 'BatteryInsurance',
       component: BatteryInsurance,
       meta:{
-        title:'电池保险'
+        title:'车辆电池保障服务'
       }
     },
     {
@@ -34,7 +34,7 @@ export default new Router({
       name: 'InsuranceInput',
       component: InsuranceInput,
       meta:{
-        title:'填写投保信息'
+        title:'填写保障信息'
       }
     },
     {

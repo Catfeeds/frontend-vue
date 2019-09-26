@@ -5,7 +5,7 @@
     </div>
     <div class="whyDiv">
       <div class="sectionHeader">
-        <p class="sectionTitle sectionTitleFont">为什么要购买电池险？</p>
+        <p class="sectionTitle sectionTitleFont">为什么购买保障服务？</p>
         <div class="sectionLeftImg section1LeftImgPos">
           <img src="../assets/section_left.png" />
         </div>
@@ -47,7 +47,7 @@
     </div>
     <div class="brightSpotDiv">
       <div class="sectionHeader">
-        <p class="sectionTitle sectionTitleFont">产品亮点</p>
+        <p class="sectionTitle sectionTitleFont">保障亮点</p>
         <div class="sectionLeftImg section2LeftImgPos">
           <img src="../assets/section_left.png" />
         </div>
@@ -62,15 +62,13 @@
       </div>
       <div class="section2ContentDiv">
         <div class="section2ContentDot"></div>
-        <span class="section2ContentTitle sectionTextFont">保障特别：</span>
-        <span class="section2ContentText sectionReamrkFont">保期内电瓶车电池被盗就赔</span>
-      </div>
-      <div class="section2ContentDiv">
-        <div class="section2ContentDot"></div>
-        <span class="section2ContentTitle sectionTextFont">理赔方便：</span>
-        <span
-          class="section2ContentText sectionReamrkFont"
-        >事故发生，第一时间打95518报案并提供相关理赔资料，保险公司会第一时间处理并给予理赔</span>
+        <span class="section2ContentTitle sectionTextFont">保障内容：</span>
+        <span class="section2ContentText sectionReamrkFont">
+          1.车辆电池发生盗抢后的车辆定位查询服务；<br>
+          2.车辆电池发生盗抢后的行驶轨迹查询服务；<br>
+          3.赠送电池盗抢险30天；<br>
+          4.e换电协助理赔服务。
+        </span>
       </div>
     </div>
     <div class="sepDiv"></div>
@@ -91,7 +89,7 @@
         <span class="unitFont">元</span>
       </p>
       <div class="insureBtn" @click="insureAction">
-        <span class="btnTitleFont btnTextTop">我要投保</span>
+        <span class="btnTitleFont btnTextTop">立即购买</span>
         <br />
         <span class="btnPromptFont">次日生效</span>
       </div>
@@ -196,10 +194,10 @@ img {
 .brightSpotDiv {
   margin-left: 10px;
   margin-right: 10px;
-  height: 230px;
   background: rgba(255, 255, 255, 1);
   border-radius: 5px;
   position: relative;
+  padding-bottom: 24px;
 }
 
 .sepDiv {
@@ -330,8 +328,9 @@ img {
 
 .section2ContentText {
   width: 240px;
-  line-height: 32px;
+  line-height: 24px;
   text-align: left;
+  margin-top: 4px;
 }
 
 .bottomDiv {

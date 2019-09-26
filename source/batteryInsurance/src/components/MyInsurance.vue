@@ -4,7 +4,7 @@
       <div class="unPurchasedImg">
         <img src="../assets/unPurchased.png" />
       </div>
-      <p class="insuraneName headerTitleFont">电池盗抢险30天</p>
+      <p class="insuraneName headerTitleFont">车辆电池保障服务30天</p>
       <p class="insuranePrompt headerPromptFont">{{insuranceCost}}元起享电池丢失高额理赔</p>
       <p class="amount">
         <span class="amountFont">{{insuranceCost}}</span>
@@ -13,7 +13,7 @@
       <div class="buyBtn" @click="buyAction">立即购买</div>
     </div>
     <div class="header headerHeight2" @click="headerAction" v-if="status>0">
-      <p class="effectName headerTitleFont">电池盗抢险30天（{{batteryNumText}}颗电池）</p>
+      <p class="effectName headerTitleFont">车辆电池保障服务30天（{{batteryNumText}}颗电池）</p>
       <div class="headerItem headerItemTop">
         <span class="headerItemTitle headerItemTitleFont">被保人</span>
         <span class="headerItemContent headerItemContentFont">{{name}}</span>
@@ -38,33 +38,30 @@
       </div>
     </div>
     <div class="content">
-      <p class="promptSectionTitle">保险须知</p>
+      <p class="promptSectionTitle">购买须知</p>
       <div class="contentItem contentTop">
         <div class="contentItemDot"></div>
-        <p class="contentItemText">
-          <span class="contentTextFont">理赔咨询：</span>
-          <span>
-            <a class="contentPhoneFont" href="immotor://tel:95518">95518</a>
-          </span>
+        <p class="contentItemText contentTextFont">
+          当电池发生盗抢时，我们将提供以下服务：
+          <br />
+          1.车辆定位查询服务；
+          <br />
+          2.车辆轨迹查询服务；
+          <br />
+          3.赠送电池盗抢险服务；
+          <br />
+          4.保险理赔指导服务
         </p>
       </div>
       <div class="contentItem">
         <div class="contentItemDot"></div>
-        <p class="contentItemText contentTextFont">保险服务由中国人民财产保险股份有限公司提供</p>
-      </div>
-      <div class="contentItem">
-        <div class="contentItemDot"></div>
-        <p class="contentItemText contentTextFont">购买后保单受中华人民共和国司法管辖</p>
-      </div>
-      <div class="contentItem">
-        <div class="contentItemDot"></div>
-        <p
-          class="contentItemText contentTextFont"
-        >换电功能承租人或骑行人应为完全民事行为能力人，无民事行为能力人谢绝使用本服务、限制民事行为能力人应在法定监护人监护下使用本服务</p>
-      </div>
-      <div class="contentItem contentBottom">
-        <div class="contentItemDot"></div>
-        <p class="contentItemText contentTextFont">每人只限购买一份保险，多份保险无效，每份保险有效期为30天，到期后方可继续购买。</p>
+        <p class="contentItemText contentTextFont">
+          备注：
+          <br />
+          1.赠送的电池盗抢险服务由中国人民财产保险股份有限公司提供。
+          <br />
+          2.每人仅限购一份保障服务，多份服务无效，每份保障服务有效期为30天，到期后方可继续购买。
+        </p>
       </div>
       <div class="contentLine contentLeftLine"></div>
       <div class="contentLine contentRightLine"></div>

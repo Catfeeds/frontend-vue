@@ -27,10 +27,6 @@
         <span class="rightText textFont">{{endDateText}}</span>
       </div>
       <div class="contentItem">
-        <span class="leftText remarkFont">实付保费</span>
-        <span class="rightText textFont">{{money}}元</span>
-      </div>
-      <div class="contentItem">
         <span class="leftText remarkFont">被保人</span>
         <span class="rightText textFont" v-if="name">{{name}}</span>
       </div>
@@ -232,7 +228,6 @@ img {
 .orderInfoDiv {
   margin-top: 10px;
   margin-bottom: 10px;
-  height: 235px;
   position: relative;
   background: #fff;
   padding-bottom: 10px;
