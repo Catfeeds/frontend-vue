@@ -54,18 +54,23 @@
 const barChart = () => import("./eEchart/barChart.vue");
 export default {
   name: "RidingShare",
-  props: {
-    type: Number,
-    userName: String,
-    userAvatar: String,
-    joinDuration: Number,
-    userToken: String
-  },
+  // props: {
+  //   type: Number,
+  //   userName: String,
+  //   userAvatar: String,
+  //   joinDuration: Number,
+  //   userToken: String
+  // },
   components: {
     barChart
   },
   data() {
     return {
+      type: this.$route.query.type,
+      userName: this.$route.query.userName,
+      userAvatar: this.$route.query.userAvatar,
+      joinDuration: this.$route.query.joinDuration,
+      userToken: this.$route.query.userToken,
       userAvatarImgSrc: "",
       headerTypeText: "",
       sectionTypeText: "",
@@ -300,6 +305,7 @@ export default {
     }
   },
   mounted() {
+    // console.log(this.$route.query.userName,)
     var type = this.getUrlParam("type");
     if (type) {
       this.shareTimeType = parseInt(type);

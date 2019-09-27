@@ -238,13 +238,18 @@ em {
 }
 .conters2{
 
-  height:74px;
-  background:rgba(255,255,255,1);
+  height:90px;
   box-shadow:0px 0px 10px 0px rgba(0,0,0,0.1);
-  border-radius:4px;
+  border-radius:8px;
   padding: 10px;
   box-sizing: border-box;
+  overflow: hidden;
+  border-color: #ffffff;
+  background:rgba(255,255,255,1);
+
+
 }
+
 .conters2 p{
   height:18px;
   font-size:12px;
@@ -266,13 +271,17 @@ em {
   left: 0;
   top: 6px;
 }
-.conters2 p:nth-child(1) i{
-   background-color: #1890FF;
+.conters2 p:nth-child(1){
+  padding-left: 5px;
+
 }
 .conters2 p:nth-child(2) i{
-  background-color:#FF8605;
+   background-color: #1890FF;
 }
 .conters2 p:nth-child(3) i{
+  background-color:#FF8605;
+}
+.conters2 p:nth-child(4) i{
   background-color:#00BEC6;
 }
 .van-hairline--top-bottom::after{
@@ -391,4 +400,13 @@ html body{
 
 #Feedback .contens h1{
   margin-top: 60px;
+}
+
+#__vconsole{
+  z-index: 999999999;
+}
+#__vconsole .vc-switch{
+  z-index: 999999999999999!important;
+  bottom: 50px!important;
+  right: -50px!important;
 }

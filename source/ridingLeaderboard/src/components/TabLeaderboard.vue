@@ -212,9 +212,9 @@ export default {
       } else if (rankType == 3) {
         var hours = parseInt(item.rankVal / 3600);
         var min = parseInt((item.rankVal % 3600) / 60);
-        item.rankVal = hours + "h";
+        item.rankVal = hours + "小时";
         if (min > 0) {
-          item.rankVal += min + "m";
+          item.rankVal += min + "分钟";
         }
       }
       return item;
