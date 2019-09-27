@@ -138,7 +138,7 @@
         <p class="fourthSectionText fourSectionTextTop1">1.更安全</p>
         <p class="fourthSectionRemark">革新性的新一代动力电池，多重安全保护；智能换电系统全自助换电，告别充电难与充电安全隐患。</p>
         <p class="fourthSectionText fourSectionTextTopCommon">2.更省钱</p>
-        <p class="fourthSectionRemark">一次购买，享受充电免费、1颗超级电池及智慧中控，可随时绿色回收，奖励高达1300元。</p>
+        <p class="fourthSectionRemark">一次购买，享受充电免费、1颗超级电池及智慧中控，可随时绿色回收，奖励高达1250元。</p>
         <p class="fourthSectionText fourSectionTextTopCommon">3.更高效</p>
         <p class="fourthSectionRemark">APP预约换电，智能规划寻找电池路径，随时随地满足所需；换电只需3秒，高效便捷，无需等待。</p>
         <p class="fourthSectionText fourSectionTextTopCommon">4.更环保</p>
