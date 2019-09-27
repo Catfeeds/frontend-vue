@@ -4,6 +4,10 @@ import Vue from 'vue'
 import App from './App'
 
 import 'lib-flexible/flexible.js'
+// import Vconsole from 'vconsole'
+// let vConsole = new Vconsole()
+// export default vConsole
+import router from './router'
 
 import { Dialog ,Tab, Tabs } from 'vant';
 import 'vant/lib/Dialog/style';
@@ -28,6 +32,7 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  router,
   components: { App },
   template: '<App/>'
 })

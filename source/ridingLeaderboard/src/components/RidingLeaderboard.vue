@@ -35,26 +35,26 @@
         <p class="emptyText">暂无排行数据，请联系代理商加入群组。</p>
       </div>
     </div>
-    <RidingShare
+    <!-- <RidingShare
       v-else
       :type="selectTab+1"
       :userName="userName"
       :userAvatar="userAvatar"
       :joinDuration="joinDuration"
       :userToken="userToken"
-    ></RidingShare>
+    ></RidingShare> -->
   </div>
 </template>
 
 <script>
 import TabLeaderboard from "./TabLeaderboard";
-import RidingShare from "./RidingShare";
+// import RidingShare from "./RidingShare";
 
 export default {
   name: "RidingLeaderboard",
   components: {
     TabLeaderboard,
-    RidingShare
+    // RidingShare
   },
   data() {
     return {
@@ -94,7 +94,16 @@ export default {
   },
   methods: {
     shareAction: function() {
-      this.shareRidingData = true;
+      this.$router.push({ path: '/RidingShare', 
+      query: { 
+        type: this.selectTab+1,
+        userName:this.userName,
+        userAvatar:this.userAvatar,
+        joinDuration:this.joinDuration,
+        userToken:this.userToken
+        }
+      });
+      // this.$router.push({path: '/RidingShare'})
     },
     fetchHasUserRank: function(){
       var vueThis = this;

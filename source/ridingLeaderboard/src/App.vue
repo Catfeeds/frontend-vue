@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <RidingLeaderboard/>
+    <router-view></router-view>
   </div>
 </template>
 
