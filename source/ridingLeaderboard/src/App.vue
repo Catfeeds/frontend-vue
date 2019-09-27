@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <RidingLeaderboard/>
+    <!-- <RidingLeaderboard/> -->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import RidingLeaderboard from './components/RidingLeaderboard'
+// import RidingLeaderboard from './components/RidingLeaderboard'
 
 export default {
   name: 'App',
   components: {
-    RidingLeaderboard
+    // RidingLeaderboard
   }
 }
 </script>
