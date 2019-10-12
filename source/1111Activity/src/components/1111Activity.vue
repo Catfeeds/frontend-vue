@@ -1,175 +1,202 @@
 <template>
-  <div>
-    <div class="header">
-      <img src="../assets/header.png" />
-      <p class="headerText">已有{{collectNum}}名用户集齐</p>
-    </div>
-    <div v-if="hasRunLottery" class="collect">
-      <img src="../assets/cardBK.png" />
-      <div class="prizeBK">
-        <img src="../assets/prizeBK.png" />
-        <div class="freeDayBK" v-if="prizeObj">
-          <img src="../assets/freeday.png" />
-          <p class="freeDayNum">{{prizeObj.days}}天</p>
-          <p class="freeDayDesc">免费换电</p>
+  <div class="pageContent">
+    <div v-if="isEhdWebview">
+      <div class="header">
+        <img src="../assets/header.png" />
+        <p class="headerText">已有{{collectNum}}名用户集齐</p>
+        <div class="headerRules" @click="ruleAction">
+          <img src="../assets/rules.png" />
         </div>
       </div>
-    </div>
-    <div v-else>
-      <div class="fiveStarParent" v-if="hasFivestarCard&&fiveStarCardObj">
-        <div class="fiveStarBK">
-          <img src="../assets/cardBK.png" />
-        </div>
-        <div class="cardPedestal">
-          <img src="../assets/pedestal.png"/>
-        </div>
-        <div class="fiveStarCard">
-          <img
-            src="../assets/fiveStar.png"
-            v-if="fiveStarCardObj.showCard"
-            v-bind:class="fiveStarCardAniClass"
-          />
-        </div>
-        <div class="light_left">
-          <img
-            src="../assets/light_left.png"
-            v-if="fiveStarCardObj.showLight"
-            v-bind:class="cardLightAniClass"
-          />
-        </div>
-        <div class="light_right">
-          <img
-            src="../assets/light_right.png"
-            v-if="fiveStarCardObj.showLight"
-            v-bind:class="cardLightAniClass"
-          />
-        </div>
-        <div class="lottery_btn" v-if="canRunLottery" @click="runLotteryAction">
-          <img src="../assets/runLottery.png" />
-        </div>
-        <div class="lottery_btn" @click="runLotteryAction" v-else>
-          <img src="../assets/countDownBtn.png" />
-          <p class="countText">{{countDownText}}</p>
-        </div>
-      </div>
-      <div class="collect" v-else>
+      <div v-if="hasRunLottery" class="collect">
         <img src="../assets/cardBK.png" />
-        <div class="cardSwiper">
-          <van-swipe
-            :loop="false"
-            :show-indicators="false"
-            :width="swiperWidth"
-            :height="swiperHeight"
-            ref="swiper"
-          >
-            <van-swipe-item v-for="(item, index) in collectCardList" :key="index">
-              <div class="card">
-                <img :src="item.cardSrc" v-if="item.showCard" v-bind:class="item.aniClass" />
-                <div
-                  class="getCardBtn"
-                  @click="getCardAction(item, index)"
-                  v-if="item.status==1&&item.showCard"
-                >
-                  <img src="../assets/getCard.png" />
+        <div class="prizeBK">
+          <img src="../assets/prizeBK.png" />
+          <div class="freeDayBK" v-if="prizeObj">
+            <img src="../assets/freeday.png" />
+            <p class="freeDayNum">{{prizeObj.days}}天</p>
+            <p class="freeDayDesc">免费换电</p>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <div class="fiveStarParent" v-if="hasFivestarCard&&fiveStarCardObj">
+          <div class="fiveStarBK">
+            <img src="../assets/cardBK.png" />
+          </div>
+          <div class="cardPedestal">
+            <img src="../assets/pedestal.png" />
+          </div>
+          <div class="fiveStarCard">
+            <img
+              src="../assets/fiveStar.png"
+              v-if="fiveStarCardObj.showCard"
+              v-bind:class="fiveStarCardAniClass"
+            />
+          </div>
+          <div class="light_left">
+            <img
+              src="../assets/light_left.png"
+              v-if="fiveStarCardObj.showLight"
+              v-bind:class="cardLightAniClass"
+            />
+          </div>
+          <div class="light_right">
+            <img
+              src="../assets/light_right.png"
+              v-if="fiveStarCardObj.showLight"
+              v-bind:class="cardLightAniClass"
+            />
+          </div>
+          <div class="lottery_btn" v-if="canRunLottery" @click="runLotteryAction">
+            <img src="../assets/runLottery.png" />
+          </div>
+          <div class="lottery_btn" @click="runLotteryAction" v-else>
+            <img src="../assets/countDownBtn.png" />
+            <p class="countText">{{countDownText}}</p>
+          </div>
+        </div>
+        <div class="collect" v-else>
+          <img src="../assets/cardBK.png" />
+          <div class="cardSwiper">
+            <van-swipe
+              :loop="false"
+              :show-indicators="false"
+              :width="swiperWidth"
+              :height="swiperHeight"
+              ref="swiper"
+            >
+              <van-swipe-item v-for="(item, index) in collectCardList" :key="index">
+                <div class="card">
+                  <img :src="item.cardSrc" v-if="item.showCard" v-bind:class="item.aniClass" />
+                  <div
+                    class="getCardBtn"
+                    @click="getCardAction(item, index)"
+                    v-if="item.status==1&&item.showCard"
+                  >
+                    <img src="../assets/getCard.png" />
+                  </div>
+                </div>
+              </van-swipe-item>
+            </van-swipe>
+          </div>
+          <div class="collectBtn" v-if="canCompoundCard" @click="compoundCardAction">
+            <img src="../assets/compound.png" />
+          </div>
+          <div class="collectBtn" v-else>
+            <img src="../assets/collectbtn.png" />
+          </div>
+        </div>
+      </div>
+      <div class="task">
+        <div class="taskBK">
+          <img src="../assets/taskList.png" />
+          <div class="taskContent">
+            <div class="taskItem" v-for="(item, index) in taskList" :key="index">
+              <div class="taskItem-icon">
+                <img :src="item.iconUrl" />
+              </div>
+              <div class="taskItem_btn" @click="taskItemAction(item)">
+                <img :src="item.statusBtnSrc" />
+              </div>
+              <div class="taskItem_text">
+                <div class="itemText">
+                  <p class="item_title">{{item.name}}</p>
+                  <p class="item_desc">{{item.desc}}</p>
                 </div>
               </div>
-            </van-swipe-item>
-          </van-swipe>
-        </div>
-        <div class="collectBtn" v-if="canCompoundCard" @click="compoundCardAction">
-          <img src="../assets/compound.png" />
-        </div>
-        <div class="collectBtn" v-else>
-          <img src="../assets/collectbtn.png" />
+              <p class="taskItem_beginTime" v-if="item.status==0">{{item.startTimeText}}</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="task">
-      <div class="taskBK">
-        <img src="../assets/taskList.png" />
-        <div class="taskContent">
-          <div class="taskItem" v-for="(item, index) in taskList" :key="index">
-            <div class="taskItem-icon">
-              <img :src="item.iconUrl" />
-            </div>
-            <div class="taskItem_btn" @click="taskItemAction(item)">
-              <img :src="item.statusBtnSrc" />
-            </div>
-            <div class="taskItem_text">
-              <div class="itemText">
-                <p class="item_title">{{item.name}}</p>
-                <p class="item_desc">{{item.desc}}</p>
+      <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <div v-if="showReceivedAnimation" @touchmove.prevent class="animationMask">
+          <div class="flip-container">
+            <div class="flipper" v-bind:class="recAniClass">
+              <div class="front">
+                <img src="../assets/collectCard.png" />
+              </div>
+              <div class="back">
+                <img :src="recAniImgSrc" />
               </div>
             </div>
-            <p class="taskItem_beginTime" v-if="item.status==0">{{item.startTimeText}}</p>
+          </div>
+          <div
+            class="receiveCardBtn animated fadeIn"
+            v-if="showReceivedBtn"
+            @click="receivedAction"
+          >
+            <img src="../assets/receivedCard.png" />
           </div>
         </div>
-      </div>
+        <div v-if="showCompoundAnimation" @touchmove.prevent class="animationMask">
+          <div class="compoundBK" v-bind:class="circleAniClass">
+            <img src="../assets/compoundBK.png" />
+          </div>
+          <div class="compoundCircle" v-if="showCompoundCircle">
+            <div class="compoundStar star1 animated fadeIn" v-bind:class="roundAniClass">
+              <img src="../assets/round_mercuy.png" />
+            </div>
+            <div class="compoundStar star2 animated fadeIn" v-bind:class="roundAniClass">
+              <img src="../assets/round_venus.png" />
+            </div>
+            <div class="compoundStar star3 animated fadeIn" v-bind:class="roundAniClass">
+              <img src="../assets/round_jupiter.png" />
+            </div>
+            <div class="compoundStar star4 animated fadeIn" v-bind:class="roundAniClass">
+              <img src="../assets/round_mars.png" />
+            </div>
+            <div class="compoundStar star5 animated fadeIn" v-bind:class="roundAniClass">
+              <img src="../assets/round_saturn.png" />
+            </div>
+          </div>
+          <div class="compoundLight" v-if="showCompoundLight" v-bind:class="lightAniClass">
+            <img src="../assets/compoundLight.png" />
+          </div>
+          <div class="compoundFiveStarCard" v-if="showCompoundCard" v-bind:class="cardAniClass">
+            <img src="../assets/fiveStar.png" />
+          </div>
+          <div
+            class="receiveFiveStarCardBtn animated fadeIn"
+            v-if="showReceivedBtn"
+            @click="receivedFiveStarCardAction"
+          >
+            <img src="../assets/receivedCard.png" />
+          </div>
+        </div>
+      </transition>
+      <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <div v-if="showPrizeToast" @touchmove.prevent class="animationMask">
+          <div class="toastContent">
+            <div class="toastBK">
+              <img src="../assets/toastBK.png" />
+              <div class="toastItemDiv">
+                <p class="toastTitle">恭喜您获得</p>
+                <div class="toastPrizeDiv" v-if="prizeObj">
+                  <img src="../assets/freeday.png" />
+                  <p class="toastFreeDayNum">{{prizeObj.days}}天</p>
+                  <p class="toastFreeDayDesc">免费换电</p>
+                </div>
+                <div class="toastBtn" @click="submitAction">确定</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
     </div>
-    <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-      <div v-if="showReceivedAnimation" @touchmove.prevent class="animationMask">
-        <div class="flip-container">
-          <div class="flipper" v-bind:class="recAniClass">
-            <div class="front">
-              <img src="../assets/collectCard.png" />
-            </div>
-            <div class="back">
-              <img :src="recAniImgSrc" />
-            </div>
-          </div>
-        </div>
-        <div class="receiveCardBtn animated fadeIn" v-if="showReceivedBtn" @click="receivedAction">
-          <img src="../assets/receivedCard.png" />
-        </div>
+    <div v-else>
+      <div class="shareHeader">
+        <img src="../assets/shareHeader.png" />
+        <div class="downAppBtn" v-if="!isEhdWebview" @click="downAppAction">下载APP，参与点亮活动</div>
+        <div class="openAppBtn" v-if="!isEhdWebview" @click="openAppAction">我已下载，打开APP</div>
       </div>
-      <div v-if="showCompoundAnimation" @touchmove.prevent class="animationMask">
-        <div class="compoundBK" v-bind:class="circleAniClass">
-          <img src="../assets/compoundBK.png" />
-        </div>
-        <div class="compoundCircle" v-if="showCompoundCircle">
-          <div class="compoundStar star1 animated fadeIn" v-bind:class="roundAniClass">
-            <img src="../assets/round_mercuy.png" />
-          </div>
-          <div class="compoundStar star2 animated fadeIn" v-bind:class="roundAniClass">
-            <img src="../assets/round_venus.png" />
-          </div>
-          <div class="compoundStar star3 animated fadeIn" v-bind:class="roundAniClass">
-            <img src="../assets/round_jupiter.png" />
-          </div>
-          <div class="compoundStar star4 animated fadeIn" v-bind:class="roundAniClass">
-            <img src="../assets/round_mars.png" />
-          </div>
-          <div class="compoundStar star5 animated fadeIn" v-bind:class="roundAniClass">
-            <img src="../assets/round_saturn.png" />
-          </div>
-        </div>
-        <div class="compoundLight" v-if="showCompoundLight" v-bind:class="lightAniClass">
-          <img src="../assets/compoundLight.png" />
-        </div>
-        <div class="compoundFiveStarCard" v-if="showCompoundCard" v-bind:class="cardAniClass">
-          <img src="../assets/fiveStar.png" />
-        </div>
-        <div
-          class="receiveFiveStarCardBtn animated fadeIn"
-          v-if="showReceivedBtn"
-          @click="receivedFiveStarCardAction"
-        >
-          <img src="../assets/receivedCard.png" />
-        </div>
-      </div>
-    </transition>
-    <div v-if="showPrizeToast" @touchmove.prevent class="animationMask">
-      <div class="toastContent">
-        <div class="toastBK">
-          <img src="../assets/toastBK.png" />
-          <div class="toastItemDiv">
-            <p class="toastTitle">恭喜您获得</p>
-            <div class="toastPrizeDiv" v-if="prizeObj">
-              <img src="../assets/freeday.png" />
-              <p class="toastFreeDayNum">{{prizeObj.days}}天</p>
-              <p class="toastFreeDayDesc">免费换电</p>
-            </div>
-            <div class="toastBtn" @click="submitAction">确定</div>
+      <div @touchmove.prevent v-if="showLinkToast" class="browserToast" @click="toastClick">
+        <div class="browserDiv">
+          <p class="linkTitle">链接打不开？</p>
+          <p class="linkText">请点击右上角，选择在“浏览器”打开</p>
+          <div class="linkIcon">
+            <img src="../assets/link.png" />
           </div>
         </div>
       </div>
@@ -213,11 +240,17 @@ export default {
       compoundBKAniClass: "",
       roundAniClass: "",
       fiveStarCardAniClass: "",
-      cardLightAniClass: ""
+      cardLightAniClass: "",
+      isEhdWebview: false,
+      showLinkToast: false
     };
   },
   mounted() {
     var u = navigator.userAgent;
+    var fromParam = this.getParam(u, "from");
+    if (fromParam == "ehdApp") {
+      this.isEhdWebview = true;
+    }
     //userAgent中没有token字段使用jsbridge获取
     if (u.indexOf("token=") == -1) {
       this.getEhdUserInfoFromBridge();
@@ -231,6 +264,21 @@ export default {
     }
   },
   methods: {
+    downAppAction: function() {
+      window.location.href =
+        "http://download.immotor.com/app/downloads/ehuandian";
+    },
+    openAppAction: function() {
+      if (this.isQQWechatBrowser()) {
+        //提示在浏览器中打开
+        this.showLinkToast = true;
+      } else {
+        window.location.href = "immotor://app-links/homepage";
+      }
+    },
+    ruleAction: function() {
+      window.location.href = "./static/rules.html";
+    },
     taskItemAction: function(item) {
       if (item.status == 1) {
         window.location.href = item.h5Url;
@@ -575,7 +623,9 @@ export default {
           if (result.resultCode == 1) {
             result.data.forEach(element => {
               if (element.status == 0) {
-                element.startTimeText = vueThis.formatDateToYYYYMMDDHHmm(element.startTime);
+                element.startTimeText = vueThis.formatDateToYYYYMMDDHHmm(
+                  element.startTime
+                );
                 element.statusBtnSrc = require("../assets/wait.png");
               } else if (element.status == 1) {
                 element.statusBtnSrc = require("../assets/toFinish.png");
@@ -632,6 +682,12 @@ export default {
       if (r != null) return unescape(decodeURIComponent(r[2]));
       return null;
     },
+    getParam: function(search, name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = search.substr(1).match(reg);
+      if (r != null) return unescape(decodeURIComponent(r[2]));
+      return null;
+    },
     formatDateToYYYYMMDDHHmm: function(timestamp) {
       var oDate = new Date(timestamp);
       var year = oDate.getFullYear();
@@ -645,6 +701,22 @@ export default {
       var minutes =
         oDate.getMinutes() < 10 ? "0" + oDate.getMinutes() : oDate.getMinutes();
       return year + "." + month + "." + day + "  " + hours + ":" + minutes;
+    },
+    isQQWechatBrowser: function() {
+      var ua = navigator.userAgent.toLowerCase(); //获取判断用的对象
+      if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        //微信
+        return true;
+      } else if (ua.indexOf("mobile mqqbrowser") > -1) {
+        //安卓QQ
+        return true;
+      } else if (ua.indexOf("iphone") > -1 || ua.indexOf("mac") > -1) {
+        //iOS QQ
+        if (ua.indexOf("qq") > -1) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 };
@@ -657,7 +729,10 @@ img {
   height: 100%;
   display: block;
 }
-
+.pageContent {
+  height: 100%;
+  background: #51088b;
+}
 .header {
   height: 523px;
   position: relative;
@@ -674,6 +749,14 @@ img {
   font-weight: 400;
   line-height: 14px;
   color: white;
+}
+
+.headerRules {
+  width: 73px;
+  height: 20px;
+  right: 0;
+  top: 24px;
+  position: absolute;
 }
 
 .collect {
@@ -1214,5 +1297,101 @@ img {
   font-weight: 400;
   color: white;
   line-height: 18px;
+}
+
+.shareHeader {
+  height: 724px;
+  position: relative;
+}
+
+.downAppBtn {
+  left: 60px;
+  right: 60px;
+  top: 522px;
+  height: 38px;
+  position: absolute;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 176, 49, 1) 0%,
+    rgba(255, 111, 31, 1) 100%
+  );
+  font-size: 15px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  border-radius: 100px;
+  line-height: 38px;
+}
+.openAppBtn {
+  left: 60px;
+  right: 60px;
+  top: 584px;
+  height: 38px;
+  position: absolute;
+  border-radius: 100px;
+  border: 1px solid;
+  border-color: rgba(255, 113, 31, 1);
+  font-size: 15px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 176, 49, 1) 0%,
+    rgba(255, 133, 65, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 38px;
+}
+
+.browserToast {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+}
+.browserDiv {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 98px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 5px;
+  position: relative;
+  padding: 0.1px;
+}
+.linkIcon {
+  width: 190px;
+  height: 30px;
+  right: 15px;
+  top: 10px;
+  position: absolute;
+}
+.linkTitle {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 27px;
+  height: 25px;
+  font-size: 18px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  line-height: 25px;
+  text-align: left;
+}
+.linkText {
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 20px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 20px;
+  text-align: left;
 }
 </style>
