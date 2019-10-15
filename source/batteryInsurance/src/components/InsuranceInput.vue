@@ -8,7 +8,7 @@
       <van-field
         v-model="idCard"
         placeholder="请输入身份证号"
-        type="number"
+        type="text"
         maxlength="18"
         @input="textChanged"
         disabled
