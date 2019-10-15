@@ -51,7 +51,7 @@
           <div class="lottery_btn" v-if="canRunLottery" @click="runLotteryAction">
             <img src="../assets/runLottery.png" />
           </div>
-          <div class="lottery_btn" @click="runLotteryAction" v-else>
+          <div class="lottery_btn" v-else>
             <img src="../assets/countDownBtn.png" />
             <p class="countText">{{countDownText}}</p>
           </div>
@@ -184,6 +184,16 @@
           </div>
         </div>
       </transition>
+      <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <div v-if="showUpdateToast" @touchmove.prevent class="animationMask">
+          <div class="updateBK">
+            <img src="../assets/updateBK.png">
+            <div class="updateBtn" @click="updateAppAction">
+              <img src="../assets/updateBtn.png">
+            </div>
+          </div>
+        </div>
+      </transition>
     </div>
     <div v-else>
       <div class="shareHeader">
@@ -242,14 +252,20 @@ export default {
       fiveStarCardAniClass: "",
       cardLightAniClass: "",
       isEhdWebview: false,
-      showLinkToast: false
+      showLinkToast: false,
+      showUpdateToast: false
     };
   },
   mounted() {
+    console.log('mounted');
     var u = navigator.userAgent;
     var fromParam = this.getParam(u, "from");
     if (fromParam == "ehdApp") {
       this.isEhdWebview = true;
+      //判断版本号
+      if(!this.isSupportBuyInsurance()){
+        this.showUpdateToast = true;
+      }
     }
     //userAgent中没有token字段使用jsbridge获取
     if (u.indexOf("token=") == -1) {
@@ -275,6 +291,9 @@ export default {
       } else {
         window.location.href = "immotor://app-links/homepage";
       }
+    },
+    updateAppAction: function(){
+      window.location.href = "immotor://downloadApp";
     },
     ruleAction: function() {
       window.location.href = "./static/rules.html";
@@ -717,6 +736,35 @@ export default {
         }
       }
       return false;
+    },
+        toNum: function(a) {
+      var a = a.toString();
+      var c = a.split(".");
+      var num_place = ["", "0", "00", "000", "0000"],
+        r = num_place.reverse();
+      for (var i = 0; i < c.length; i++) {
+        var len = c[i].length;
+        c[i] = r[len] + c[i];
+      }
+      var res = c.join("");
+      return res;
+    },
+    isSupportBuyInsurance: function(){
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1;
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if (isAndroid) {
+        var version = this.getParam(u, "appversion");
+        if (this.toNum(version) > this.toNum("1.4.5")) {
+          return true;
+        }
+      } else if (isiOS) {
+        var version = this.getParam(u, "appversion");
+        if (this.toNum(version) > this.toNum("1.5.1")) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 };
@@ -998,6 +1046,7 @@ img {
   position: fixed;
   z-index: 999;
   background: rgba(0, 0, 0, 0.8);
+  display: flex;
 }
 
 .flip-container {
@@ -1209,15 +1258,7 @@ img {
   width: 296px;
   height: 317px;
   margin: auto;
-  margin-top: 100px;
   position: relative;
-}
-
-.toastClose {
-  width: 33px;
-  height: 33px;
-  margin: auto;
-  margin-top: 10px;
 }
 
 .toastItemDiv {
@@ -1393,5 +1434,18 @@ img {
   color: rgba(51, 51, 51, 1);
   line-height: 20px;
   text-align: left;
+}
+.updateBK{
+  width: 295px;
+  height: 284px;
+  position: relative;
+  margin: auto;
+}
+.updateBtn{
+  width: 141px;
+  height: 36px;
+  left: 77px;
+  bottom: 40px;
+  position: absolute;
 }
 </style>
