@@ -340,20 +340,20 @@ export default {
       window.location.href = "immotor://downloadApp";
     },
     ruleAction: function() {
-      window.location.href = "./static/rules.html";
+      window.location.href = "immotor://hiddenShareAction?status=1";
       setTimeout(() => {
-        window.location.href = "immotor://hiddenShareAction?status=1";
-      }, 1000);
+        window.location.href = "./static/rules.html";
+      }, 300);
     },
     taskItemAction: function(item) {
       if (item.status == 1) {
         if (item.taskType == "invitation") {
           this.showInviteToast = true;
         } else {
-          window.location.href = item.h5Url;
+          window.location.href = "immotor://hiddenShareAction?status=1";
           setTimeout(() => {
-            window.location.href = "immotor://hiddenShareAction?status=1";
-          }, 1000);
+            window.location.href = item.h5Url;
+          }, 300);
         }
       }
     },
