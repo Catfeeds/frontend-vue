@@ -307,7 +307,13 @@ export default {
         vueThis.getCompletedCollectionNum();
       }
     }, 10000);
-    console.log(vueThis.collectCardList);
+    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
+    if (vueThis.isEhdWebview && isAndroid) {
+      setTimeout(() => {
+        vueThis.getTaskList();
+        vueThis.getMyCardList();
+      }, 2000);
+    }
   },
   methods: {
     inviteCancerAciton: function() {
