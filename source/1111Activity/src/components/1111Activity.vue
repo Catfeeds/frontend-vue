@@ -111,7 +111,7 @@
         </div>
       </div>
       <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-        <div v-if="showReceivedAnimation" @touchmove.prevent class="animationMask">
+        <div v-if="showReceivedAnimation" @touchmove.prevent class="flipMask">
           <div class="flip-container">
             <div class="flipper" v-bind:class="recAniClass">
               <div class="front">
@@ -187,9 +187,9 @@
       <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
         <div v-if="showUpdateToast" @touchmove.prevent class="animationMask">
           <div class="updateBK">
-            <img src="../assets/updateBK.png">
+            <img src="../assets/updateBK.png" />
             <div class="updateBtn" @click="updateAppAction">
-              <img src="../assets/updateBtn.png">
+              <img src="../assets/updateBtn.png" />
             </div>
           </div>
         </div>
@@ -256,14 +256,21 @@ export default {
       showUpdateToast: false
     };
   },
+  activated() {
+    console.log('activated');
+    if (this.userToken && this.userToken.length > 0) {
+      this.getTaskList();
+      this.getMyCardList();
+      this.getCompletedCollectionNum();
+    }
+  },
   mounted() {
-    console.log('mounted');
     var u = navigator.userAgent;
     var fromParam = this.getParam(u, "from");
     if (fromParam == "ehdApp") {
       this.isEhdWebview = true;
       //判断版本号
-      if(!this.isSupportBuyInsurance()){
+      if (!this.isSupportBuyInsurance()) {
         this.showUpdateToast = true;
       }
     }
@@ -292,7 +299,7 @@ export default {
         window.location.href = "immotor://app-links/homepage";
       }
     },
-    updateAppAction: function(){
+    updateAppAction: function() {
       window.location.href = "immotor://downloadApp";
     },
     ruleAction: function() {
@@ -737,7 +744,7 @@ export default {
       }
       return false;
     },
-        toNum: function(a) {
+    toNum: function(a) {
       var a = a.toString();
       var c = a.split(".");
       var num_place = ["", "0", "00", "000", "0000"],
@@ -749,7 +756,7 @@ export default {
       var res = c.join("");
       return res;
     },
-    isSupportBuyInsurance: function(){
+    isSupportBuyInsurance: function() {
       var u = navigator.userAgent;
       var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1;
       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -1047,6 +1054,16 @@ img {
   z-index: 999;
   background: rgba(0, 0, 0, 0.8);
   display: flex;
+}
+
+.flipMask {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .flip-container {
@@ -1435,13 +1452,13 @@ img {
   line-height: 20px;
   text-align: left;
 }
-.updateBK{
+.updateBK {
   width: 295px;
   height: 284px;
   position: relative;
   margin: auto;
 }
-.updateBtn{
+.updateBtn {
   width: 141px;
   height: 36px;
   left: 77px;
