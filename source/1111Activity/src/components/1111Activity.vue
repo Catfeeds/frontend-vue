@@ -313,7 +313,7 @@ export default {
         vueThis.getTaskList();
         vueThis.getMyCardList();
       }, 1000);
-      window.location.href = 'immotor://hiddenShareAction?status=0';
+      window.location.href = "immotor://hiddenShareAction?status=0";
     }
   },
   methods: {
@@ -340,16 +340,20 @@ export default {
       window.location.href = "immotor://downloadApp";
     },
     ruleAction: function() {
-      window.location.href = 'immotor://hiddenShareAction?status=1';
       window.location.href = "./static/rules.html";
+      setTimeout(() => {
+        window.location.href = "immotor://hiddenShareAction?status=1";
+      }, 1000);
     },
     taskItemAction: function(item) {
       if (item.status == 1) {
         if (item.taskType == "invitation") {
           this.showInviteToast = true;
         } else {
-          window.location.href = 'immotor://hiddenShareAction?status=1';
           window.location.href = item.h5Url;
+          setTimeout(() => {
+            window.location.href = "immotor://hiddenShareAction?status=1";
+          }, 1000);
         }
       }
     },
