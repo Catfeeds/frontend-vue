@@ -307,13 +307,13 @@ export default {
         vueThis.getCompletedCollectionNum();
       }
     }, 10000);
-    //解决安卓返回不刷新页面的问题
-    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
-    if (vueThis.isEhdWebview && isAndroid) {
+    //解决返回不刷新页面的问题
+    if (vueThis.isEhdWebview) {
       setTimeout(() => {
         vueThis.getTaskList();
         vueThis.getMyCardList();
       }, 1000);
+      window.location.href = 'immotor://hiddenShareAction?status=0';
     }
   },
   methods: {
@@ -340,6 +340,7 @@ export default {
       window.location.href = "immotor://downloadApp";
     },
     ruleAction: function() {
+      window.location.href = 'immotor://hiddenShareAction?status=1';
       window.location.href = "./static/rules.html";
     },
     taskItemAction: function(item) {
@@ -347,6 +348,7 @@ export default {
         if (item.taskType == "invitation") {
           this.showInviteToast = true;
         } else {
+          window.location.href = 'immotor://hiddenShareAction?status=1';
           window.location.href = item.h5Url;
         }
       }
