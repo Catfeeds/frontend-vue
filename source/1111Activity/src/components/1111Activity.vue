@@ -307,12 +307,13 @@ export default {
         vueThis.getCompletedCollectionNum();
       }
     }, 10000);
+    //解决安卓返回不刷新页面的问题
     var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
     if (vueThis.isEhdWebview && isAndroid) {
       setTimeout(() => {
         vueThis.getTaskList();
         vueThis.getMyCardList();
-      }, 2000);
+      }, 1000);
     }
   },
   methods: {
