@@ -194,6 +194,21 @@
           </div>
         </div>
       </transition>
+      <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <div v-if="showInviteToast" @touchmove.prevent class="animationMask">
+          <div class="inviteDiv">
+            <div class="inviteBK">
+              <img src="../assets/inviteBK.png" />
+            </div>
+            <div class="inviteBtn cancerBtn" @click="inviteCancerAciton">
+              <img src="../assets/inviteCancer.png" />
+            </div>
+            <div class="inviteBtn goBtn" @click="inviteGoAction">
+              <img src="../assets/inviteBtn.png" />
+            </div>
+          </div>
+        </div>
+      </transition>
     </div>
     <div v-else>
       <div class="shareHeader">
@@ -253,15 +268,15 @@ export default {
       cardLightAniClass: "",
       isEhdWebview: false,
       showLinkToast: false,
-      showUpdateToast: false
+      showUpdateToast: false,
+      showInviteToast: false,
+      refreshTimer: null
     };
   },
-  activated() {
-    console.log('activated');
-    if (this.userToken && this.userToken.length > 0) {
-      this.getTaskList();
-      this.getMyCardList();
-      this.getCompletedCollectionNum();
+  beforeDestroy() {
+    if (this.refreshTimer) {
+      clearInterval(this.refreshTimer);
+      this.refreshTimer = null;
     }
   },
   mounted() {
@@ -285,8 +300,23 @@ export default {
       this.getMyCardList();
       this.getCompletedCollectionNum();
     }
+
+    var vueThis = this;
+    vueThis.refreshTimer = setInterval(() => {
+      if (vueThis.userToken && vueThis.userToken.length > 0) {
+        vueThis.getCompletedCollectionNum();
+      }
+    }, 10000);
+    console.log(vueThis.collectCardList);
   },
   methods: {
+    inviteCancerAciton: function() {
+      this.showInviteToast = false;
+    },
+    inviteGoAction: function() {
+      this.showInviteToast = false;
+      window.location.href = "immotor://app-links/my";
+    },
     downAppAction: function() {
       window.location.href =
         "http://download.immotor.com/app/downloads/ehuandian";
@@ -307,7 +337,11 @@ export default {
     },
     taskItemAction: function(item) {
       if (item.status == 1) {
-        window.location.href = item.h5Url;
+        if (item.taskType == "invitation") {
+          this.showInviteToast = true;
+        } else {
+          window.location.href = item.h5Url;
+        }
       }
     },
     getCardAction: function(item, index) {
@@ -620,6 +654,7 @@ export default {
                   element.showCard = true;
                 });
                 vueThis.collectCardList = result.data;
+                console.log(vueThis.collectCardList);
               }
             }
           } else {
@@ -1464,5 +1499,28 @@ img {
   left: 77px;
   bottom: 40px;
   position: absolute;
+}
+.inviteDiv {
+  width: 295px;
+  height: 404px;
+  position: relative;
+  margin: auto;
+}
+.inviteBK {
+  width: 295px;
+  height: 353px;
+  position: relative;
+}
+.inviteBtn {
+  width: 125px;
+  height: 42px;
+  bottom: 0;
+  position: absolute;
+}
+.cancerBtn {
+  left: 12px;
+}
+.goBtn {
+  right: 12px;
 }
 </style>

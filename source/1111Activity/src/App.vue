@@ -13,7 +13,7 @@ export default {
     Activity
   },
   mounted () {
-    
+  //  console.log('app mounted'); 
   }
 }
 </script>
