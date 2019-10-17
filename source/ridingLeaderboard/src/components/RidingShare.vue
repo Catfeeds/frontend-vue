@@ -234,10 +234,10 @@ export default {
             }
             var drivenHours = result.data.drivenHours;
             if (drivenHours > 0) {
-              vueThis.drivenHoursText = parseInt(drivenHours / 3600) + "h";
+              vueThis.drivenHoursText = parseInt(drivenHours / 3600) + "小时";
               var min = parseInt((drivenHours % 3600) / 60);
               if (min > 0) {
-                vueThis.drivenHoursText += min + "min";
+                vueThis.drivenHoursText += min + "分钟";
               }
             }
             vueThis.pollutionReduceAmountRankText = vueThis.getRankText(

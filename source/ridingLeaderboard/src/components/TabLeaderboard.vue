@@ -105,6 +105,9 @@ export default {
     };
   },
   watch: {
+    selectIndex:  function(val) {
+      this.$store.commit("setSelectType", val);
+    },
     speed: function(val) {
       this.updateSpeedText(val);
     },
@@ -286,6 +289,7 @@ export default {
     }
   },
   mounted() {
+    this.selectIndex = this.$store.state.selectType;
     this.fetchUserRankData();
     this.updateSpeedText(this.speed);
     this.updateUserAvatarImgSrc(this.userAvatar);
@@ -469,7 +473,7 @@ img {
 }
 
 .leaderBoardContent {
-  width: 160px;
+  width: 140px;
   height: 55px;
   margin-left: 10px;
   line-height: 55px;
@@ -480,7 +484,7 @@ img {
 }
 
 .leaderBoardShowText {
-  width: 100px;
+  width: 120px;
   margin: auto;
   margin-right: 20px;
   height: 55px;

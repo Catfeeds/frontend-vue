@@ -42,7 +42,7 @@
       :userAvatar="userAvatar"
       :joinDuration="joinDuration"
       :userToken="userToken"
-    ></RidingShare> -->
+    ></RidingShare>-->
   </div>
 </template>
 
@@ -53,7 +53,7 @@ import TabLeaderboard from "./TabLeaderboard";
 export default {
   name: "RidingLeaderboard",
   components: {
-    TabLeaderboard,
+    TabLeaderboard
     // RidingShare
   },
   data() {
@@ -62,7 +62,7 @@ export default {
       userName: "",
       userAvatar: "",
       userToken: "",
-      uid:'',
+      uid: "",
       recentlySpeed: 0,
       userSpeedText: "",
       joinDuration: 0,
@@ -92,20 +92,26 @@ export default {
       ]
     };
   },
+  watch: {
+    selectTab: function(val) {
+      this.$store.commit("setSelectTab", val);
+    }
+  },
   methods: {
     shareAction: function() {
-      this.$router.push({ path: '/RidingShare', 
-      query: { 
-        type: this.selectTab+1,
-        userName:this.userName,
-        userAvatar:this.userAvatar,
-        joinDuration:this.joinDuration,
-        userToken:this.userToken
+      this.$router.push({
+        path: "/RidingShare",
+        query: {
+          type: this.selectTab + 1,
+          userName: this.userName,
+          userAvatar: this.userAvatar,
+          joinDuration: this.joinDuration,
+          userToken: this.userToken
         }
       });
       // this.$router.push({path: '/RidingShare'})
     },
-    fetchHasUserRank: function(){
+    fetchHasUserRank: function() {
       var vueThis = this;
       vueThis
         .axios({
@@ -118,7 +124,7 @@ export default {
         .then(function(resp) {
           var result = resp.data;
           if (result.code == 0) {
-            vueThis.hasUserRank = result.data==1 ? true: false;
+            vueThis.hasUserRank = result.data == 1 ? true : false;
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.msg;
@@ -168,10 +174,11 @@ export default {
           if (result.code == 0) {
             var userData = result.data;
             vueThis.joinDuration = userData.useDays;
-            if (userData.avatar && userData.avatar.length>0) {
-              if(userData.avatar.indexOf("http:") == 0){
-                vueThis.userAvatar = 'https' + userData.avatar.substr(4, userData.avatar.length);
-              }else{
+            if (userData.avatar && userData.avatar.length > 0) {
+              if (userData.avatar.indexOf("http:") == 0) {
+                vueThis.userAvatar =
+                  "https" + userData.avatar.substr(4, userData.avatar.length);
+              } else {
                 vueThis.userAvatar = userData.avatar;
               }
             }
@@ -183,7 +190,7 @@ export default {
                 "****" +
                 userData.phone.substr(7, userData.phone.length);
             }
-            vueThis.uid = userData.uid + '';
+            vueThis.uid = userData.uid + "";
           } else {
             window.location.href =
               "IMMOTOR://showPrompt?code=0&message=" + result.msg;
@@ -234,6 +241,7 @@ export default {
     }
   },
   mounted() {
+    this.selectTab = this.$store.state.selectTab;
     var token = this.getUrlParam("token");
     if (token && token.length > 0) {
       this.userToken = "bearer " + token;
@@ -257,7 +265,7 @@ export default {
     }
     //
     var share = this.getUrlParam("share");
-    if(share){
+    if (share) {
       this.shareRidingData = true;
     }
   }
