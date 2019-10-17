@@ -20,7 +20,7 @@
         </div>
       </div>
       <div v-else>
-        <div class="fiveStarParent" v-if="hasFivestarCard&&fiveStarCardObj">
+        <div class="fiveStarParent" v-if="hasFivestarCard">
           <div class="fiveStarBK">
             <img src="../assets/cardBK.png" />
           </div>
@@ -30,21 +30,21 @@
           <div class="fiveStarCard">
             <img
               src="../assets/fiveStar.png"
-              v-if="fiveStarCardObj.showCard"
+              v-if="showStarCard"
               v-bind:class="fiveStarCardAniClass"
             />
           </div>
           <div class="light_left">
             <img
               src="../assets/light_left.png"
-              v-if="fiveStarCardObj.showLight"
+              v-if="showStarCardLight"
               v-bind:class="cardLightAniClass"
             />
           </div>
           <div class="light_right">
             <img
               src="../assets/light_right.png"
-              v-if="fiveStarCardObj.showLight"
+              v-if="showStarCardLight"
               v-bind:class="cardLightAniClass"
             />
           </div>
@@ -270,7 +270,9 @@ export default {
       showLinkToast: false,
       showUpdateToast: false,
       showInviteToast: false,
-      refreshTimer: null
+      refreshTimer: null,
+      showStarCard: false,
+      showStarCardLight: false,
     };
   },
   beforeDestroy() {
@@ -430,8 +432,8 @@ export default {
           if (data.resultCode == 1) {
             vueThis.hasFivestarCard = true;
             vueThis.fiveStarCardObj = data.data;
-            vueThis.fiveStarCardObj.showCard = false;
-            vueThis.fiveStarCardObj.showLight = false;
+            vueThis.showStarCard = false;
+            vueThis.showStarCardLight = false;
             var now = new Date().getTime();
             vueThis.canRunLottery =
               now >= vueThis.fiveStarCardObj.drawTime ? true : false;
@@ -465,12 +467,12 @@ export default {
         var vueThis = this;
         setTimeout(() => {
           vueThis.fiveStarCardAniClass = "animated fadeIn";
-          vueThis.fiveStarCardObj.showCard = true;
+          vueThis.showStarCard = true;
         }, 200);
 
         setTimeout(() => {
           vueThis.cardLightAniClass = "cardLightAnimation";
-          vueThis.fiveStarCardObj.showLight = true;
+          vueThis.showStarCardLight = true;
         }, 300);
       }
     },
@@ -640,8 +642,8 @@ export default {
               if (card.cardType == 6) {
                 //已经开奖
                 vueThis.fiveStarCardObj = card;
-                vueThis.fiveStarCardObj.showCard = true;
-                vueThis.fiveStarCardObj.showLight = true;
+                vueThis.showStarCard = true;
+                vueThis.showStarCardLight = true;
                 vueThis.hasFivestarCard = true;
                 var now = new Date().getTime();
                 vueThis.canRunLottery = now >= card.drawTime ? true : false;
