@@ -130,7 +130,7 @@
             <img src="../assets/receivedCard.png" />
           </div>
         </div>
-        <div v-if="showCompoundAnimation" @touchmove.prevent class="animationMask">
+        <div v-if="showCompoundAnimation" @touchmove.prevent class="flipMask">
           <div class="compoundBK" v-bind:class="circleAniClass">
             <img src="../assets/compoundBK.png" />
           </div>
