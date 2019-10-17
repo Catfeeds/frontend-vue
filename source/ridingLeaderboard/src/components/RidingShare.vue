@@ -16,7 +16,6 @@
       <div class="section_header firstMarginTop">
         <p class="section_title">{{sectionTypeText}}总减少铅酸污染</p>
         <p v-bind:class="ridingDataClass">{{pollutionReduceAmountText}}</p>
-        <p class="section_remark">{{pollutionReduceAmountRankText}}</p>
       </div>
       <div class="barChartDiv" v-if="pollutionReduceAmountChartXData.length>0">
         <barChart :xData="pollutionReduceAmountChartXData" :yData="pollutionReduceAmountChartYData"></barChart>
@@ -24,7 +23,6 @@
       <div class="section_header">
         <p class="section_title">{{sectionTypeText}}总骑行公里</p>
         <p v-bind:class="ridingDataClass">{{drivenDistanceText}}</p>
-        <p class="section_remark">{{drivenDistanceRankText}}</p>
       </div>
       <div class="barChartDiv" v-if="drivenDistanceChartXData.length>0">
         <barChart :xData="drivenDistanceChartXData" :yData="drivenDistanceChartYData"></barChart>
@@ -32,10 +30,13 @@
       <div class="section_header">
         <p class="section_title">{{sectionTypeText}}总骑行时长</p>
         <p v-bind:class="ridingDataClass">{{drivenHoursText}}</p>
-        <p class="section_remark">{{drivenHoursRankText}}</p>
       </div>
       <div class="barChartDiv" v-if="drivenHoursChartXData.length>0">
         <barChart :xData="drivenHoursChartXData" :yData="drivenHoursChartYData"></barChart>
+      </div>
+      <div class="shareRank" v-if="pollutionReduceAmountRankText.length>0">
+        <img src="../assets/shareRankBK.png"/>
+        <p class="shareRankText" >{{pollutionReduceAmountRankText}}</p>
       </div>
       <div class="qrCodeDiv">
         <img src="../assets/QRCode.png" />
@@ -420,7 +421,7 @@ img {
 
 .section_ridingData {
   left: 16px;
-  right: 180px;
+  right: 16px;
   height: 37px;
   top: 22px;
   position: absolute;
@@ -499,6 +500,25 @@ img {
   margin-bottom: 30px;
 }
 
+.shareRank {
+  margin-left: 17px;
+  margin-right: 17px;
+  margin-top: 15px;
+  height: 58px;
+  position: relative;
+}
+.shareRankText {
+  left: 0;
+  right: 0;
+  top: 10px;
+  height: 20px;
+  position: absolute;
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 20px;
+}
 .qrCodeDiv {
   width: 70px;
   height: 70px;
