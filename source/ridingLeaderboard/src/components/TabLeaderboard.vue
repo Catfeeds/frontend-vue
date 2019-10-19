@@ -75,18 +75,18 @@ export default {
   name: "TabLeaderboard",
   props: {
     type: Number,
-    userName: String,
-    userAvatar: String,
-    speed: Number,
-    joinDuration: Number,
-    userToken: String,
-    uid: String
+    speed: Number
   },
   data() {
     return {
       selectIndex: 1,
+      userName: this.$store.state.userName,
+      userAvatar: this.$store.state.userAvatar,
+      userToken: this.$store.state.userToken,
+      joinDuration: this.$store.state.joinDuration,
+      uid: this.$store.state.uid,
       speedText: "",
-      userAvatarImgSrc: "",
+      userAvatarImgSrc: require("../assets/um_default_avatar.png"),
       sectionSelectClass:
         "section_header section_select section_font section_select_color",
       sectionNormalClass:
@@ -104,22 +104,53 @@ export default {
       ownerDivennHoursData: null
     };
   },
+  computed: {
+    listenUserToken() {
+      return this.$store.state.userToken;
+    },
+    listenUserName() {
+      return this.$store.state.userName;
+    },
+    listenUserAvatar() {
+      return this.$store.state.userAvatar;
+    },
+    listenJoinDuration() {
+      return this.$store.state.joinDuration;
+    },
+    listenUid() {
+      return this.$store.state.uid;
+    }
+  },
   watch: {
-    selectIndex:  function(val) {
+    selectIndex: function(val) {
       this.$store.commit("setSelectType", val);
     },
     speed: function(val) {
       this.updateSpeedText(val);
     },
-    userAvatar: function(val) {
+    listenUserToken: function(val) {
+      this.userToken = val;
+      if (this.userToken.length > 0 && this.uid.length > 0) {
+        var vueThis = this;
+        vueThis.$nextTick(vueThis.fetchUserRankData());
+      }
+    },
+    listenUserName: function(val) {
+      this.userName = val;
+    },
+    listenUserAvatar: function(val) {
+      this.userAvatar = val;
       this.updateUserAvatarImgSrc(val);
     },
-    // uid: function(val){
-    //   this.fetchUserRankData();
-    // },
-    userToken: function() {
-      var vueThis = this;
-      vueThis.$nextTick(vueThis.fetchUserRankData());
+    listenJoinDuration: function(val) {
+      this.joinDuration = val;
+    },
+    listenUid: function(val) {
+      this.uid = val;
+      if (this.userToken.length > 0 && this.uid.length > 0) {
+        var vueThis = this;
+        vueThis.$nextTick(vueThis.fetchUserRankData());
+      }
     }
   },
   methods: {
@@ -246,20 +277,21 @@ export default {
           var result = resp.data;
           if (result.code == 0) {
             var dataList = result.data;
-            var leaderBoardData = result.data.slice(0, result.data.length); 
+            var leaderBoardData = result.data.slice(0, result.data.length);
             //判断最后一条是不是自己的数据
             var lastRidingData = result.data[result.data.length - 1];
             var ownerRidingData = null;
             if (lastRidingData.uid == vueThis.uid) {
               ownerRidingData = vueThis.updateUserRankVal(
-                result.data[result.data.length - 1], rankType
+                result.data[result.data.length - 1],
+                rankType
               );
-              leaderBoardData = result.data.slice(0, result.data.length - 1); 
+              leaderBoardData = result.data.slice(0, result.data.length - 1);
             }
             leaderBoardData.forEach(element => {
               element = vueThis.updateUserRankVal(element, rankType);
             });
-            if(rankType == vueThis.selectIndex){
+            if (rankType == vueThis.selectIndex) {
               vueThis.leaderBoardData = leaderBoardData;
               vueThis.ownerRidingData = ownerRidingData;
             }

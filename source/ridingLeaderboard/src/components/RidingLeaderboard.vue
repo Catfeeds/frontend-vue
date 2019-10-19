@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!shareRidingData" class="mainBody">
+    <div class="mainBody">
       <div v-if="hasUserRank">
         <van-tabs
           v-model="selectTab"
@@ -13,15 +13,7 @@
           title-inactive-color="#999"
         >
           <van-tab v-for="item in tabs" :title="item.title" :key="item.type">
-            <TabLeaderboard
-              :type="item.type"
-              :userName="userName"
-              :userAvatar="userAvatar"
-              :speed="recentlySpeed"
-              :joinDuration="joinDuration"
-              :userToken="userToken"
-              :uid="uid"
-            />
+            <TabLeaderboard :type="item.type" :speed="recentlySpeed" />
           </van-tab>
         </van-tabs>
         <div class="bottomDiv">
@@ -35,38 +27,23 @@
         <p class="emptyText">暂无排行数据，请联系代理商加入群组。</p>
       </div>
     </div>
-    <!-- <RidingShare
-      v-else
-      :type="selectTab+1"
-      :userName="userName"
-      :userAvatar="userAvatar"
-      :joinDuration="joinDuration"
-      :userToken="userToken"
-    ></RidingShare>-->
   </div>
 </template>
 
 <script>
 import TabLeaderboard from "./TabLeaderboard";
-// import RidingShare from "./RidingShare";
 
 export default {
   name: "RidingLeaderboard",
   components: {
     TabLeaderboard
-    // RidingShare
   },
   data() {
     return {
-      selectTab: 0,
-      userName: "",
-      userAvatar: "",
-      userToken: "",
-      uid: "",
+      selectTab: this.$store.state.selectTab,
+      userToken: this.$store.state.userToken,
       recentlySpeed: 0,
       userSpeedText: "",
-      joinDuration: 0,
-      shareRidingData: false,
       hasUserRank: true,
       tabs: [
         {
@@ -92,9 +69,21 @@ export default {
       ]
     };
   },
+  computed: {
+    listenUserToken() {
+      return this.$store.state.userToken;
+    }
+  },
   watch: {
     selectTab: function(val) {
       this.$store.commit("setSelectTab", val);
+    },
+    listenUserToken: function(val) {
+      this.userToken = val;
+      if(this.userToken.length > 0){
+        this.fetchHasUserRank();
+        this.fetchLastAvgDriveSpeed();
+      }
     }
   },
   methods: {
@@ -102,14 +91,9 @@ export default {
       this.$router.push({
         path: "/RidingShare",
         query: {
-          type: this.selectTab + 1,
-          userName: this.userName,
-          userAvatar: this.userAvatar,
-          joinDuration: this.joinDuration,
-          userToken: this.userToken
+          type: this.selectTab + 1
         }
       });
-      // this.$router.push({path: '/RidingShare'})
     },
     fetchHasUserRank: function() {
       var vueThis = this;
@@ -158,115 +142,12 @@ export default {
           window.location.href =
             "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
         });
-    },
-    fetchUserData: function() {
-      var vueThis = this;
-      vueThis
-        .axios({
-          method: "get",
-          url: vueThis.$yApi.getUserJionDays,
-          headers: {
-            Authorization: vueThis.userToken
-          }
-        })
-        .then(function(resp) {
-          var result = resp.data;
-          if (result.code == 0) {
-            var userData = result.data;
-            vueThis.joinDuration = userData.useDays;
-            if (userData.avatar && userData.avatar.length > 0) {
-              if (userData.avatar.indexOf("http:") == 0) {
-                vueThis.userAvatar =
-                  "https" + userData.avatar.substr(4, userData.avatar.length);
-              } else {
-                vueThis.userAvatar = userData.avatar;
-              }
-            }
-            if (userData.name) {
-              vueThis.userName = userData.name;
-            } else {
-              vueThis.userName =
-                userData.phone.substr(0, 3) +
-                "****" +
-                userData.phone.substr(7, userData.phone.length);
-            }
-            vueThis.uid = userData.uid + "";
-          } else {
-            window.location.href =
-              "IMMOTOR://showPrompt?code=0&message=" + result.msg;
-          }
-        })
-        .catch(resp => {
-          window.location.href =
-            "IMMOTOR://showPrompt?code=0&message=网络连接似乎已断开，请检查您的网络设置";
-        });
-    },
-    getEhdUserInfoFromBridge: function() {
-      var vueThis = this;
-      var u = navigator.userAgent;
-      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
-      if (isAndroid) {
-        vueThis.$bridge.callAndriodHandler(
-          "getEhdUserInfo",
-          "",
-          responseData => {
-            // 处理返回数据
-            var dataObj = JSON.parse(responseData);
-            if (dataObj && dataObj.token) {
-              vueThis.userToken = "bearer " + dataObj.token;
-              vueThis.fetchHasUserRank();
-              vueThis.fetchUserData();
-              vueThis.fetchLastAvgDriveSpeed();
-            }
-          }
-        );
-      } else {
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-        if (isiOS) {
-          vueThis.$bridge.callhandler("getEhdUserInfo", "", responseData => {
-            // 处理返回数据
-            vueThis.userToken = "bearer " + responseData.token;
-            vueThis.fetchHasUserRank();
-            vueThis.fetchUserData();
-            vueThis.fetchLastAvgDriveSpeed();
-          });
-        }
-      }
-    },
-    getUrlParam: function(name) {
-      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-      var r = window.location.search.substr(1).match(reg);
-      if (r != null) return unescape(decodeURIComponent(r[2]));
-      return null;
     }
   },
   mounted() {
-    this.selectTab = this.$store.state.selectTab;
-    var token = this.getUrlParam("token");
-    if (token && token.length > 0) {
-      this.userToken = "bearer " + token;
-    }
-    //如果在参数中没有token,从userAgent中获取
-    else {
-      var u = navigator.userAgent;
-      //userAgent中没有token字段使用jsbridge获取
-      if (u.indexOf("token=") != -1) {
-        token = u.substr(u.indexOf("token=") + 6, u.length);
-        token = token.substr(0, token.indexOf("&"));
-        this.userToken = "bearer " + token;
-      }
-    }
     if (this.userToken.length > 0) {
       this.fetchHasUserRank();
-      this.fetchUserData();
       this.fetchLastAvgDriveSpeed();
-    } else {
-      this.getEhdUserInfoFromBridge();
-    }
-    //
-    var share = this.getUrlParam("share");
-    if (share) {
-      this.shareRidingData = true;
     }
   }
 };

@@ -35,8 +35,8 @@
         <barChart :xData="drivenHoursChartXData" :yData="drivenHoursChartYData"></barChart>
       </div>
       <div class="shareRank" v-if="pollutionReduceAmountRankText.length>0">
-        <img src="../assets/shareRankBK.png"/>
-        <p class="shareRankText" >{{pollutionReduceAmountRankText}}</p>
+        <img src="../assets/shareRankBK.png" />
+        <p class="shareRankText">{{pollutionReduceAmountRankText}}</p>
       </div>
       <div class="qrCodeDiv">
         <img src="../assets/QRCode.png" />
@@ -55,24 +55,17 @@
 const barChart = () => import("./eEchart/barChart.vue");
 export default {
   name: "RidingShare",
-  // props: {
-  //   type: Number,
-  //   userName: String,
-  //   userAvatar: String,
-  //   joinDuration: Number,
-  //   userToken: String
-  // },
   components: {
     barChart
   },
   data() {
     return {
       type: this.$route.query.type,
-      userName: this.$route.query.userName,
-      userAvatar: this.$route.query.userAvatar,
-      joinDuration: this.$route.query.joinDuration,
-      userToken: this.$route.query.userToken,
-      userAvatarImgSrc: "",
+      userName: this.$store.state.userName,
+      userAvatar: this.$store.state.userAvatar,
+      userToken: this.$store.state.userToken,
+      joinDuration: this.$store.state.joinDuration,
+      userAvatarImgSrc: require("../assets/um_default_avatar.png"),
       headerTypeText: "",
       sectionTypeText: "",
       cityName: "",
@@ -93,18 +86,42 @@ export default {
       showShareBtn: false
     };
   },
+  computed: {
+    listenUserToken() {
+      return this.$store.state.userToken;
+    },
+    listenUserName() {
+      return this.$store.state.userName;
+    },
+    listenUserAvatar() {
+      return this.$store.state.userAvatar;
+    },
+    listenJoinDuration() {
+      return this.$store.state.joinDuration;
+    }
+  },
   watch: {
     type: function(val) {
       if (!this.this.shareTimeType) {
         this.updateTypeText(val);
       }
     },
-    userAvatar: function(val) {
+    listenUserToken: function(val) {
+      this.userToken = val;
+      if (this.userToken.length > 0) {
+        var vueThis = this;
+        vueThis.$nextTick(vueThis.fetchData());
+      }
+    },
+    listenUserName: function(val) {
+      this.userName = val;
+    },
+    listenUserAvatar: function(val) {
+      this.userAvatar = val;
       this.updateUserAvatarImgSrc(val);
     },
-    userToken: function() {
-      var vueThis = this;
-      vueThis.$nextTick(vueThis.fetchData());
+    listenJoinDuration: function(val) {
+      this.joinDuration = val;
     }
   },
   methods: {
@@ -142,16 +159,7 @@ export default {
       }
     },
     shareAction: function() {
-      var param =
-        "&share=1&type=" +
-        (this.shareTimeType ? this.shareTimeType : this.type);
-      if (window.location.href.indexOf("?") == -1) {
-        param =
-          "?share=1&type=" +
-          (this.shareTimeType ? this.shareTimeType : this.type);
-      }
-      param = encodeURIComponent(param);
-      var shareUrl = window.location.href + param;
+      var shareUrl = window.location.href;
       window.location.href =
         "IMMOTOR://sharePageScreenshots?" +
         "left=" +
@@ -306,16 +314,11 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.$route.query.userName,)
-    var type = this.getUrlParam("type");
-    if (type) {
-      this.shareTimeType = parseInt(type);
-      this.updateTypeText(this.shareTimeType);
-    } else {
-      this.updateTypeText(this.type);
+    this.updateTypeText(this.type);
+    if (this.userToken.length > 0) {
+      this.fetchData();
+      this.updateUserAvatarImgSrc(this.userAvatar);
     }
-    this.fetchData();
-    this.updateUserAvatarImgSrc(this.userAvatar);
   }
 };
 </script>
