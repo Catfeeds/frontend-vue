@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     sumitAction: function() {
-      if (this.name.length == 0) {
+      if (this.name.trim().length == 0) {
         this.showAlter("请输入姓名");
         return;
       }
@@ -67,7 +67,7 @@ export default {
           method: "post",
           url: vueThis.$yApi.addUserInfo,
           data: {
-            name: vueThis.name,
+            name: vueThis.name.trim(),
             phone: vueThis.phone
           },
           headers: {
@@ -78,6 +78,8 @@ export default {
           var data = resp.data;
           if (data.resultCode == 1) {
             vueThis.showAlter("提交成功");
+            vueThis.name="";
+            vueThis.phone="";
           } else {
             vueThis.showAlter(data.resultMsg);
           }
