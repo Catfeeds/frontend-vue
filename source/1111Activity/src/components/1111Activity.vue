@@ -272,7 +272,7 @@ export default {
       showInviteToast: false,
       refreshTimer: null,
       showStarCard: false,
-      showStarCardLight: false,
+      showStarCardLight: false
     };
   },
   beforeDestroy() {
@@ -316,6 +316,10 @@ export default {
         vueThis.getMyCardList();
       }, 1000);
       window.location.href = "immotor://hiddenShareAction?status=0";
+      setTimeout(() => {
+        vueThis.getTaskList();
+        vueThis.getMyCardList();
+      }, 3000);
     }
   },
   methods: {
