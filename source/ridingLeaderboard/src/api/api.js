@@ -1,7 +1,7 @@
 //测试环境
-const bigDataServerPath = 'https://test.ehuandian.net/server/bigdata/screen/smartBI/';
+// const bigDataServerPath = 'https://test.ehuandian.net/server/bigdata/screen/smartBI/';
 //正式环境
-// const bigDataServerPath = 'https://smartbi.ehuandian.net/smartBI/';
+const bigDataServerPath = 'https://smartbi.ehuandian.net/smartBI/';
 var yApi = {
 	//获取用户加入天数
 	getUserJionDays: bigDataServerPath + 'user/rank/useDays',
