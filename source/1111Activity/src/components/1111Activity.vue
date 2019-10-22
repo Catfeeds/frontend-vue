@@ -1320,15 +1320,13 @@ img {
 }
 
 .toastContent {
-  width: 100%;
-  height: 100%;
   position: relative;
+  margin: auto;
 }
 
 .toastBK {
   width: 296px;
   height: 317px;
-  margin: auto;
   position: relative;
 }
 
